@@ -1,0 +1,2032 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>AirBeats – Immersive Music Experience</title>
+    <meta name="description" content="Official AirBeats Android app. Download the latest APK, explore premium features, and experience music like never before.">
+    <meta name="theme-color" content="#ff1178">
+    <!-- Favicon -->
+    <link rel="icon" href="https://raw.githubusercontent.com/drkvenom786/Airbeats/137e3935198c25bfbd5eef1a050002ed52fa84ff/icon.png" type="image/png">
+
+    <!-- Make everything unselectable by default -->
+    <style>
+        * {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        /* Only app description should be selectable */
+        .hero-subtitle,
+        .hero-subtitle * {
+            -webkit-touch-callout: text;
+            -webkit-user-select: text;
+            -khtml-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+        }
+        
+        /* Keep buttons and interactive elements clickable but not selectable */
+        button, .btn, a, .accordion-header, .dev-role, .screenshot-frame {
+            cursor: pointer;
+        }
+    </style>
+
+    <!-- SEO JSON-LD will be updated by JavaScript -->
+    <script type="application/ld+json" id="json-ld">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "AirBeats – Music Streaming App",
+        "applicationCategory": "MusicApplication",
+        "operatingSystem": "Android",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "softwareVersion": "loading...",
+        "downloadUrl": "#",
+        "author": {
+            "@type": "Organization",
+            "name": "AirBeats Team"
+        }
+    }
+    </script>
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+    <style>
+        /* Base Variables & Reset */
+        :root {
+            --primary: #ff1178;
+            --primary-dark: #d4005c;
+            --accent: #00c8ff;
+            --accent-dark: #0099cc;
+            --accent-2: #ff9e00;
+            --bg: #0a0e17;
+            --surface: #141a26;
+            --surface-light: #1e2535;
+            --text: #f0f4ff;
+            --text-muted: #a0b3d6;
+            --border: rgba(255, 255, 255, 0.08);
+            --radius: 18px;
+            --shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+            --shadow-glow: 0 0 30px rgba(255, 17, 120, 0.3);
+            --maxw: 1200px;
+            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            --gradient-rainbow: linear-gradient(90deg, #ff1178, #ff9e00, #00c8ff, #6b5df7);
+            --section-spacing: 5rem;
+        }
+
+        [data-theme="light"] {
+            --bg: #f5f7ff;
+            --surface: #ffffff;
+            --surface-light: #f0f4ff;
+            --text: #0a0e17;
+            --text-muted: #5a6780;
+            --border: rgba(0, 0, 0, 0.08);
+            --shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+            --shadow-glow: 0 0 30px rgba(255, 17, 120, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Layout & Container */
+        .container {
+            width: 100%;
+            max-width: var(--maxw);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        section {
+            padding: var(--section-spacing) 0;
+            position: relative;
+        }
+
+        /* Decorative Blobs */
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            z-index: 0;
+            animation: float 20s infinite alternate ease-in-out;
+        }
+
+        .blob-1 {
+            width: 400px;
+            height: 400px;
+            top: -100px;
+            left: -150px;
+            background: var(--primary);
+            animation-delay: 0s;
+        }
+
+        .blob-2 {
+            width: 350px;
+            height: 350px;
+            bottom: -100px;
+            right: -100px;
+            background: var(--accent);
+            animation-delay: 2s;
+        }
+
+        .blob-3 {
+            width: 250px;
+            height: 250px;
+            top: 40%;
+            right: 20%;
+            background: var(--accent-2);
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(60px, -60px) scale(1.1); }
+        }
+
+        /* Header & Hero */
+        header {
+            position: relative;
+            padding: 6rem 0 4rem;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .logo-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .app-logo {
+            width: 140px;
+            height: 140px;
+            border-radius: 28px;
+            object-fit: cover;
+            box-shadow: var(--shadow-glow), 0 20px 60px rgba(0, 0, 0, 0.5);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .app-logo:hover {
+            transform: scale(1.05) rotate(5deg);
+        }
+
+        .logo-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 160px;
+            height: 160px;
+            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+            filter: blur(20px);
+            opacity: 0.5;
+            z-index: -1;
+        }
+
+        h1.hero-title {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: var(--gradient-rainbow);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 800px;
+            margin: 0 auto 2.5rem;
+        }
+
+        /* Buttons */
+        .btns {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none !important;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 17, 120, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--surface);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--surface-light);
+            transform: translateY(-3px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .note {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        /* Cards */
+        .card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 1.8rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Features Scroller */
+        .features-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            color: var(--text);
+        }
+
+        .features-scroller {
+            display: grid;
+            grid-auto-flow: column;
+            grid-auto-columns: 85%;
+            gap: 1.5rem;
+            overflow-x: auto;
+            padding: 1rem 0.5rem 2rem;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .features-scroller::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .features-scroller::-webkit-scrollbar-track {
+            background: var(--surface);
+            border-radius: 10px;
+        }
+
+        .features-scroller::-webkit-scrollbar-thumb {
+            background: var(--gradient);
+            border-radius: 10px;
+        }
+
+        .feature-card {
+            scroll-snap-align: center;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.2rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+        }
+
+        /* ========== VERSION HISTORY DROPDOWN ========== */
+        .changelog-section {
+            margin-top: 2rem;
+        }
+
+        .accordion {
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            box-shadow: var(--shadow);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .accordion-item + .accordion-item {
+            border-top: 1px solid var(--border);
+        }
+
+        .accordion-header {
+            cursor: pointer;
+            padding: 1.2rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-weight: 600;
+            user-select: none;
+            background: var(--surface);
+            transition: all 0.3s ease;
+        }
+
+        .accordion-header:hover {
+            background: var(--surface-light);
+        }
+
+        .accordion-header .version-info {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .version-tag {
+            background: var(--gradient);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .version-tag.prerelease {
+            background: linear-gradient(135deg, #ff9e00, #ff5e00);
+        }
+
+        .version-title {
+            font-size: 1.1rem;
+            color: var(--text);
+        }
+
+        .version-date {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .accordion-header i {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: var(--primary);
+        }
+
+        .accordion-item.open .accordion-header i {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 0 1.5rem;
+            background: var(--surface);
+        }
+
+        .accordion-item.open .accordion-content {
+            padding: 0 1.5rem 1.5rem;
+        }
+
+        .version-content {
+            padding-top: 1rem;
+        }
+
+        .version-features-list {
+            list-style-type: none;
+            padding-left: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .version-features-list li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.8rem;
+            position: relative;
+            line-height: 1.5;
+            color: var(--text-muted);
+        }
+
+        .version-features-list li:before {
+            content: "✓";
+            color: var(--accent);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .version-download-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding-top: 1rem;
+            border-top: 1px dashed var(--border);
+        }
+
+        .version-size {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .version-download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1.5rem;
+            background: var(--gradient);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .version-download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 17, 120, 0.3);
+        }
+
+        .version-download-btn.outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .version-download-btn.outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        /* ========== END VERSION HISTORY ========== */
+
+        /* Developer Section */
+        .dev-section {
+            margin-top: 4rem;
+        }
+
+        .dev-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .dev-card {
+            padding: 2rem;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dev-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .dev-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-right: 1.5rem;
+            border: 3px solid var(--primary);
+            padding: 3px;
+            background: var(--surface-light);
+            object-fit: cover;
+        }
+
+        .dev-info {
+            flex: 1;
+        }
+
+        .dev-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.3rem;
+            cursor: pointer;
+            transition: color 0.3s;
+            color: var(--text);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .dev-info h3:hover {
+            color: var(--primary);
+        }
+
+        .dev-role-container {
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .dev-role {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            background: rgba(255, 17, 120, 0.1);
+            border: 1px solid rgba(255, 17, 120, 0.3);
+        }
+
+        .dev-role:hover {
+            background: rgba(255, 17, 120, 0.2);
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 17, 120, 0.3);
+        }
+
+        .dev-bio {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .dev-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: auto;
+        }
+
+        .skill-tag {
+            background: var(--surface-light);
+            color: var(--text-muted);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid var(--border);
+        }
+
+        /* Beating Hearts Animation */
+        .beating-hearts {
+            display: inline-flex;
+            gap: 0.2rem;
+            margin-left: 0.3rem;
+        }
+
+        .beating-hearts i {
+            color: var(--primary);
+            animation: heartbeat 1.5s ease-in-out infinite;
+            font-size: 1rem;
+        }
+
+        .beating-hearts i:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .beating-hearts i:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            25% {
+                transform: scale(1.3);
+            }
+            35% {
+                transform: scale(1);
+            }
+            45% {
+                transform: scale(1.2);
+            }
+            55% {
+                transform: scale(1);
+            }
+        }
+
+        /* Secret Message Toast - Extra Romantic */
+        .secret-toast {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: linear-gradient(135deg, #ff1178, #ff4da6);
+            color: white;
+            padding: 2rem 2.5rem;
+            border-radius: 60px;
+            box-shadow: 0 20px 60px rgba(255, 17, 120, 0.5), 0 0 100px rgba(255, 17, 120, 0.3);
+            z-index: 20000;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: center;
+            min-width: 320px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            pointer-events: none;
+        }
+
+        .secret-toast.show {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .secret-toast .heart-banner {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: floatHearts 2s ease-in-out infinite;
+        }
+
+        .secret-toast .heart-banner i {
+            margin: 0 0.3rem;
+            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.8));
+        }
+
+        .secret-toast .heart-banner i:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .secret-toast .heart-banner i:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes floatHearts {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .secret-toast .message {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 0.8rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            letter-spacing: 1px;
+        }
+
+        .secret-toast .sub-message {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.95;
+            font-style: italic;
+        }
+
+        .secret-toast .signature {
+            font-size: 1rem;
+            margin-top: 1rem;
+            opacity: 0.9;
+            font-family: monospace;
+            letter-spacing: 2px;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            padding-top: 1rem;
+        }
+
+        .secret-toast .floating-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            overflow: hidden;
+            border-radius: 60px;
+        }
+
+        .secret-toast .floating-hearts i {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 1rem;
+            animation: floatUp 3s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100%) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-500%) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Download Toast - Only remaining toast */
+        .download-toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--surface);
+            color: var(--text);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            z-index: 10000;
+            opacity: 0;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .download-toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .download-toast i {
+            color: #00c8ff;
+            font-size: 1.2rem;
+        }
+
+        /* Visualizer */
+        .visualizer-section {
+            padding: 2rem 0;
+        }
+
+        .visualizer-container {
+            height: 150px;
+            width: 100%;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--radius);
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 4px;
+            padding: 0 10px;
+        }
+
+        .visualizer-bar {
+            background: var(--gradient);
+            border-radius: 3px 3px 0 0;
+            transition: height 0.2s ease-out;
+            min-width: 4px;
+            flex: 1;
+            max-width: 8px;
+        }
+
+        /* Screenshots */
+        .screenshot-section {
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .screenshot-container {
+            max-width: 300px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .screenshot-frame {
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 80px rgba(255, 17, 120, 0.2);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            background: var(--surface);
+            cursor: pointer;
+        }
+
+        .screenshot-frame:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 35px 70px rgba(0, 0, 0, 0.6), 0 0 100px rgba(255, 17, 120, 0.3);
+        }
+
+        .screenshot-frame img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 24px;
+        }
+
+        .screenshot-label {
+            margin-top: 1.5rem;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 0 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            margin-top: 4rem;
+        }
+
+        /* Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--gradient);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: var(--shadow-glow);
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s;
+            border: none;
+        }
+
+        .fab:hover {
+            transform: scale(1.1);
+        }
+
+        /* Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .reveal.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Download Instructions */
+        .install-steps {
+            max-width: 800px;
+            margin: 3rem auto 0;
+            text-align: left;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            background: var(--surface-light);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            border-left: 4px solid var(--primary);
+        }
+
+        .step-number {
+            background: var(--gradient);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .step-content p {
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        /* Custom Animations */
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes rainbow {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        @keyframes visualizerPulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        /* Zoom classes */
+        .screenshot-frame.zoomed {
+            transform: scale(1.5) !important;
+            z-index: 100;
+            position: relative;
+        }
+
+        .visualizer-container.hidden {
+            display: none !important;
+        }
+
+        /* Audio Player Styles */
+        .rhythm-player {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            z-index: 999;
+            transition: all 0.3s;
+            border: none;
+            opacity: 0;
+            transform: scale(0) translateY(20px);
+        }
+
+        .rhythm-player.show {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        .rhythm-player.hiding {
+            opacity: 0;
+            transform: scale(0.8) translateY(10px);
+            transition: all 0.5s ease;
+        }
+
+        .rhythm-player.playing {
+            background: var(--primary);
+            animation: pulse 1s infinite;
+        }
+
+        .rhythm-player.looping::after {
+            content: "∞";
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--accent-2);
+            color: white;
+            font-size: 0.6rem;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Logo animation when rhythm is playing */
+        .logo-playing {
+            animation: logoPulse 2s infinite alternate;
+        }
+
+        @keyframes logoPulse {
+            0% { transform: scale(1); box-shadow: var(--shadow-glow), 0 20px 60px rgba(0, 0, 0, 0.5); }
+            100% { transform: scale(1.05); box-shadow: 0 0 50px rgba(255, 17, 120, 0.5), 0 25px 70px rgba(0, 0, 0, 0.6); }
+        }
+
+        /* Loading indicator */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .visualizer-container {
+                height: 120px;
+                gap: 3px;
+                padding: 0 8px;
+            }
+            .visualizer-bar {
+                min-width: 3px;
+                max-width: 6px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .visualizer-container {
+                height: 100px;
+                gap: 2px;
+                padding: 0 6px;
+            }
+            .visualizer-bar {
+                min-width: 2px;
+                max-width: 5px;
+            }
+            .secret-toast {
+                min-width: 280px;
+                padding: 1.5rem;
+            }
+            .secret-toast .message {
+                font-size: 1.4rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .features-scroller {
+                grid-auto-columns: calc(33.333% - 1rem);
+            }
+            .screenshot-container {
+                max-width: 350px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .features-scroller {
+                grid-auto-columns: calc(25% - 1rem);
+            }
+            .screenshot-container {
+                max-width: 400px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --section-spacing: 3rem;
+            }
+
+            h1.hero-title {
+                font-size: 2.8rem;
+            }
+
+            .btns {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .dev-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .dev-avatar {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+
+            .screenshot-container {
+                max-width: 280px;
+            }
+
+            .version-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .version-date {
+                align-self: flex-start;
+            }
+
+            .accordion-header {
+                padding: 1rem 1.2rem;
+            }
+
+            .version-download-area {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .version-size {
+                margin-bottom: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <i class="bi bi-moon-stars"></i>
+    </button>
+
+    <!-- Hidden Audio Player -->
+    <audio id="secretAudio" preload="auto" loop style="display: none;">
+        <source src="rhythm.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Rhythm Player Control -->
+    <button class="rhythm-player" id="rhythmPlayer" aria-label="Control rhythm music">
+        <i class="bi bi-pause-fill" id="rhythmIcon"></i>
+    </button>
+
+    <!-- Secret Message Toast (Beautiful for GF) -->
+    <div class="secret-toast" id="secretToast">
+        <div class="floating-hearts" id="floatingHearts"></div>
+        <div class="heart-banner">
+            <i class="bi bi-heart-fill"></i>
+            <i class="bi bi-heart-fill"></i>
+            <i class="bi bi-heart-fill"></i>
+        </div>
+        <div class="message">Sarangeyo ❤️</div>
+        <div class="sub-message">Today, Tomorrow and Forever</div>
+        <div class="signature">— 0x5H4NG —</div>
+    </div>
+
+    <!-- Download Toast (Only remaining toast) -->
+    <div class="download-toast" id="downloadToast">
+        <i class="bi bi-cloud-check"></i>
+        <span id="downloadToastMessage">Downloading AirBeats...</span>
+    </div>
+
+    <!-- Header -->
+    <header id="top">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+
+        <div class="container">
+            <div class="logo-container">
+                <div class="logo-glow"></div>
+                <img src="https://raw.githubusercontent.com/drkvenom786/Airbeats/137e3935198c25bfbd5eef1a050002ed52fa84ff/icon.png" class="app-logo" alt="AirBeats Logo" id="appLogo">
+            </div>
+
+            <h1 class="hero-title">AirBeats</h1>
+            <p class="hero-subtitle" id="heroDescription">Experience sound like never before. Immerse yourself in crystal-clear audio, personalized playlists, and intuitive controls designed for true music lovers.</p>
+
+            <div class="btns">
+                <a href="#" class="btn btn-primary" id="downloadBtn" style="text-decoration: none;">
+                    <i class="bi bi-download"></i> <span id="downloadBtnText">Download Latest APK</span>
+                </a>
+                <button class="btn btn-secondary" id="copyLinkBtn">
+                    <i class="bi bi-link-45deg"></i> Copy Link
+                </button>
+                <button class="btn btn-secondary" id="shareBtn">
+                    <i class="bi bi-share"></i> Share
+                </button>
+            </div>
+
+            <div class="note" id="versionNote">
+                <span class="loading-spinner"></span> Fetching latest version...
+            </div>
+        </div>
+    </header>
+
+    <!-- Visualizer -->
+    <section class="visualizer-section">
+        <div class="container">
+            <div class="visualizer-container" id="visualizer">
+                <!-- Audio visualizer bars will be generated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features">
+        <div class="container">
+            <h2 class="features-title reveal">Premium Features</h2>
+            <div class="features-scroller">
+                <div class="card feature-card reveal">
+                    <div class="feature-icon">
+                        <i class="bi bi-music-note-beamed"></i>
+                    </div>
+                    <h3>Smart Playlists</h3>
+                    <p>AI-generated playlists that adapt to your mood, activity, and listening history.</p>
+                </div>
+                <div class="card feature-card reveal">
+                    <div class="feature-icon">
+                        <i class="bi bi-sliders"></i>
+                    </div>
+                    <h3>Advanced EQ</h3>
+                    <p>Customizable 10-band equalizer with presets for every genre and audio device.</p>
+                </div>
+                <div class="card feature-card reveal">
+                    <div class="feature-icon">
+                        <i class="bi bi-cloud"></i>
+                    </div>
+                    <h3>Cloud Sync</h3>
+                    <p>Sync your music across all devices. Pick up where you left off, anywhere.</p>
+                </div>
+                <div class="card feature-card reveal">
+                    <div class="feature-icon">
+                        <i class="bi bi-hdd"></i>
+                    </div>
+                    <h3>Offline Cache</h3>
+                    <p>Smart caching system stores your favorite tracks for uninterrupted offline playback.</p>
+                </div>
+                <div class="card feature-card reveal">
+                    <div class="feature-icon">
+                        <i class="bi bi-moon-stars"></i>
+                    </div>
+                    <h3>Dark Theme</h3>
+                    <p>Beautiful dark interface with OLED optimization for nighttime listening.</p>
+                </div>
+                <div class="card feature-card reveal">
+                    <div class="feature-icon">
+                        <i class="bi bi-lightning-charge"></i>
+                    </div>
+                    <h3>Battery Saver</h3>
+                    <p>Optimized audio processing that extends battery life by up to 30%.</p>
+                </div>
+                <div class="card feature-card reveal">
+                    <div class="feature-icon">
+                        <i class="bi bi-headphones"></i>
+                    </div>
+                    <h3>Hi-Res Audio</h3>
+                    <p>Support for lossless formats up to 24-bit/192kHz for studio-quality sound.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Version History - Dynamically Populated -->
+    <section id="versions">
+        <div class="container">
+            <h2 class="features-title reveal">Version History</h2>
+
+            <div class="changelog-section">
+                <div class="accordion reveal" id="versionAccordion">
+                    <!-- Versions will be dynamically inserted here by JavaScript -->
+                    <div class="accordion-item loading-item">
+                        <div class="accordion-header" style="justify-content: center;">
+                            <div class="version-info">
+                                <span class="loading-spinner"></span>
+                                <span>Loading releases from GitHub...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Installation Steps -->
+    <section id="installation">
+        <div class="container">
+            <h2 class="features-title reveal">How to Install</h2>
+            <div class="install-steps">
+                <div class="step reveal">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Download the APK</h4>
+                        <p>Click the "Download APK" button above to download the AirBeats app file to your Android device.</p>
+                    </div>
+                </div>
+                <div class="step reveal">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Enable Unknown Sources</h4>
+                        <p>Go to Settings → Security → Unknown Sources and enable installation from unknown sources.</p>
+                    </div>
+                </div>
+                <div class="step reveal">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Install the App</h4>
+                        <p>Open the downloaded APK file from your notifications or file manager and tap "Install".</p>
+                    </div>
+                </div>
+                <div class="step reveal">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Launch & Enjoy</h4>
+                        <p>Open AirBeats from your app drawer and start enjoying premium music experience!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screenshot -->
+    <section id="screenshot">
+        <div class="container">
+            <h2 class="features-title reveal">App Preview</h2>
+            <div class="screenshot-section">
+                <div class="screenshot-container reveal">
+                    <div class="screenshot-frame">
+                        <img src="https://raw.githubusercontent.com/drkvenom786/Airbeats/ad1fb647dc8d5661f793d973b901ecffbf48c21a/sc.png" alt="AirBeats App Interface" loading="lazy">
+                    </div>
+                    <div class="screenshot-label">AirBeats Music Player Interface</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Developer Section -->
+    <section id="developers">
+        <div class="container">
+            <h2 class="features-title reveal">Meet The Team</h2>
+            <div class="dev-grid">
+                <div class="card dev-card reveal">
+                    <div class="dev-header">
+                        <img src="https://avatars.githubusercontent.com/u/218248866" class="dev-avatar" alt="DarkBoy">
+                        <div class="dev-info">
+                            <a href="https://t.me/thedarkagain" target="_blank" style="text-decoration: none;">
+                                <h3>DarkBoy</h3>
+                            </a>
+                            <div class="dev-role-container">
+                                <span class="dev-role">Lead Developer</span>
+                            </div>
+                            <div class="dev-bio">
+                                Architect behind AirBeats' core engine. Specializes in audio processing algorithms and performance optimization.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dev-skills">
+                        <span class="skill-tag">Kotlin</span>
+                        <span class="skill-tag">C++</span>
+                        <span class="skill-tag">Audio DSP</span>
+                        <span class="skill-tag">Android NDK</span>
+                    </div>
+                </div>
+
+                <div class="card dev-card reveal">
+                    <div class="dev-header">
+                        <img src="https://avatars.githubusercontent.com/u/227567962" class="dev-avatar" alt="Venom">
+                        <div class="dev-info">
+                            <a href="https://t.me/scarface_786" target="_blank" style="text-decoration: none;">
+                                <h3>VENOM</h3>
+                            </a>
+                            <div class="dev-role-container">
+                                <span class="dev-role" id="secretTrigger">UI/UX Specialist </span>
+                            </div>
+                            <div class="dev-bio">
+                                Crafts intuitive and beautiful interfaces with attention to animations and accessibility.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dev-skills">
+                        <span class="skill-tag">UI Design</span>
+                        <span class="skill-tag">Motion Design</span>
+                        <span class="skill-tag">Figma</span>
+                        <span class="skill-tag">Accessibility</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p class="note">© 2025 AirBeats. All Rights Reserved. 
+                <span class="beating-hearts">
+                    <i class="bi bi-heart-fill"></i>
+                    <i class="bi bi-heart-fill"></i>
+                    <i class="bi bi-heart-fill"></i>
+                </span>
+            </p>
+            <p class="note">Made with <i class="bi bi-heart-fill" style="color: var(--primary);"></i> by DarkBoy & Venom</p>
+        </div>
+    </footer>
+
+    <!-- Floating Action Button -->
+    <button class="fab" id="backToTop" aria-label="Back to top">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+
+    <script>
+        // DOM Elements
+        const themeToggle = document.getElementById('themeToggle');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const downloadBtnText = document.getElementById('downloadBtnText');
+        const copyLinkBtn = document.getElementById('copyLinkBtn');
+        const shareBtn = document.getElementById('shareBtn');
+        const backToTop = document.getElementById('backToTop');
+        const downloadToast = document.getElementById('downloadToast');
+        const downloadToastMessage = document.getElementById('downloadToastMessage');
+        const secretToast = document.getElementById('secretToast');
+        const floatingHearts = document.getElementById('floatingHearts');
+        const visualizer = document.getElementById('visualizer');
+        const secretAudio = document.getElementById('secretAudio');
+        const rhythmPlayer = document.getElementById('rhythmPlayer');
+        const rhythmIcon = document.getElementById('rhythmIcon');
+        const appLogo = document.getElementById('appLogo');
+        const versionNote = document.getElementById('versionNote');
+        const versionAccordion = document.getElementById('versionAccordion');
+        const jsonLdScript = document.getElementById('json-ld');
+        const secretTrigger = document.getElementById('secretTrigger');
+
+        // App State
+        let isPlaying = false;
+        let audioLoaded = false;
+        let isLooping = true;
+        let hideButtonTimeout = null;
+        let latestRelease = null;
+        let allReleases = [];
+
+        // Secret message trigger (double click)
+        if (secretTrigger) {
+            let clickCount = 0;
+            let clickTimer = null;
+            
+            secretTrigger.addEventListener('click', function() {
+                clickCount++;
+                
+                if (clickCount === 1) {
+                    clickTimer = setTimeout(() => {
+                        clickCount = 0;
+                    }, 300);
+                } else if (clickCount === 2) {
+                    clearTimeout(clickTimer);
+                    clickCount = 0;
+                    
+                    // Show beautiful secret message
+                    showSecretMessage();
+                }
+            });
+        }
+
+        // Create floating hearts for secret message
+        function createFloatingHearts() {
+            floatingHearts.innerHTML = '';
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('i');
+                heart.className = 'bi bi-heart-fill';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 2 + 's';
+                heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                heart.style.opacity = Math.random() * 0.5 + 0.2;
+                floatingHearts.appendChild(heart);
+            }
+        }
+
+        function showSecretMessage() {
+            createFloatingHearts();
+            secretToast.classList.add('show');
+            
+            // Auto hide after 5 seconds
+            setTimeout(() => {
+                secretToast.classList.remove('show');
+            }, 5000);
+        }
+
+        // Show download toast (only toast remaining)
+        function showDownloadToast(message) {
+            downloadToastMessage.textContent = message;
+            downloadToast.classList.add('show');
+            setTimeout(() => {
+                downloadToast.classList.remove('show');
+            }, 3000);
+        }
+
+        // ========== FETCH ALL RELEASES FROM GITHUB ==========
+        async function fetchAllReleases() {
+            try {
+                // Try multiple possible API endpoints
+                const possibleUrls = [
+                    "https://api.github.com/repos/d0x-dev/Airbeats/releases",
+                    "https://api.github.com/repos/d0x-dev/AirBeats/releases",
+                    "https://api.github.com/repos/d0x-dev/airbeats/releases"
+                ];
+                
+                let response = null;
+                let data = null;
+                
+                for (const url of possibleUrls) {
+                    try {
+                        console.log("Trying URL:", url);
+                        const res = await fetch(url);
+                        if (res.ok) {
+                            response = res;
+                            data = await res.json();
+                            console.log("Success with URL:", url, "Found", data.length, "releases");
+                            break;
+                        }
+                    } catch (e) {
+                        console.log("Failed with URL:", url);
+                    }
+                }
+                
+                if (!response || !data) {
+                    throw new Error("Could not fetch from any GitHub API endpoint");
+                }
+
+                // Sort releases by published date (newest first)
+                allReleases = data.sort((a, b) => {
+                    return new Date(b.published_at) - new Date(a.published_at);
+                });
+
+                // Get the latest release (first in array)
+                latestRelease = allReleases[0];
+
+                // Update the UI with all releases
+                updateUIWithAllReleases();
+
+            } catch (error) {
+                console.error("Failed to fetch releases:", error);
+                versionNote.innerHTML = 'Android 8.0+ · Secure APK · Using fallback data';
+                
+                // Use fallback data from the API response you provided
+                allReleases = [
+                    {
+                        tag_name: "v3.1.0",
+                        name: "V3.1.0",
+                        published_at: "2026-02-10T08:43:16Z",
+                        prerelease: false,
+                        body: "Experience sound like never before. Immerse yourself in crystal-clear audio, personalized playlists, and intuitive controls designed for true music lovers. Now with enhanced offline caching!",
+                        assets: [
+                            {
+                                name: "AirBeats_v3.1.0_signed.apk",
+                                size: 8418389,
+                                browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/v3.1.0/AirBeats_v3.1.0_signed.apk"
+                            }
+                        ]
+                    },
+                    {
+                        tag_name: "v2.0.10",
+                        name: "V2.0.10",
+                        published_at: "2026-02-10T08:57:57Z",
+                        prerelease: true,
+                        body: "Experience sound like never before. Immerse yourself in crystal-clear audio, personalized playlists, and intuitive controls designed for true music lovers. Now with enhanced offline caching!",
+                        assets: [
+                            {
+                                name: "AirBeats_v2.0.10_signed.apk",
+                                size: 34128498,
+                                browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/v2.0.10/AirBeats_v2.0.10_signed.apk"
+                            }
+                        ]
+                    }
+                ];
+                
+                latestRelease = allReleases[0];
+                updateUIWithAllReleases();
+            }
+        }
+
+        function updateUIWithAllReleases() {
+            // Clear the accordion
+            versionAccordion.innerHTML = '';
+            
+            // Loop through all releases and create accordion items
+            allReleases.forEach((release, index) => {
+                const isLatest = index === 0;
+                const versionTag = release.tag_name || 'v?.?.?';
+                const versionName = release.name || 'Release';
+                const publishedDate = release.published_at ? new Date(release.published_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Unknown date';
+                const releaseNotes = release.body || 'No release notes provided.';
+                const isPrerelease = release.prerelease || false;
+                
+                // Find APK asset
+                const apkAsset = release.assets.find(asset => asset.name && asset.name.toLowerCase().endsWith('.apk'));
+                let downloadUrl = "#";
+                let fileSize = "?.?";
+                
+                if (apkAsset) {
+                    downloadUrl = apkAsset.browser_download_url;
+                    fileSize = apkAsset.size ? (apkAsset.size / (1024 * 1024)).toFixed(2) : "?.?";
+                }
+
+                // Create accordion item
+                const accordionItem = document.createElement('div');
+                accordionItem.className = 'accordion-item';
+                if (isLatest) {
+                    accordionItem.id = 'latest-release-item';
+                }
+
+                // Format release notes as HTML
+                let notesHtml = '';
+                if (releaseNotes) {
+                    const lines = releaseNotes.split('\n');
+                    lines.forEach(line => {
+                        const trimmed = line.trim();
+                        if (trimmed) {
+                            let text = trimmed.replace(/^[-*•]\s*/, '');
+                            notesHtml += `<li>${text}</li>`;
+                        }
+                    });
+                }
+                if (!notesHtml) {
+                    notesHtml = '<li>No release notes available.</li>';
+                }
+
+                // Build the HTML
+                accordionItem.innerHTML = `
+                    <div class="accordion-header">
+                        <div class="version-info">
+                            <span class="version-tag ${isPrerelease ? 'prerelease' : ''}">${versionTag}${isPrerelease ? ' (Pre-release)' : ''}</span>
+                            <span class="version-title">${versionName}</span>
+                            <span class="version-date">${publishedDate}</span>
+                        </div>
+                        <i class="bi bi-chevron-down"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="version-content">
+                            <ul class="version-features-list">
+                                ${notesHtml}
+                            </ul>
+                            <div class="version-download-area">
+                                <div class="version-size">
+                                    <i class="bi bi-hdd"></i> APK Size: ${fileSize} MB
+                                </div>
+                                <a href="${downloadUrl}" class="version-download-btn ${!apkAsset ? 'outline' : ''}">
+                                    <i class="bi bi-download"></i> Download ${versionTag}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                versionAccordion.appendChild(accordionItem);
+            });
+
+            // Update main download button with latest release (just show "Download Latest APK")
+            if (latestRelease) {
+                const latestApkAsset = latestRelease.assets.find(asset => asset.name && asset.name.toLowerCase().endsWith('.apk'));
+                if (latestApkAsset) {
+                    downloadBtn.href = latestApkAsset.browser_download_url;
+                    // Keep the text as "Download Latest APK" (no version number)
+                    downloadBtnText.textContent = `Download Latest APK`;
+                    versionNote.innerHTML = `Android 8.0+ · Secure APK · Latest: ${latestRelease.tag_name}`;
+
+                    // Update JSON-LD
+                    try {
+                        const jsonLd = JSON.parse(jsonLdScript.textContent);
+                        jsonLd.softwareVersion = latestRelease.tag_name;
+                        jsonLd.downloadUrl = latestApkAsset.browser_download_url;
+                        jsonLdScript.textContent = JSON.stringify(jsonLd, null, 2);
+                    } catch (e) {
+                        console.error("Failed to update JSON-LD", e);
+                    }
+                }
+            }
+
+            // Re-attach accordion event listeners
+            attachAccordionListeners();
+
+            // Auto-open the latest release
+            setTimeout(() => {
+                const firstItem = versionAccordion.querySelector('.accordion-item');
+                if (firstItem) {
+                    firstItem.classList.add('open');
+                    const content = firstItem.querySelector('.accordion-content');
+                    if (content) {
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                    }
+                }
+            }, 500);
+        }
+
+        function attachAccordionListeners() {
+            document.querySelectorAll('.accordion').forEach(acc => {
+                acc.querySelectorAll('.accordion-item').forEach(item => {
+                    const header = item.querySelector('.accordion-header');
+                    const content = item.querySelector('.accordion-content');
+                    
+                    // Remove existing listeners by cloning and replacing
+                    const newHeader = header.cloneNode(true);
+                    header.parentNode.replaceChild(newHeader, header);
+                    
+                    newHeader.addEventListener('click', () => {
+                        const isOpen = item.classList.contains('open');
+                        if (!isOpen) {
+                            // Close others
+                            acc.querySelectorAll('.accordion-item.open').forEach(o => {
+                                o.classList.remove('open');
+                                const oContent = o.querySelector('.accordion-content');
+                                if (oContent) oContent.style.maxHeight = 0;
+                            });
+                            item.classList.add('open');
+                            if (content) content.style.maxHeight = content.scrollHeight + 'px';
+                        } else {
+                            item.classList.remove('open');
+                            if (content) content.style.maxHeight = 0;
+                        }
+                    });
+                });
+            });
+        }
+
+        // ========== EXISTING FUNCTIONS (Theme, Visualizer, Audio) ==========
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            themeToggle.innerHTML = theme === 'dark' ? '<i class="bi bi-sun"></i>' : '<i class="bi bi-moon-stars"></i>';
+        }
+
+        // Initialize theme
+        const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        setTheme(savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            setTheme(newTheme);
+        });
+
+        downloadBtn.addEventListener('click', (e) => {
+            if (downloadBtn.href !== '#') {
+                showDownloadToast(`Downloading AirBeats...`);
+            }
+        });
+
+        copyLinkBtn.addEventListener('click', () => {
+            if (downloadBtn.href !== '#') {
+                navigator.clipboard.writeText(downloadBtn.href);
+            }
+        });
+
+        shareBtn.addEventListener('click', async () => {
+            const shareData = {
+                title: `AirBeats Music App`,
+                text: 'Check out AirBeats - an amazing music player with premium features!',
+                url: window.location.href
+            };
+            try {
+                if (navigator.share) {
+                    await navigator.share(shareData);
+                }
+            } catch (err) {}
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        window.addEventListener('scroll', () => {
+            backToTop.style.display = window.scrollY > 500 ? 'flex' : 'none';
+        });
+
+        // Audio functions
+        function loadAudio() {
+            if (!audioLoaded) {
+                secretAudio.loop = isLooping;
+                secretAudio.load();
+                audioLoaded = true;
+            }
+        }
+
+        function showRhythmPlayer() {
+            rhythmPlayer.classList.remove('hiding');
+            rhythmPlayer.classList.add('show');
+            if (hideButtonTimeout) {
+                clearTimeout(hideButtonTimeout);
+                hideButtonTimeout = null;
+            }
+        }
+
+        function hideRhythmPlayer() {
+            rhythmPlayer.classList.add('hiding');
+            setTimeout(() => {
+                rhythmPlayer.classList.remove('show', 'playing', 'looping');
+                rhythmPlayer.classList.remove('hiding');
+            }, 500);
+        }
+
+        function scheduleHideButton() {
+            if (hideButtonTimeout) clearTimeout(hideButtonTimeout);
+            hideButtonTimeout = setTimeout(() => {
+                if (!isPlaying) hideRhythmPlayer();
+            }, 5000);
+        }
+
+        function playRhythm() {
+            loadAudio();
+            secretAudio.play().then(() => {
+                isPlaying = true;
+                showRhythmPlayer();
+                rhythmPlayer.classList.add('playing');
+                if (isLooping) rhythmPlayer.classList.add('looping');
+                rhythmIcon.className = 'bi bi-pause-fill';
+                appLogo.classList.add('logo-playing');
+            }).catch(error => {});
+        }
+
+        function pauseRhythm() {
+            secretAudio.pause();
+            isPlaying = false;
+            rhythmPlayer.classList.remove('playing');
+            appLogo.classList.remove('logo-playing');
+            rhythmIcon.className = 'bi bi-play-fill';
+            scheduleHideButton();
+        }
+
+        function toggleRhythm() {
+            isPlaying ? pauseRhythm() : playRhythm();
+        }
+
+        appLogo.addEventListener('click', function(event) {
+            if (event.detail === 2) toggleRhythm();
+        });
+
+        rhythmPlayer.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleRhythm();
+        });
+
+        rhythmPlayer.addEventListener('mouseenter', () => {
+            if (!isPlaying) {
+                showRhythmPlayer();
+                scheduleHideButton();
+            }
+        });
+
+        // Visualizer
+        function createVisualizer() {
+            visualizer.innerHTML = '';
+            const screenWidth = window.innerWidth;
+            let barCount = screenWidth < 480 ? 25 : screenWidth < 768 ? 35 : screenWidth < 1024 ? 45 : 55;
+            for (let i = 0; i < barCount; i++) {
+                const bar = document.createElement('div');
+                bar.className = 'visualizer-bar';
+                bar.style.animation = 'visualizerPulse 2s infinite alternate';
+                visualizer.appendChild(bar);
+            }
+            animateVisualizer();
+        }
+
+        function animateVisualizer() {
+            const bars = document.querySelectorAll('.visualizer-bar');
+            bars.forEach((bar, index) => {
+                const time = Date.now() * 0.002;
+                const wave = Math.sin(time + index * 0.3) * 0.5 + 0.5;
+                const newHeight = 10 + wave * 70;
+                bar.style.height = `${newHeight}%`;
+                const hue = (index * 5 + time * 10) % 360;
+                bar.style.background = `linear-gradient(to top, hsl(${hue}, 100%, 60%) 0%, var(--primary) 70%, var(--accent) 100%)`;
+            });
+            requestAnimationFrame(animateVisualizer);
+        }
+
+        createVisualizer();
+
+        window.addEventListener('resize', () => {
+            clearTimeout(window.resizeTimeout);
+            window.resizeTimeout = setTimeout(createVisualizer, 250);
+        });
+
+        // Reveal animations
+        function initRevealAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('show');
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        }
+
+        // Keyboard shortcuts (removed toasts)
+        document.addEventListener('keydown', (e) => {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            if (e.key.toLowerCase() === 't') { e.preventDefault(); themeToggle.click(); }
+            if (e.key.toLowerCase() === 'd') { e.preventDefault(); downloadBtn.click(); }
+            if (e.key === ' ') { e.preventDefault(); toggleRhythm(); }
+            if (e.key.toLowerCase() === 'r' && !isPlaying) { e.preventDefault(); playRhythm(); }
+            if (e.key.toLowerCase() === 'p' && isPlaying) { e.preventDefault(); pauseRhythm(); }
+            if (e.key.toLowerCase() === 'l') {
+                e.preventDefault();
+                isLooping = !isLooping;
+                secretAudio.loop = isLooping;
+                isLooping ? rhythmPlayer.classList.add('looping') : rhythmPlayer.classList.remove('looping');
+            }
+            if (e.key.toLowerCase() === 's') {
+                e.preventDefault();
+                document.querySelector('.screenshot-frame').classList.toggle('zoomed');
+            }
+        });
+
+        // Konami code (removed toast)
+        let konamiCode = [];
+        const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        document.addEventListener('keydown', (e) => {
+            konamiCode.push(e.key);
+            if (konamiCode.length > konamiSequence.length) konamiCode.shift();
+            if (konamiCode.join(',') === konamiSequence.join(',')) {
+                document.body.style.animation = 'rainbow 2s linear';
+                setTimeout(() => document.body.style.animation = '', 2000);
+                konamiCode = [];
+                if (!isPlaying) playRhythm();
+            }
+        });
+
+        // Screenshot click
+        document.querySelector('.screenshot-frame').addEventListener('click', function() {
+            this.classList.toggle('zoomed');
+        });
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', () => {
+            initRevealAnimations();
+            fetchAllReleases(); // Fetch all releases from GitHub
+            
+            document.body.addEventListener('click', loadAudio, { once: true });
+        });
+    </script>
+</body>
+</html>
