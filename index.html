@@ -2,42 +2,37 @@
 <html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=yes">
     <title>AirBeats – Immersive Music Experience</title>
-    <meta name="description" content="Official AirBeats Android app. Download the latest APK, explore premium features, and experience music like never before.">
+    <meta name="description" content="Step into the future of music with AirBeats. Seamless streaming, pure vibes, and an immersive audio experience.">
     <meta name="theme-color" content="#ff1178">
-    <!-- Favicon -->
+    <!-- Icon for favicon and share file -->
     <link rel="icon" href="https://raw.githubusercontent.com/drkvenom786/Airbeats/137e3935198c25bfbd5eef1a050002ed52fa84ff/icon.png" type="image/png">
 
-    <!-- Make everything unselectable by default -->
     <style>
         * {
             -webkit-touch-callout: none;
             -webkit-user-select: none;
-            -khtml-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
             user-select: none;
         }
-        
-        /* Only app description should be selectable */
+
         .hero-subtitle,
         .hero-subtitle * {
             -webkit-touch-callout: text;
             -webkit-user-select: text;
-            -khtml-user-select: text;
-            -moz-user-select: text;
-            -ms-user-select: text;
             user-select: text;
         }
-        
-        /* Keep buttons and interactive elements clickable but not selectable */
-        button, .btn, a, .accordion-header, .dev-role, .screenshot-frame {
+
+        button, .btn, a, .dev-role, .screenshot-frame, .version-master-header {
             cursor: pointer;
+        }
+
+        a, a:link, a:visited, a:hover, a:active {
+            color: inherit;
+            text-decoration: none;
         }
     </style>
 
-    <!-- SEO JSON-LD will be updated by JavaScript -->
     <script type="application/ld+json" id="json-ld">
     {
         "@context": "https://schema.org",
@@ -59,13 +54,11 @@
     }
     </script>
 
-    <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
     <style>
-        /* Base Variables & Reset */
         :root {
             --primary: #ff1178;
             --primary-dark: #d4005c;
@@ -84,6 +77,7 @@
             --maxw: 1200px;
             --gradient: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
             --gradient-rainbow: linear-gradient(90deg, #ff1178, #ff9e00, #00c8ff, #6b5df7);
+            --gradient-animated: linear-gradient(270deg, #ff1178, #ff9e00, #00c8ff, #6b5df7, #ff1178);
             --section-spacing: 5rem;
         }
 
@@ -113,20 +107,35 @@
             line-height: 1.6;
         }
 
-        /* Layout & Container */
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
         .container {
             width: 100%;
             max-width: var(--maxw);
             margin: 0 auto;
-            padding: 0 1.5rem;
+            padding: 0 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .container {
+                padding: 0 1.5rem;
+            }
         }
 
         section {
-            padding: var(--section-spacing) 0;
+            padding: 3rem 0;
             position: relative;
         }
 
-        /* Decorative Blobs */
+        @media (min-width: 768px) {
+            section {
+                padding: var(--section-spacing) 0;
+            }
+        }
+
         .blob {
             position: absolute;
             border-radius: 50%;
@@ -137,30 +146,42 @@
         }
 
         .blob-1 {
-            width: 400px;
-            height: 400px;
+            width: 300px;
+            height: 300px;
             top: -100px;
             left: -150px;
             background: var(--primary);
-            animation-delay: 0s;
         }
 
         .blob-2 {
-            width: 350px;
-            height: 350px;
+            width: 250px;
+            height: 250px;
             bottom: -100px;
             right: -100px;
             background: var(--accent);
-            animation-delay: 2s;
         }
 
         .blob-3 {
-            width: 250px;
-            height: 250px;
+            width: 200px;
+            height: 200px;
             top: 40%;
             right: 20%;
             background: var(--accent-2);
-            animation-delay: 4s;
+        }
+
+        @media (min-width: 768px) {
+            .blob-1 {
+                width: 400px;
+                height: 400px;
+            }
+            .blob-2 {
+                width: 350px;
+                height: 350px;
+            }
+            .blob-3 {
+                width: 250px;
+                height: 250px;
+            }
         }
 
         @keyframes float {
@@ -168,72 +189,142 @@
             100% { transform: translate(60px, -60px) scale(1.1); }
         }
 
-        /* Header & Hero */
         header {
             position: relative;
-            padding: 6rem 0 4rem;
+            padding: 3rem 0 2rem;
             overflow: hidden;
             text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            header {
+                padding: 6rem 0 4rem;
+            }
         }
 
         .logo-container {
             position: relative;
             display: inline-block;
             margin-bottom: 1rem;
+            cursor: pointer;
         }
 
         .app-logo {
-            width: 140px;
-            height: 140px;
-            border-radius: 28px;
+            width: 100px;
+            height: 100px;
+            border-radius: 24px;
             object-fit: cover;
             box-shadow: var(--shadow-glow), 0 20px 60px rgba(0, 0, 0, 0.5);
             transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
+            position: relative;
+            z-index: 2;
+        }
+
+        @media (min-width: 640px) {
+            .app-logo {
+                width: 120px;
+                height: 120px;
+                border-radius: 26px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .app-logo {
+                width: 140px;
+                height: 140px;
+                border-radius: 28px;
+            }
         }
 
         .app-logo:hover {
             transform: scale(1.05) rotate(5deg);
         }
 
-        .logo-glow {
+        .glowing-line {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 160px;
-            height: 160px;
-            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
-            filter: blur(20px);
-            opacity: 0.5;
-            z-index: -1;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            border-radius: 32px;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .glowing-line::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                from 0deg,
+                transparent,
+                transparent,
+                transparent,
+                var(--primary),
+                var(--accent),
+                var(--accent-2),
+                transparent,
+                transparent,
+                transparent
+            );
+            animation: rotateGlow 2.5s linear infinite;
+        }
+
+        @keyframes rotateGlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .glowing-line::after {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            right: 4px;
+            bottom: 4px;
+            background: var(--bg);
+            border-radius: 28px;
+        }
+
+        [data-theme="light"] .glowing-line::after {
+            background: var(--bg);
         }
 
         h1.hero-title {
-            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-size: clamp(2rem, 8vw, 4.5rem);
             font-weight: 800;
             margin-bottom: 1rem;
             background: var(--gradient-rainbow);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            line-height: 1.1;
         }
 
         .hero-subtitle {
-            font-size: 1.2rem;
+            font-size: clamp(0.9rem, 4vw, 1.2rem);
             color: var(--text-muted);
             max-width: 800px;
-            margin: 0 auto 2.5rem;
+            margin: 0 auto 2rem;
+            padding: 0 1rem;
         }
 
-        /* Buttons */
         .btns {
             display: flex;
             justify-content: center;
-            gap: 1rem;
+            gap: 0.8rem;
             flex-wrap: wrap;
             margin-bottom: 1.5rem;
+            padding: 0 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .btns {
+                gap: 1rem;
+            }
         }
 
         .btn {
@@ -241,16 +332,26 @@
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
-            padding: 1rem 2rem;
+            padding: 0.7rem 1.2rem;
             border-radius: 50px;
             font-weight: 600;
-            font-size: 1rem;
+            font-size: clamp(0.8rem, 3vw, 1rem);
             border: none;
             cursor: pointer;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            text-decoration: none !important;
+            text-decoration: none;
+        }
+
+        @media (min-width: 640px) {
+            .btn {
+                padding: 0.8rem 1.5rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .btn {
+                padding: 1rem 2rem;
+            }
         }
 
         .btn-primary {
@@ -275,30 +376,23 @@
             transform: translateY(-3px);
         }
 
-        .btn-outline {
-            background: transparent;
-            color: var(--primary);
-            border: 2px solid var(--primary);
-        }
-
-        .btn-outline:hover {
-            background: var(--primary);
-            color: white;
-        }
-
         .note {
             color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-top: 0.5rem;
+            font-size: 0.8rem;
         }
 
-        /* Theme Toggle */
+        @media (min-width: 768px) {
+            .note {
+                font-size: 0.9rem;
+            }
+        }
+
         .theme-toggle {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             background: var(--surface);
             border: 1px solid var(--border);
@@ -312,47 +406,104 @@
             transition: all 0.3s;
         }
 
-        .theme-toggle:hover {
-            transform: scale(1.1);
+        @media (min-width: 768px) {
+            .theme-toggle {
+                top: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+            }
         }
 
-        /* Cards */
         .card {
             background: var(--surface);
             border-radius: var(--radius);
-            padding: 1.8rem;
+            padding: 1.2rem;
             box-shadow: var(--shadow);
             border: 1px solid var(--border);
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover::before {
+            opacity: 1;
         }
 
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transform: translateY(-8px);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 17, 120, 0.2);
         }
 
-        /* Features Scroller */
         .features-title {
             text-align: center;
-            font-size: 2.5rem;
+            font-size: clamp(1.5rem, 6vw, 2.5rem);
             font-weight: 800;
-            margin-bottom: 3rem;
-            color: var(--text);
+            margin-bottom: 2rem;
+            background: var(--gradient-rainbow);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+            width: 100%;
+        }
+
+        @media (min-width: 768px) {
+            .features-title {
+                margin-bottom: 3rem;
+            }
         }
 
         .features-scroller {
             display: grid;
             grid-auto-flow: column;
             grid-auto-columns: 85%;
-            gap: 1.5rem;
+            gap: 1rem;
             overflow-x: auto;
-            padding: 1rem 0.5rem 2rem;
+            padding: 0.5rem 0.5rem 1.5rem;
             scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch;
         }
 
+        @media (min-width: 640px) {
+            .features-scroller {
+                grid-auto-columns: calc(50% - 1rem);
+            }
+        }
+
+        @media (min-width: 768px) {
+            .features-scroller {
+                grid-auto-columns: calc(33.333% - 1rem);
+                gap: 1.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .features-scroller {
+                grid-auto-columns: calc(25% - 1rem);
+            }
+        }
+
         .features-scroller::-webkit-scrollbar {
-            height: 8px;
+            height: 5px;
+        }
+
+        @media (min-width: 768px) {
+            .features-scroller::-webkit-scrollbar {
+                height: 8px;
+            }
         }
 
         .features-scroller::-webkit-scrollbar-track {
@@ -367,531 +518,625 @@
 
         .feature-card {
             scroll-snap-align: center;
-            min-height: 280px;
+            min-height: 240px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
 
+        @media (min-width: 768px) {
+            .feature-card {
+                min-height: 280px;
+            }
+        }
+
         .feature-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 16px;
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
             background: linear-gradient(135deg, var(--primary), var(--accent));
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 1.2rem;
-            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
             color: white;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        @media (min-width: 768px) {
+            .feature-icon {
+                width: 60px;
+                height: 60px;
+                border-radius: 16px;
+                margin-bottom: 1.2rem;
+                font-size: 1.5rem;
+            }
         }
 
         .feature-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.8rem;
+            font-size: clamp(1rem, 4vw, 1.3rem);
+            margin-bottom: 0.5rem;
         }
 
-        /* ========== VERSION HISTORY DROPDOWN ========== */
-        .changelog-section {
-            margin-top: 2rem;
+        .feature-card p {
+            font-size: clamp(0.75rem, 3vw, 0.9rem);
+            color: var(--text-muted);
+            line-height: 1.5;
         }
 
-        .accordion {
-            border-radius: var(--radius);
-            overflow: hidden;
-            border: 1px solid var(--border);
-            background: var(--surface);
-            box-shadow: var(--shadow);
-            max-width: 800px;
+        .version-master-wrapper {
+            max-width: 900px;
             margin: 0 auto;
+            padding: 0 0.5rem;
         }
 
-        .accordion-item + .accordion-item {
-            border-top: 1px solid var(--border);
-        }
-
-        .accordion-header {
-            cursor: pointer;
-            padding: 1.2rem 1.5rem;
+        .version-master-header {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 0.8rem 1rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            font-weight: 600;
-            user-select: none;
-            background: var(--surface);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
             transition: all 0.3s ease;
+            cursor: pointer;
         }
 
-        .accordion-header:hover {
+        @media (min-width: 640px) {
+            .version-master-header {
+                padding: 1rem 1.5rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .version-master-header {
+                padding: 1.2rem 2rem;
+            }
+        }
+
+        .version-master-header:hover {
             background: var(--surface-light);
+            transform: translateY(-2px);
+            border-color: var(--primary);
         }
 
-        .accordion-header .version-info {
+        .version-master-title {
             display: flex;
             align-items: center;
-            gap: 0.8rem;
-            flex-wrap: wrap;
+            gap: 0.5rem;
+            font-weight: 700;
+            font-size: clamp(0.9rem, 4vw, 1.2rem);
         }
 
-        .version-tag {
+        @media (min-width: 640px) {
+            .version-master-title {
+                gap: 0.8rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .version-master-title {
+                gap: 1rem;
+            }
+        }
+
+        .version-master-title i {
+            color: var(--primary);
+            font-size: clamp(1rem, 5vw, 1.5rem);
+        }
+
+        .version-badge {
             background: var(--gradient);
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
             font-weight: 600;
         }
 
-        .version-tag.prerelease {
-            background: linear-gradient(135deg, #ff9e00, #ff5e00);
+        @media (min-width: 768px) {
+            .version-badge {
+                padding: 0.25rem 0.8rem;
+                font-size: 0.8rem;
+            }
         }
 
-        .version-title {
-            font-size: 1.1rem;
-            color: var(--text);
-        }
-
-        .version-date {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        .accordion-header i {
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        .version-master-header i.bi-chevron-down {
+            transition: transform 0.4s ease;
+            font-size: 1rem;
             color: var(--primary);
         }
 
-        .accordion-item.open .accordion-header i {
+        @media (min-width: 768px) {
+            .version-master-header i.bi-chevron-down {
+                font-size: 1.3rem;
+            }
+        }
+
+        .version-master-container.open .version-master-header i.bi-chevron-down {
             transform: rotate(180deg);
         }
 
-        .accordion-content {
+        .version-master-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            padding: 0 1.5rem;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             background: var(--surface);
+            border-radius: 0 0 var(--radius) var(--radius);
+            margin-top: 0;
         }
 
-        .accordion-item.open .accordion-content {
-            padding: 0 1.5rem 1.5rem;
+        .version-master-container.open .version-master-content {
+            max-height: 450px;
+            margin-top: 0.8rem;
+            overflow-y: auto;
+            overflow-x: hidden;
         }
 
-        .version-content {
-            padding-top: 1rem;
+        @media (min-width: 768px) {
+            .version-master-container.open .version-master-content {
+                margin-top: 1rem;
+            }
         }
 
-        .version-features-list {
-            list-style-type: none;
-            padding-left: 0;
-            margin-bottom: 1.5rem;
-        }
-
-        .version-features-list li {
-            margin-bottom: 0.5rem;
-            padding-left: 1.8rem;
-            position: relative;
-            line-height: 1.5;
-            color: var(--text-muted);
-        }
-
-        .version-features-list li:before {
-            content: "✓";
-            color: var(--accent);
-            font-weight: bold;
-            position: absolute;
-            left: 0;
-        }
-
-        .version-download-area {
+        .versions-list-compact {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-            padding-top: 1rem;
-            border-top: 1px dashed var(--border);
-        }
-
-        .version-size {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
+            flex-direction: column;
             gap: 0.5rem;
+            padding: 0.5rem 0.5rem 0.8rem;
         }
 
-        .version-download-btn {
+        @media (min-width: 640px) {
+            .versions-list-compact {
+                gap: 0.6rem;
+                padding: 0.5rem 0.8rem 1rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .versions-list-compact {
+                gap: 0.75rem;
+                padding: 0.5rem 1rem 1rem;
+            }
+        }
+
+        .version-compact-item {
+            background: var(--surface-light);
+            border-radius: 12px;
+            padding: 0.7rem 1rem;
+            border-left: 3px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        @media (min-width: 640px) {
+            .version-compact-item {
+                padding: 0.8rem 1.2rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .version-compact-item {
+                padding: 1rem 1.5rem;
+                border-left: 4px solid var(--primary);
+            }
+        }
+
+        .version-compact-item:hover {
+            transform: translateX(8px);
+            background: linear-gradient(135deg, rgba(255, 17, 120, 0.15), rgba(0, 200, 255, 0.05));
+            border-left-color: var(--accent);
+        }
+
+        .version-compact-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .version-tag-sm {
+            background: var(--gradient);
+            padding: 0.15rem 0.5rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        @media (min-width: 768px) {
+            .version-tag-sm {
+                padding: 0.2rem 0.8rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        .version-date-sm {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+        }
+
+        @media (min-width: 768px) {
+            .version-date-sm {
+                font-size: 0.8rem;
+            }
+        }
+
+        .version-notes-preview {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin: 0.3rem 0 0.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (min-width: 768px) {
+            .version-notes-preview {
+                font-size: 0.85rem;
+                margin: 0.5rem 0 0.8rem;
+            }
+        }
+
+        .version-download-sm {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .download-sm-btn {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 0.25rem 0.6rem;
+            border-radius: 30px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 0.7rem 1.5rem;
-            background: var(--gradient);
-            color: white;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
+            gap: 0.2rem;
             transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
         }
 
-        .version-download-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(255, 17, 120, 0.3);
-        }
-
-        .version-download-btn.outline {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-
-        .version-download-btn.outline:hover {
+        .download-sm-btn:hover {
             background: var(--primary);
             color: white;
+            transform: scale(1.05);
         }
-        /* ========== END VERSION HISTORY ========== */
 
-        /* Developer Section */
-        .dev-section {
-            margin-top: 4rem;
+        @media (min-width: 768px) {
+            .download-sm-btn {
+                padding: 0.4rem 1rem;
+                font-size: 0.8rem;
+                gap: 0.4rem;
+            }
         }
 
         .dev-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
             margin-top: 2rem;
+            padding: 0 0.5rem;
+        }
+
+        @media (min-width: 640px) {
+            .dev-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .dev-grid {
+                gap: 2rem;
+            }
         }
 
         .dev-card {
-            padding: 2rem;
-            text-align: left;
-            display: flex;
-            flex-direction: column;
+            padding: 1.2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dev-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 17, 120, 0.05), transparent);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+
+        .dev-card:hover::after {
+            opacity: 1;
+        }
+
+        @media (min-width: 640px) {
+            .dev-card {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .dev-card {
+                padding: 2rem;
+            }
         }
 
         .dev-header {
             display: flex;
             align-items: center;
+            gap: 1.2rem;
+            flex-wrap: nowrap;
             margin-bottom: 1rem;
+        }
+
+        @media (max-width: 640px) {
+            .dev-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.8rem;
+            }
+            .dev-info {
+                text-align: center;
+            }
+            .dev-skills {
+                justify-content: center;
+            }
+        }
+
+        @media (min-width: 641px) {
+            .dev-header {
+                flex-direction: row;
+                text-align: left;
+            }
+            .dev-info {
+                text-align: left;
+                flex: 1;
+            }
+            .dev-skills {
+                justify-content: flex-start;
+            }
         }
 
         .dev-avatar {
-            width: 80px;
-            height: 80px;
+            width: 85px;
+            height: 85px;
             border-radius: 50%;
-            margin-right: 1.5rem;
             border: 3px solid var(--primary);
-            padding: 3px;
-            background: var(--surface-light);
             object-fit: cover;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(255, 17, 120, 0.2);
         }
 
-        .dev-info {
-            flex: 1;
+        .dev-card:hover .dev-avatar {
+            transform: scale(1.02);
+            border-color: var(--accent);
+            box-shadow: 0 10px 25px rgba(255, 17, 120, 0.3);
+        }
+
+        @media (min-width: 768px) {
+            .dev-avatar {
+                width: 100px;
+                height: 100px;
+                border-width: 4px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .dev-avatar {
+                width: 110px;
+                height: 110px;
+            }
         }
 
         .dev-info h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.3rem;
-            cursor: pointer;
-            transition: color 0.3s;
-            color: var(--text);
+            font-size: clamp(1.2rem, 5vw, 1.6rem);
+            margin-bottom: 0.4rem;
+            font-weight: 800;
+        }
+
+        .dev-info h3 a {
+            background: linear-gradient(270deg, #ff1178, #ff9e00, #00c8ff, #6b5df7, #ff1178);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent !important;
             text-decoration: none;
             display: inline-block;
+            animation: gradientShift 3s ease infinite;
+            font-weight: 800;
         }
 
-        .dev-info h3:hover {
-            color: var(--primary);
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        .dev-role-container {
-            margin-top: 0.5rem;
-            margin-bottom: 1rem;
+        .dev-info h3 a:hover {
+            animation: gradientShift 0.6s ease infinite;
+            transform: scale(1.02);
         }
 
         .dev-role {
             color: var(--primary);
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            font-weight: 700;
+            font-size: 0.8rem;
             display: inline-block;
-            padding: 0.4rem 1rem;
+            padding: 0.25rem 0.9rem;
             border-radius: 30px;
-            background: rgba(255, 17, 120, 0.1);
+            background: rgba(255, 17, 120, 0.15);
             border: 1px solid rgba(255, 17, 120, 0.3);
+            letter-spacing: 0.5px;
         }
 
-        .dev-role:hover {
-            background: rgba(255, 17, 120, 0.2);
-            transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(255, 17, 120, 0.3);
+        @media (min-width: 768px) {
+            .dev-role {
+                font-size: 0.95rem;
+                padding: 0.35rem 1.2rem;
+            }
         }
 
         .dev-bio {
             color: var(--text-muted);
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        @media (min-width: 768px) {
+            .dev-bio {
+                font-size: 0.95rem;
+                margin-bottom: 1.2rem;
+            }
         }
 
         .dev-skills {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
-            margin-top: auto;
         }
 
         .skill-tag {
-            background: var(--surface-light);
+            background: linear-gradient(135deg, var(--surface-light), var(--surface));
             color: var(--text-muted);
-            padding: 0.4rem 0.8rem;
+            padding: 0.3rem 0.8rem;
             border-radius: 20px;
-            font-size: 0.85rem;
+            font-size: 0.7rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
             border: 1px solid var(--border);
         }
 
-        /* Beating Hearts Animation */
-        .beating-hearts {
-            display: inline-flex;
-            gap: 0.2rem;
-            margin-left: 0.3rem;
-        }
-
-        .beating-hearts i {
-            color: var(--primary);
-            animation: heartbeat 1.5s ease-in-out infinite;
-            font-size: 1rem;
-        }
-
-        .beating-hearts i:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .beating-hearts i:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-
-        @keyframes heartbeat {
-            0%, 100% {
-                transform: scale(1);
-            }
-            25% {
-                transform: scale(1.3);
-            }
-            35% {
-                transform: scale(1);
-            }
-            45% {
-                transform: scale(1.2);
-            }
-            55% {
-                transform: scale(1);
-            }
-        }
-
-        /* Secret Message Toast - Extra Romantic */
-        .secret-toast {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.8);
-            background: linear-gradient(135deg, #ff1178, #ff4da6);
+        .skill-tag:hover {
+            background: var(--gradient);
             color: white;
-            padding: 2rem 2.5rem;
-            border-radius: 60px;
-            box-shadow: 0 20px 60px rgba(255, 17, 120, 0.5), 0 0 100px rgba(255, 17, 120, 0.3);
-            z-index: 20000;
-            opacity: 0;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            text-align: center;
-            min-width: 320px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(10px);
-            pointer-events: none;
+            transform: translateY(-2px);
+            border-color: transparent;
         }
 
-        .secret-toast.show {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
-        }
-
-        .secret-toast .heart-banner {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            animation: floatHearts 2s ease-in-out infinite;
-        }
-
-        .secret-toast .heart-banner i {
-            margin: 0 0.3rem;
-            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.8));
-        }
-
-        .secret-toast .heart-banner i:nth-child(2) {
-            animation-delay: 0.3s;
-        }
-
-        .secret-toast .heart-banner i:nth-child(3) {
-            animation-delay: 0.6s;
-        }
-
-        @keyframes floatHearts {
-            0%, 100% {
-                transform: translateY(0);
+        @media (min-width: 768px) {
+            .skill-tag {
+                padding: 0.45rem 1rem;
+                font-size: 0.85rem;
             }
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-
-        .secret-toast .message {
-            font-size: 1.8rem;
-            font-weight: 800;
-            margin-bottom: 0.8rem;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-            letter-spacing: 1px;
-        }
-
-        .secret-toast .sub-message {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            opacity: 0.95;
-            font-style: italic;
-        }
-
-        .secret-toast .signature {
-            font-size: 1rem;
-            margin-top: 1rem;
-            opacity: 0.9;
-            font-family: monospace;
-            letter-spacing: 2px;
-            border-top: 1px solid rgba(255, 255, 255, 0.3);
-            padding-top: 1rem;
-        }
-
-        .secret-toast .floating-hearts {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            overflow: hidden;
-            border-radius: 60px;
-        }
-
-        .secret-toast .floating-hearts i {
-            position: absolute;
-            color: rgba(255, 255, 255, 0.4);
-            font-size: 1rem;
-            animation: floatUp 3s linear infinite;
-        }
-
-        @keyframes floatUp {
-            0% {
-                transform: translateY(100%) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.8;
-            }
-            90% {
-                opacity: 0.8;
-            }
-            100% {
-                transform: translateY(-500%) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        /* Download Toast - Only remaining toast */
-        .download-toast {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background: var(--surface);
-            color: var(--text);
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border);
-            z-index: 10000;
-            opacity: 0;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            backdrop-filter: blur(10px);
-        }
-
-        .download-toast.show {
-            transform: translateX(-50%) translateY(0);
-            opacity: 1;
-        }
-
-        .download-toast i {
-            color: #00c8ff;
-            font-size: 1.2rem;
-        }
-
-        /* Visualizer */
-        .visualizer-section {
-            padding: 2rem 0;
         }
 
         .visualizer-container {
-            height: 150px;
+            height: 80px;
             width: 100%;
-            margin: 0 auto;
-            position: relative;
-            overflow: hidden;
-            border-radius: var(--radius);
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid var(--border);
             display: flex;
             align-items: flex-end;
             justify-content: center;
-            gap: 4px;
-            padding: 0 10px;
+            gap: 3px;
+            padding: 0 8px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+        }
+
+        @media (min-width: 640px) {
+            .visualizer-container {
+                height: 100px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .visualizer-container {
+                height: 120px;
+                gap: 4px;
+                padding: 0 10px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .visualizer-container {
+                height: 150px;
+            }
         }
 
         .visualizer-bar {
             background: var(--gradient);
-            border-radius: 3px 3px 0 0;
-            transition: height 0.2s ease-out;
-            min-width: 4px;
+            border-radius: 2px 2px 0 0;
+            transition: height 0.1s ease-out;
+            min-width: 2px;
             flex: 1;
-            max-width: 8px;
+            max-width: 4px;
         }
 
-        /* Screenshots */
+        @media (min-width: 640px) {
+            .visualizer-bar {
+                min-width: 3px;
+                max-width: 5px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .visualizer-bar {
+                min-width: 3px;
+                max-width: 6px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .visualizer-bar {
+                min-width: 4px;
+                max-width: 8px;
+            }
+        }
+
         .screenshot-section {
             text-align: center;
-            margin-top: 4rem;
         }
 
         .screenshot-container {
-            max-width: 300px;
+            max-width: 280px;
             margin: 0 auto;
-            position: relative;
+            padding: 0 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .screenshot-container {
+                max-width: 320px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .screenshot-container {
+                max-width: 350px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .screenshot-container {
+                max-width: 400px;
+            }
         }
 
         .screenshot-frame {
             border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 80px rgba(255, 17, 120, 0.2);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            background: var(--surface);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            transition: all 0.4s ease;
             cursor: pointer;
         }
 
         .screenshot-frame:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 35px 70px rgba(0, 0, 0, 0.6), 0 0 100px rgba(255, 17, 120, 0.3);
+            transform: scale(1.02);
+            box-shadow: 0 30px 60px rgba(255, 17, 120, 0.2);
         }
 
         .screenshot-frame img {
@@ -902,46 +1147,176 @@
         }
 
         .screenshot-label {
-            margin-top: 1.5rem;
+            margin-top: 0.8rem;
             color: var(--text-muted);
-            font-size: 1.1rem;
+            font-size: 0.8rem;
             font-weight: 500;
         }
 
-        /* Footer */
-        footer {
-            padding: 4rem 0 2rem;
-            text-align: center;
-            border-top: 1px solid var(--border);
-            margin-top: 4rem;
+        @media (min-width: 768px) {
+            .screenshot-label {
+                margin-top: 1.5rem;
+                font-size: 1.1rem;
+            }
         }
 
-        /* Floating Action Button */
+        .install-steps {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 0.5rem;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+            background: var(--surface-light);
+            padding: 0.8rem;
+            border-radius: var(--radius);
+            border-left: 4px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .step:hover {
+            transform: translateX(5px);
+            border-left-color: var(--accent);
+            background: linear-gradient(135deg, var(--surface-light), rgba(255, 17, 120, 0.05));
+        }
+
+        @media (min-width: 640px) {
+            .step {
+                gap: 1rem;
+                padding: 1rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .step {
+                margin-bottom: 1.5rem;
+                padding: 1.5rem;
+            }
+        }
+
+        .step-number {
+            background: var(--gradient);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .step:hover .step-number {
+            transform: scale(1.1);
+        }
+
+        @media (min-width: 768px) {
+            .step-number {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+        }
+
+        .step-content h4 {
+            font-size: clamp(0.9rem, 4vw, 1.1rem);
+            margin-bottom: 0.3rem;
+        }
+
+        .step-content p {
+            color: var(--text-muted);
+            font-size: clamp(0.7rem, 3vw, 0.85rem);
+            margin: 0;
+        }
+
+        @media (min-width: 768px) {
+            .step-content p {
+                font-size: 0.9rem;
+            }
+        }
+
+        .beating-hearts {
+            display: inline-flex;
+            gap: 0.2rem;
+            margin-left: 0.3rem;
+        }
+
+        .beating-hearts i {
+            color: var(--primary);
+            animation: heartbeat 1.5s ease-in-out infinite;
+            font-size: 0.8rem;
+        }
+
+        @media (min-width: 768px) {
+            .beating-hearts i {
+                font-size: 1rem;
+            }
+        }
+
+        .beating-hearts i:nth-child(2) { animation-delay: 0.2s; }
+        .beating-hearts i:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.3); }
+            35% { transform: scale(1); }
+            45% { transform: scale(1.2); }
+            55% { transform: scale(1); }
+        }
+
+        footer {
+            padding: 2.5rem 0 1.5rem;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        @media (min-width: 768px) {
+            footer {
+                padding: 4rem 0 2rem;
+            }
+        }
+
         .fab {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
+            bottom: 15px;
+            right: 15px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             background: var(--gradient);
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             box-shadow: var(--shadow-glow);
             cursor: pointer;
             z-index: 1000;
-            transition: all 0.3s;
             border: none;
+            transition: all 0.3s;
         }
 
         .fab:hover {
-            transform: scale(1.1);
+            transform: scale(1.1) translateY(-3px);
         }
 
-        /* Reveal Animation */
+        @media (min-width: 768px) {
+            .fab {
+                bottom: 20px;
+                right: 20px;
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+        }
+
         .reveal {
             opacity: 0;
             transform: translateY(30px);
@@ -953,130 +1328,43 @@
             transform: translateY(0);
         }
 
-        /* Download Instructions */
-        .install-steps {
-            max-width: 800px;
-            margin: 3rem auto 0;
-            text-align: left;
-        }
-
-        .step {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 1.5rem;
-            background: var(--surface-light);
-            padding: 1.5rem;
-            border-radius: var(--radius);
-            border-left: 4px solid var(--primary);
-        }
-
-        .step-number {
-            background: var(--gradient);
-            color: white;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            margin-right: 1rem;
-            flex-shrink: 0;
-        }
-
-        .step-content h4 {
-            margin-bottom: 0.5rem;
-            color: var(--text);
-        }
-
-        .step-content p {
-            color: var(--text-muted);
-            margin: 0;
-        }
-
-        /* Custom Animations */
-        @keyframes slideIn {
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes rainbow {
-            0% { filter: hue-rotate(0deg); }
-            100% { filter: hue-rotate(360deg); }
-        }
-
-        @keyframes visualizerPulse {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 1; }
-        }
-
-        /* Zoom classes */
-        .screenshot-frame.zoomed {
-            transform: scale(1.5) !important;
-            z-index: 100;
-            position: relative;
-        }
-
-        .visualizer-container.hidden {
-            display: none !important;
-        }
-
-        /* Audio Player Styles */
         .rhythm-player {
             position: fixed;
-            bottom: 90px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
+            bottom: 80px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             background: var(--accent);
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
-            box-shadow: var(--shadow);
             cursor: pointer;
             z-index: 999;
+            opacity: 0;
+            transform: scale(0);
             transition: all 0.3s;
             border: none;
-            opacity: 0;
-            transform: scale(0) translateY(20px);
+        }
+
+        @media (min-width: 768px) {
+            .rhythm-player {
+                bottom: 100px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+            }
         }
 
         .rhythm-player.show {
             opacity: 1;
-            transform: scale(1) translateY(0);
-        }
-
-        .rhythm-player.hiding {
-            opacity: 0;
-            transform: scale(0.8) translateY(10px);
-            transition: all 0.5s ease;
+            transform: scale(1);
         }
 
         .rhythm-player.playing {
             background: var(--primary);
             animation: pulse 1s infinite;
-        }
-
-        .rhythm-player.looping::after {
-            content: "∞";
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: var(--accent-2);
-            color: white;
-            font-size: 0.6rem;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
         }
 
         @keyframes pulse {
@@ -1085,424 +1373,320 @@
             100% { transform: scale(1); }
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Logo animation when rhythm is playing */
         .logo-playing {
             animation: logoPulse 2s infinite alternate;
         }
 
         @keyframes logoPulse {
-            0% { transform: scale(1); box-shadow: var(--shadow-glow), 0 20px 60px rgba(0, 0, 0, 0.5); }
-            100% { transform: scale(1.05); box-shadow: 0 0 50px rgba(255, 17, 120, 0.5), 0 25px 70px rgba(0, 0, 0, 0.6); }
+            0% { transform: scale(1); box-shadow: var(--shadow-glow); }
+            100% { transform: scale(1.05); box-shadow: 0 0 50px rgba(255, 17, 120, 0.5); }
         }
 
-        /* Loading indicator */
-        .loading-spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,.3);
-            border-radius: 50%;
-            border-top-color: var(--primary);
-            animation: spin 1s ease-in-out infinite;
-            margin-right: 8px;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .visualizer-container {
-                height: 120px;
-                gap: 3px;
-                padding: 0 8px;
-            }
-            .visualizer-bar {
-                min-width: 3px;
-                max-width: 6px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .visualizer-container {
-                height: 100px;
-                gap: 2px;
-                padding: 0 6px;
-            }
-            .visualizer-bar {
-                min-width: 2px;
-                max-width: 5px;
-            }
-            .secret-toast {
-                min-width: 280px;
-                padding: 1.5rem;
-            }
-            .secret-toast .message {
-                font-size: 1.4rem;
-            }
+        .download-toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--surface);
+            color: var(--text);
+            padding: 0.7rem 1.2rem;
+            border-radius: 50px;
+            box-shadow: var(--shadow);
+            z-index: 10000;
+            opacity: 0;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            white-space: nowrap;
         }
 
         @media (min-width: 768px) {
-            .features-scroller {
-                grid-auto-columns: calc(33.333% - 1rem);
-            }
-            .screenshot-container {
-                max-width: 350px;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .features-scroller {
-                grid-auto-columns: calc(25% - 1rem);
-            }
-            .screenshot-container {
-                max-width: 400px;
+            .download-toast {
+                bottom: 30px;
+                padding: 1rem 2rem;
+                gap: 0.8rem;
+                font-size: 1rem;
             }
         }
 
-        @media (max-width: 768px) {
-            :root {
-                --section-spacing: 3rem;
-            }
+        .download-toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
 
-            h1.hero-title {
-                font-size: 2.8rem;
-            }
+        .loading-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 6px;
+        }
 
-            .btns {
-                flex-direction: column;
-                align-items: center;
-            }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
 
-            .btn {
-                width: 100%;
-                max-width: 300px;
-            }
+        /* Loading Animations */
+        .loading-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--gradient);
+            z-index: 10001;
+            animation: loadProgress 1.5s ease-out forwards;
+            box-shadow: 0 0 10px var(--primary);
+        }
 
-            .dev-header {
-                flex-direction: column;
-                text-align: center;
-            }
+        @keyframes loadProgress {
+            0% { width: 0%; }
+            30% { width: 40%; }
+            60% { width: 75%; }
+            100% { width: 100%; }
+        }
 
-            .dev-avatar {
-                margin-right: 0;
-                margin-bottom: 1rem;
-            }
+        .logo-container {
+            opacity: 0;
+            transform: scale(0.5) rotate(-10deg);
+            animation: logoPopIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+            animation-delay: 0.2s;
+        }
 
-            .screenshot-container {
-                max-width: 280px;
+        @keyframes logoPopIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.5) rotate(-10deg);
             }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
 
-            .version-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
+        .hero-title {
+            opacity: 0;
+            animation: slideInFromLeft 0.8s ease-out forwards;
+            animation-delay: 0.4s;
+        }
 
-            .version-date {
-                align-self: flex-start;
-            }
+        .hero-subtitle {
+            opacity: 0;
+            animation: slideInFromRight 0.8s ease-out forwards;
+            animation-delay: 0.6s;
+        }
 
-            .accordion-header {
-                padding: 1rem 1.2rem;
+        @keyframes slideInFromLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(-50px);
             }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
 
-            .version-download-area {
-                flex-direction: column;
-                align-items: flex-start;
+        @keyframes slideInFromRight {
+            0% {
+                opacity: 0;
+                transform: translateX(50px);
             }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
 
-            .version-size {
-                margin-bottom: 0.5rem;
+        .btns {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+            animation-delay: 0.8s;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
             }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #versionNote {
+            opacity: 0;
+            animation: fadeIn 0.6s ease-out forwards;
+            animation-delay: 1s;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .btn-primary {
+            animation: btnPulse 1.5s ease-in-out 2;
+            animation-delay: 1.2s;
+        }
+
+        @keyframes btnPulse {
+            0%, 100% {
+                box-shadow: var(--shadow-glow);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 0 0 10px rgba(255, 17, 120, 0.3), 0 0 0 20px rgba(255, 17, 120, 0.1);
+                transform: scale(1.05);
+            }
+        }
+
+        .feature-card {
+            opacity: 0;
+            animation: cardReveal 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
+        }
+
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.3s; }
+        .feature-card:nth-child(4) { animation-delay: 0.4s; }
+        .feature-card:nth-child(5) { animation-delay: 0.5s; }
+        .feature-card:nth-child(6) { animation-delay: 0.6s; }
+        .feature-card:nth-child(7) { animation-delay: 0.7s; }
+
+        @keyframes cardReveal {
+            0% {
+                opacity: 0;
+                transform: translateY(40px) scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            animation: particleFloat 1.5s ease-out forwards;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) scale(0);
+            }
+        }
+
+        .visualizer-section {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+            animation-delay: 0.5s;
+        }
+
+        .feature-card.reveal {
+            opacity: 0;
+            transform: translateY(40px) scale(0.95);
+            transition: none;
+        }
+
+        .feature-card.reveal.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
         }
     </style>
 </head>
 <body>
-    <!-- Theme Toggle -->
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-        <i class="bi bi-moon-stars"></i>
-    </button>
+    <div class="loading-bar"></div>
 
-    <!-- Hidden Audio Player -->
-    <audio id="secretAudio" preload="auto" loop style="display: none;">
-        <source src="rhythm.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
+    <button class="theme-toggle" id="themeToggle"><i class="bi bi-moon-stars"></i></button>
+    <audio id="secretAudio" preload="auto" loop style="display: none;"><source src="rhythm.mp3" type="audio/mpeg"></audio>
+    <button class="rhythm-player" id="rhythmPlayer"><i class="bi bi-pause-fill" id="rhythmIcon"></i></button>
+    <div class="download-toast" id="downloadToast"><i class="bi bi-cloud-check"></i><span id="downloadToastMessage"></span></div>
 
-    <!-- Rhythm Player Control -->
-    <button class="rhythm-player" id="rhythmPlayer" aria-label="Control rhythm music">
-        <i class="bi bi-pause-fill" id="rhythmIcon"></i>
-    </button>
-
-    <!-- Secret Message Toast (Beautiful for GF) -->
-    <div class="secret-toast" id="secretToast">
-        <div class="floating-hearts" id="floatingHearts"></div>
-        <div class="heart-banner">
-            <i class="bi bi-heart-fill"></i>
-            <i class="bi bi-heart-fill"></i>
-            <i class="bi bi-heart-fill"></i>
-        </div>
-        <div class="message">Sarangeyo ❤️</div>
-        <div class="sub-message">Today, Tomorrow and Forever</div>
-        <div class="signature">— 0x5H4NG —</div>
-    </div>
-
-    <!-- Download Toast (Only remaining toast) -->
-    <div class="download-toast" id="downloadToast">
-        <i class="bi bi-cloud-check"></i>
-        <span id="downloadToastMessage">Downloading AirBeats...</span>
-    </div>
-
-    <!-- Header -->
-    <header id="top">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="blob blob-3"></div>
-
+    <header>
+        <div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div>
         <div class="container">
             <div class="logo-container">
-                <div class="logo-glow"></div>
-                <img src="https://raw.githubusercontent.com/drkvenom786/Airbeats/137e3935198c25bfbd5eef1a050002ed52fa84ff/icon.png" class="app-logo" alt="AirBeats Logo" id="appLogo">
+                <div class="glowing-line"></div>
+                <img src="https://raw.githubusercontent.com/drkvenom786/Airbeats/137e3935198c25bfbd5eef1a050002ed52fa84ff/icon.png" class="app-logo" id="appLogo" alt="AirBeats Logo">
             </div>
-
             <h1 class="hero-title">AirBeats</h1>
-            <p class="hero-subtitle" id="heroDescription">Experience sound like never before. Immerse yourself in crystal-clear audio, personalized playlists, and intuitive controls designed for true music lovers.</p>
-
-            <div class="btns">
-                <a href="#" class="btn btn-primary" id="downloadBtn" style="text-decoration: none;">
-                    <i class="bi bi-download"></i> <span id="downloadBtnText">Download Latest APK</span>
-                </a>
-                <button class="btn btn-secondary" id="copyLinkBtn">
-                    <i class="bi bi-link-45deg"></i> Copy Link
-                </button>
-                <button class="btn btn-secondary" id="shareBtn">
-                    <i class="bi bi-share"></i> Share
-                </button>
-            </div>
-
-            <div class="note" id="versionNote">
-                <span class="loading-spinner"></span> Fetching latest version...
-            </div>
+            <p class="hero-subtitle">Experience sound like never before. Immerse yourself in crystal-clear audio, personalized playlists, and intuitive controls designed for true music lovers.</p>
+            <div class="btns"><a href="#" class="btn btn-primary" id="downloadBtn"><i class="bi bi-download"></i> <span id="downloadBtnText">Download Latest APK</span></a>
+            <button class="btn btn-secondary" id="copyLinkBtn"><i class="bi bi-link-45deg"></i> Copy Link</button>
+            <button class="btn btn-secondary" id="shareBtn"><i class="bi bi-share"></i> Share</button></div>
+            <div class="note" id="versionNote"><span class="loading-spinner"></span> Fetching latest version...</div>
         </div>
     </header>
 
-    <!-- Visualizer -->
-    <section class="visualizer-section">
-        <div class="container">
-            <div class="visualizer-container" id="visualizer">
-                <!-- Audio visualizer bars will be generated by JS -->
-            </div>
-        </div>
-    </section>
+    <section class="visualizer-section"><div class="container"><div class="visualizer-container" id="visualizer"></div></div></section>
 
-    <!-- Features -->
     <section id="features">
         <div class="container">
             <h2 class="features-title reveal">Premium Features</h2>
             <div class="features-scroller">
-                <div class="card feature-card reveal">
-                    <div class="feature-icon">
-                        <i class="bi bi-music-note-beamed"></i>
-                    </div>
-                    <h3>Smart Playlists</h3>
-                    <p>AI-generated playlists that adapt to your mood, activity, and listening history.</p>
-                </div>
-                <div class="card feature-card reveal">
-                    <div class="feature-icon">
-                        <i class="bi bi-sliders"></i>
-                    </div>
-                    <h3>Advanced EQ</h3>
-                    <p>Customizable 10-band equalizer with presets for every genre and audio device.</p>
-                </div>
-                <div class="card feature-card reveal">
-                    <div class="feature-icon">
-                        <i class="bi bi-cloud"></i>
-                    </div>
-                    <h3>Cloud Sync</h3>
-                    <p>Sync your music across all devices. Pick up where you left off, anywhere.</p>
-                </div>
-                <div class="card feature-card reveal">
-                    <div class="feature-icon">
-                        <i class="bi bi-hdd"></i>
-                    </div>
-                    <h3>Offline Cache</h3>
-                    <p>Smart caching system stores your favorite tracks for uninterrupted offline playback.</p>
-                </div>
-                <div class="card feature-card reveal">
-                    <div class="feature-icon">
-                        <i class="bi bi-moon-stars"></i>
-                    </div>
-                    <h3>Dark Theme</h3>
-                    <p>Beautiful dark interface with OLED optimization for nighttime listening.</p>
-                </div>
-                <div class="card feature-card reveal">
-                    <div class="feature-icon">
-                        <i class="bi bi-lightning-charge"></i>
-                    </div>
-                    <h3>Battery Saver</h3>
-                    <p>Optimized audio processing that extends battery life by up to 30%.</p>
-                </div>
-                <div class="card feature-card reveal">
-                    <div class="feature-icon">
-                        <i class="bi bi-headphones"></i>
-                    </div>
-                    <h3>Hi-Res Audio</h3>
-                    <p>Support for lossless formats up to 24-bit/192kHz for studio-quality sound.</p>
-                </div>
+                <div class="card feature-card reveal"><div class="feature-icon"><i class="bi bi-music-note-beamed"></i></div><h3>Smart Playlists</h3><p>AI-generated playlists that adapt to your mood, activity, and listening history.</p></div>
+                <div class="card feature-card reveal"><div class="feature-icon"><i class="bi bi-sliders"></i></div><h3>Advanced EQ</h3><p>Customizable 10-band equalizer with presets for every genre and audio device.</p></div>
+                <div class="card feature-card reveal"><div class="feature-icon"><i class="bi bi-cloud"></i></div><h3>Cloud Sync</h3><p>Sync your music across all devices. Pick up where you left off, anywhere.</p></div>
+                <div class="card feature-card reveal"><div class="feature-icon"><i class="bi bi-hdd"></i></div><h3>Offline Cache</h3><p>Smart caching system stores your favorite tracks for uninterrupted offline playback.</p></div>
+                <div class="card feature-card reveal"><div class="feature-icon"><i class="bi bi-moon-stars"></i></div><h3>Dark Theme</h3><p>Beautiful dark interface with OLED optimization for nighttime listening.</p></div>
+                <div class="card feature-card reveal"><div class="feature-icon"><i class="bi bi-lightning-charge"></i></div><h3>Battery Saver</h3><p>Optimized audio processing that extends battery life by up to 30%.</p></div>
+                <div class="card feature-card reveal"><div class="feature-icon"><i class="bi bi-headphones"></i></div><h3>Hi-Res Audio</h3><p>Support for lossless formats up to 24-bit/192kHz for studio-quality sound.</p></div>
             </div>
         </div>
     </section>
 
-    <!-- Version History - Dynamically Populated -->
     <section id="versions">
         <div class="container">
             <h2 class="features-title reveal">Version History</h2>
-
-            <div class="changelog-section">
-                <div class="accordion reveal" id="versionAccordion">
-                    <!-- Versions will be dynamically inserted here by JavaScript -->
-                    <div class="accordion-item loading-item">
-                        <div class="accordion-header" style="justify-content: center;">
-                            <div class="version-info">
-                                <span class="loading-spinner"></span>
-                                <span>Loading releases from GitHub...</span>
-                            </div>
-                        </div>
+            <div class="version-master-wrapper reveal">
+                <div class="version-master-container" id="versionMasterContainer">
+                    <div class="version-master-header">
+                        <div class="version-master-title"><i class="bi bi-clock-history"></i> All Releases <span class="version-badge" id="releaseCountBadge">Loading...</span></div>
+                        <i class="bi bi-chevron-down"></i>
+                    </div>
+                    <div class="version-master-content">
+                        <div id="compactVersionsList" class="versions-list-compact">Loading releases...</div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Installation Steps -->
-    <section id="installation">
-        <div class="container">
-            <h2 class="features-title reveal">How to Install</h2>
-            <div class="install-steps">
-                <div class="step reveal">
-                    <div class="step-number">1</div>
-                    <div class="step-content">
-                        <h4>Download the APK</h4>
-                        <p>Click the "Download APK" button above to download the AirBeats app file to your Android device.</p>
-                    </div>
-                </div>
-                <div class="step reveal">
-                    <div class="step-number">2</div>
-                    <div class="step-content">
-                        <h4>Enable Unknown Sources</h4>
-                        <p>Go to Settings → Security → Unknown Sources and enable installation from unknown sources.</p>
-                    </div>
-                </div>
-                <div class="step reveal">
-                    <div class="step-number">3</div>
-                    <div class="step-content">
-                        <h4>Install the App</h4>
-                        <p>Open the downloaded APK file from your notifications or file manager and tap "Install".</p>
-                    </div>
-                </div>
-                <div class="step reveal">
-                    <div class="step-number">4</div>
-                    <div class="step-content">
-                        <h4>Launch & Enjoy</h4>
-                        <p>Open AirBeats from your app drawer and start enjoying premium music experience!</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <section><div class="container"><h2 class="features-title reveal">How to Install</h2><div class="install-steps"><div class="step reveal"><div class="step-number">1</div><div class="step-content"><h4>Download the APK</h4><p>Click the "Download APK" button above to download the AirBeats app file to your Android device.</p></div></div><div class="step reveal"><div class="step-number">2</div><div class="step-content"><h4>Enable Unknown Sources</h4><p>Go to Settings → Security → Unknown Sources and enable installation from unknown sources.</p></div></div><div class="step reveal"><div class="step-number">3</div><div class="step-content"><h4>Install the App</h4><p>Open the downloaded APK file from your notifications or file manager and tap "Install".</p></div></div><div class="step reveal"><div class="step-number">4</div><div class="step-content"><h4>Launch & Enjoy</h4><p>Open AirBeats from your app drawer and start enjoying premium music experience!</p></div></div></div></div></section>
 
-    <!-- Screenshot -->
-    <section id="screenshot">
-        <div class="container">
-            <h2 class="features-title reveal">App Preview</h2>
-            <div class="screenshot-section">
-                <div class="screenshot-container reveal">
-                    <div class="screenshot-frame">
-                        <img src="https://raw.githubusercontent.com/drkvenom786/Airbeats/ad1fb647dc8d5661f793d973b901ecffbf48c21a/sc.png" alt="AirBeats App Interface" loading="lazy">
-                    </div>
-                    <div class="screenshot-label">AirBeats Music Player Interface</div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <section><div class="container"><h2 class="features-title reveal">App Preview</h2><div class="screenshot-section"><div class="screenshot-container reveal"><div class="screenshot-frame"><img src="https://raw.githubusercontent.com/drkvenom786/Airbeats/refs/heads/main/sc.png" alt="AirBeats Interface"></div><div class="screenshot-label"></div></div></div></div></section>
 
-    <!-- Developer Section -->
-    <section id="developers">
-        <div class="container">
-            <h2 class="features-title reveal">Meet The Team</h2>
-            <div class="dev-grid">
-                <div class="card dev-card reveal">
-                    <div class="dev-header">
-                        <img src="https://avatars.githubusercontent.com/u/218248866" class="dev-avatar" alt="DarkBoy">
-                        <div class="dev-info">
-                            <a href="https://t.me/thedarkagain" target="_blank" style="text-decoration: none;">
-                                <h3>DarkBoy</h3>
-                            </a>
-                            <div class="dev-role-container">
-                                <span class="dev-role">Lead Developer</span>
-                            </div>
-                            <div class="dev-bio">
-                                Architect behind AirBeats' core engine. Specializes in audio processing algorithms and performance optimization.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="dev-skills">
-                        <span class="skill-tag">Kotlin</span>
-                        <span class="skill-tag">C++</span>
-                        <span class="skill-tag">Audio DSP</span>
-                        <span class="skill-tag">Android NDK</span>
-                    </div>
-                </div>
+    <section id="developers"><div class="container"><h2 class="features-title reveal">Meet The Team</h2><div class="dev-grid"><div class="card dev-card reveal"><div class="dev-header"><img src="https://avatars.githubusercontent.com/u/218248866" class="dev-avatar"><div class="dev-info"><a href="https://darkboy.pro" target="_blank" rel="noopener noreferrer"><h3>DarkBoy</h3></a><div class="dev-role-container"><span class="dev-role">Lead Developer</span></div><div class="dev-bio">Architect behind AirBeats' core engine. Specializes in audio processing algorithms and performance optimization.</div></div></div><div class="dev-skills"><span class="skill-tag">Kotlin</span><span class="skill-tag">C++</span><span class="skill-tag">Audio DSP</span><span class="skill-tag">Android NDK</span></div></div><div class="card dev-card reveal"><div class="dev-header"><img src="https://avatars.githubusercontent.com/u/227567962" class="dev-avatar"><div class="dev-info"><a href="https://venomxhub.netlify.app" target="_blank" rel="noopener noreferrer"><h3>VENOM</h3></a><div class="dev-role-container"><span class="dev-role">UI/UX Specialist</span></div><div class="dev-bio">Crafts intuitive and beautiful interfaces with attention to animations and accessibility.</div></div></div><div class="dev-skills"><span class="skill-tag">UI Design</span><span class="skill-tag">Motion Design</span><span class="skill-tag">Figma</span><span class="skill-tag">Accessibility</span></div></div></div></div></section>
 
-                <div class="card dev-card reveal">
-                    <div class="dev-header">
-                        <img src="https://avatars.githubusercontent.com/u/227567962" class="dev-avatar" alt="Venom">
-                        <div class="dev-info">
-                            <a href="https://t.me/scarface_786" target="_blank" style="text-decoration: none;">
-                                <h3>VENOM</h3>
-                            </a>
-                            <div class="dev-role-container">
-                                <span class="dev-role" id="secretTrigger">UI/UX Specialist </span>
-                            </div>
-                            <div class="dev-bio">
-                                Crafts intuitive and beautiful interfaces with attention to animations and accessibility.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="dev-skills">
-                        <span class="skill-tag">UI Design</span>
-                        <span class="skill-tag">Motion Design</span>
-                        <span class="skill-tag">Figma</span>
-                        <span class="skill-tag">Accessibility</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
     <footer>
         <div class="container">
-            <p class="note">© 2025 AirBeats. All Rights Reserved. 
-                <span class="beating-hearts">
-                    <i class="bi bi-heart-fill"></i>
-                    <i class="bi bi-heart-fill"></i>
-                    <i class="bi bi-heart-fill"></i>
-                </span>
+            <p class="note">© 2025 AirBeats. All Rights Reserved.
+            <br>
+                <span class="beating-hearts"><i class="bi bi-heart-fill"></i><i class="bi bi-heart-fill"></i><i class="bi bi-heart-fill"></i></span>
             </p>
             <p class="note">Made with <i class="bi bi-heart-fill" style="color: var(--primary);"></i> by DarkBoy & Venom</p>
         </div>
     </footer>
-
-    <!-- Floating Action Button -->
-    <button class="fab" id="backToTop" aria-label="Back to top">
-        <i class="bi bi-arrow-up"></i>
-    </button>
+    <button class="fab" id="backToTop"><i class="bi bi-arrow-up"></i></button>
 
     <script>
-        // DOM Elements
         const themeToggle = document.getElementById('themeToggle');
         const downloadBtn = document.getElementById('downloadBtn');
         const downloadBtnText = document.getElementById('downloadBtnText');
@@ -1510,523 +1694,198 @@
         const shareBtn = document.getElementById('shareBtn');
         const backToTop = document.getElementById('backToTop');
         const downloadToast = document.getElementById('downloadToast');
-        const downloadToastMessage = document.getElementById('downloadToastMessage');
-        const secretToast = document.getElementById('secretToast');
-        const floatingHearts = document.getElementById('floatingHearts');
+        const toastMsg = document.getElementById('downloadToastMessage');
         const visualizer = document.getElementById('visualizer');
         const secretAudio = document.getElementById('secretAudio');
         const rhythmPlayer = document.getElementById('rhythmPlayer');
         const rhythmIcon = document.getElementById('rhythmIcon');
         const appLogo = document.getElementById('appLogo');
         const versionNote = document.getElementById('versionNote');
-        const versionAccordion = document.getElementById('versionAccordion');
-        const jsonLdScript = document.getElementById('json-ld');
-        const secretTrigger = document.getElementById('secretTrigger');
+        const compactList = document.getElementById('compactVersionsList');
+        const releaseCountBadge = document.getElementById('releaseCountBadge');
+        const versionMasterContainer = document.getElementById('versionMasterContainer');
+        const masterHeader = document.querySelector('.version-master-header');
 
-        // App State
         let isPlaying = false;
         let audioLoaded = false;
         let isLooping = true;
-        let hideButtonTimeout = null;
         let latestRelease = null;
         let allReleases = [];
 
-        // Secret message trigger (double click)
-        if (secretTrigger) {
-            let clickCount = 0;
-            let clickTimer = null;
-            
-            secretTrigger.addEventListener('click', function() {
-                clickCount++;
-                
-                if (clickCount === 1) {
-                    clickTimer = setTimeout(() => {
-                        clickCount = 0;
-                    }, 300);
-                } else if (clickCount === 2) {
-                    clearTimeout(clickTimer);
-                    clickCount = 0;
-                    
-                    // Show beautiful secret message
-                    showSecretMessage();
-                }
+        function createParticles() {
+            for(let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * window.innerWidth + 'px';
+                particle.style.top = Math.random() * window.innerHeight + 'px';
+                particle.style.background = `hsl(${Math.random() * 360}, 100%, 60%)`;
+                particle.style.width = Math.random() * 6 + 2 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.animationDelay = Math.random() * 0.5 + 's';
+                document.body.appendChild(particle);
+                setTimeout(() => particle.remove(), 1500);
+            }
+        }
+
+        window.addEventListener('load', () => {
+            setTimeout(createParticles, 100);
+        });
+
+        if (masterHeader) {
+            masterHeader.addEventListener('click', (e) => {
+                e.stopPropagation();
+                versionMasterContainer.classList.toggle('open');
             });
         }
 
-        // Create floating hearts for secret message
-        function createFloatingHearts() {
-            floatingHearts.innerHTML = '';
-            for (let i = 0; i < 20; i++) {
-                const heart = document.createElement('i');
-                heart.className = 'bi bi-heart-fill';
-                heart.style.left = Math.random() * 100 + '%';
-                heart.style.animationDelay = Math.random() * 2 + 's';
-                heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
-                heart.style.opacity = Math.random() * 0.5 + 0.2;
-                floatingHearts.appendChild(heart);
-            }
-        }
+        function showDownloadToastMsg(msg) { toastMsg.textContent = msg; downloadToast.classList.add('show'); setTimeout(() => downloadToast.classList.remove('show'), 3000); }
 
-        function showSecretMessage() {
-            createFloatingHearts();
-            secretToast.classList.add('show');
-            
-            // Auto hide after 5 seconds
-            setTimeout(() => {
-                secretToast.classList.remove('show');
-            }, 5000);
-        }
-
-        // Show download toast (only toast remaining)
-        function showDownloadToast(message) {
-            downloadToastMessage.textContent = message;
-            downloadToast.classList.add('show');
-            setTimeout(() => {
-                downloadToast.classList.remove('show');
-            }, 3000);
-        }
-
-        // ========== FETCH ALL RELEASES FROM GITHUB ==========
         async function fetchAllReleases() {
             try {
-                // Try multiple possible API endpoints
-                const possibleUrls = [
-                    "https://api.github.com/repos/d0x-dev/Airbeats/releases",
-                    "https://api.github.com/repos/d0x-dev/AirBeats/releases",
-                    "https://api.github.com/repos/d0x-dev/airbeats/releases"
-                ];
-                
-                let response = null;
+                const possibleUrls = ["https://api.github.com/repos/d0x-dev/Airbeats/releases", "https://api.github.com/repos/d0x-dev/AirBeats/releases"];
                 let data = null;
-                
                 for (const url of possibleUrls) {
-                    try {
-                        console.log("Trying URL:", url);
-                        const res = await fetch(url);
-                        if (res.ok) {
-                            response = res;
-                            data = await res.json();
-                            console.log("Success with URL:", url, "Found", data.length, "releases");
-                            break;
-                        }
-                    } catch (e) {
-                        console.log("Failed with URL:", url);
-                    }
+                    try { const res = await fetch(url); if (res.ok) { data = await res.json(); break; } } catch(e) {}
                 }
-                
-                if (!response || !data) {
-                    throw new Error("Could not fetch from any GitHub API endpoint");
-                }
-
-                // Sort releases by published date (newest first)
-                allReleases = data.sort((a, b) => {
-                    return new Date(b.published_at) - new Date(a.published_at);
-                });
-
-                // Get the latest release (first in array)
+                if (!data) throw new Error("Fallback");
+                allReleases = data.sort((a,b)=> new Date(b.published_at) - new Date(a.published_at));
                 latestRelease = allReleases[0];
-
-                // Update the UI with all releases
-                updateUIWithAllReleases();
-
+                renderCompactVersionList();
+                updateMainButton();
             } catch (error) {
-                console.error("Failed to fetch releases:", error);
-                versionNote.innerHTML = 'Android 8.0+ · Secure APK · Using fallback data';
-                
-                // Use fallback data from the API response you provided
                 allReleases = [
-                    {
-                        tag_name: "v3.1.0",
-                        name: "V3.1.0",
-                        published_at: "2026-02-10T08:43:16Z",
-                        prerelease: false,
-                        body: "Experience sound like never before. Immerse yourself in crystal-clear audio, personalized playlists, and intuitive controls designed for true music lovers. Now with enhanced offline caching!",
-                        assets: [
-                            {
-                                name: "AirBeats_v3.1.0_signed.apk",
-                                size: 8418389,
-                                browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/v3.1.0/AirBeats_v3.1.0_signed.apk"
-                            }
-                        ]
-                    },
-                    {
-                        tag_name: "v2.0.10",
-                        name: "V2.0.10",
-                        published_at: "2026-02-10T08:57:57Z",
-                        prerelease: true,
-                        body: "Experience sound like never before. Immerse yourself in crystal-clear audio, personalized playlists, and intuitive controls designed for true music lovers. Now with enhanced offline caching!",
-                        assets: [
-                            {
-                                name: "AirBeats_v2.0.10_signed.apk",
-                                size: 34128498,
-                                browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/v2.0.10/AirBeats_v2.0.10_signed.apk"
-                            }
-                        ]
-                    }
+                    { tag_name: "v3.1.0", name: "V3.1.0", published_at: "2026-02-10T08:43:16Z", prerelease: false, body: "Experience sound like never before. Immerse yourself in crystal-clear audio, personalized playlists, and intuitive controls designed for true music lovers. Now with enhanced offline caching!", assets: [{ name: "AirBeats_v3.1.0_signed.apk", size: 8418389, browser_download_url: "#" }] },
+                    { tag_name: "v2.0.10", name: "V2.0.10", published_at: "2026-02-10T08:57:57Z", prerelease: true, body: "Experience sound like never before. Immerse yourself in crystal-clear audio, personalized playlists, and intuitive controls designed for true music lovers. Now with enhanced offline caching!", assets: [{ name: "AirBeats_v2.0.10_signed.apk", size: 34128498, browser_download_url: "#" }] }
                 ];
-                
                 latestRelease = allReleases[0];
-                updateUIWithAllReleases();
+                renderCompactVersionList();
+                updateMainButton();
             }
         }
 
-        function updateUIWithAllReleases() {
-            // Clear the accordion
-            versionAccordion.innerHTML = '';
-            
-            // Loop through all releases and create accordion items
-            allReleases.forEach((release, index) => {
-                const isLatest = index === 0;
-                const versionTag = release.tag_name || 'v?.?.?';
-                const versionName = release.name || 'Release';
-                const publishedDate = release.published_at ? new Date(release.published_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Unknown date';
-                const releaseNotes = release.body || 'No release notes provided.';
-                const isPrerelease = release.prerelease || false;
-                
-                // Find APK asset
-                const apkAsset = release.assets.find(asset => asset.name && asset.name.toLowerCase().endsWith('.apk'));
-                let downloadUrl = "#";
-                let fileSize = "?.?";
-                
-                if (apkAsset) {
-                    downloadUrl = apkAsset.browser_download_url;
-                    fileSize = apkAsset.size ? (apkAsset.size / (1024 * 1024)).toFixed(2) : "?.?";
-                }
-
-                // Create accordion item
-                const accordionItem = document.createElement('div');
-                accordionItem.className = 'accordion-item';
-                if (isLatest) {
-                    accordionItem.id = 'latest-release-item';
-                }
-
-                // Format release notes as HTML
-                let notesHtml = '';
-                if (releaseNotes) {
-                    const lines = releaseNotes.split('\n');
-                    lines.forEach(line => {
-                        const trimmed = line.trim();
-                        if (trimmed) {
-                            let text = trimmed.replace(/^[-*•]\s*/, '');
-                            notesHtml += `<li>${text}</li>`;
-                        }
-                    });
-                }
-                if (!notesHtml) {
-                    notesHtml = '<li>No release notes available.</li>';
-                }
-
-                // Build the HTML
-                accordionItem.innerHTML = `
-                    <div class="accordion-header">
-                        <div class="version-info">
-                            <span class="version-tag ${isPrerelease ? 'prerelease' : ''}">${versionTag}${isPrerelease ? ' (Pre-release)' : ''}</span>
-                            <span class="version-title">${versionName}</span>
-                            <span class="version-date">${publishedDate}</span>
+        function renderCompactVersionList() {
+            if (!compactList) return;
+            releaseCountBadge.textContent = `${allReleases.length} releases`;
+            if (allReleases.length === 0) { compactList.innerHTML = '<div class="note">No releases found.</div>'; return; }
+            let html = '';
+            allReleases.forEach(rel => {
+                const versionTag = rel.tag_name || 'v?.?.?';
+                const pubDate = rel.published_at ? new Date(rel.published_at).toLocaleDateString('en-US', { year:'numeric', month:'short', day:'numeric' }) : 'Unknown';
+                const isPre = rel.prerelease || false;
+                const notes = rel.body ? rel.body.split('\n').filter(l=>l.trim())[0] || 'Feature release' : 'Feature release';
+                const apkAsset = rel.assets.find(a=>a.name && a.name.endsWith('.apk'));
+                const downloadUrl = apkAsset ? apkAsset.browser_download_url : '#';
+                const fileSize = apkAsset ? (apkAsset.size/(1024*1024)).toFixed(2) : '?.?';
+                html += `
+                    <div class="version-compact-item">
+                        <div class="version-compact-header">
+                            <span class="version-tag-sm ${isPre ? 'prerelease' : ''}">${versionTag} ${isPre ? 'Pre-release' : ''}</span>
+                            <span class="version-date-sm">${pubDate}</span>
                         </div>
-                        <i class="bi bi-chevron-down"></i>
-                    </div>
-                    <div class="accordion-content">
-                        <div class="version-content">
-                            <ul class="version-features-list">
-                                ${notesHtml}
-                            </ul>
-                            <div class="version-download-area">
-                                <div class="version-size">
-                                    <i class="bi bi-hdd"></i> APK Size: ${fileSize} MB
-                                </div>
-                                <a href="${downloadUrl}" class="version-download-btn ${!apkAsset ? 'outline' : ''}">
-                                    <i class="bi bi-download"></i> Download ${versionTag}
-                                </a>
-                            </div>
+                        <div class="version-notes-preview">✨ ${notes.substring(0, 100)}</div>
+                        <div class="version-download-sm">
+                            <a href="${downloadUrl}" class="download-sm-btn" data-version="${versionTag}"><i class="bi bi-download"></i> ${fileSize} MB</a>
                         </div>
                     </div>
                 `;
-
-                versionAccordion.appendChild(accordionItem);
             });
+            compactList.innerHTML = html;
+            document.querySelectorAll('.download-sm-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => { e.stopPropagation(); if(btn.getAttribute('href') !== '#') showDownloadToastMsg(`Downloading ${btn.getAttribute('data-version')}...`); });
+            });
+        }
 
-            // Update main download button with latest release (just show "Download Latest APK")
+        function updateMainButton() {
             if (latestRelease) {
-                const latestApkAsset = latestRelease.assets.find(asset => asset.name && asset.name.toLowerCase().endsWith('.apk'));
-                if (latestApkAsset) {
-                    downloadBtn.href = latestApkAsset.browser_download_url;
-                    // Keep the text as "Download Latest APK" (no version number)
-                    downloadBtnText.textContent = `Download Latest APK`;
-                    versionNote.innerHTML = `Android 8.0+ · Secure APK · Latest: ${latestRelease.tag_name}`;
-
-                    // Update JSON-LD
-                    try {
-                        const jsonLd = JSON.parse(jsonLdScript.textContent);
-                        jsonLd.softwareVersion = latestRelease.tag_name;
-                        jsonLd.downloadUrl = latestApkAsset.browser_download_url;
-                        jsonLdScript.textContent = JSON.stringify(jsonLd, null, 2);
-                    } catch (e) {
-                        console.error("Failed to update JSON-LD", e);
-                    }
-                }
+                const apkAsset = latestRelease.assets.find(a=>a.name && a.name.endsWith('.apk'));
+                if (apkAsset) { downloadBtn.href = apkAsset.browser_download_url; downloadBtnText.textContent = `Download Latest APK`; versionNote.innerHTML = `Android 8.0+ · Secure APK · Latest: ${latestRelease.tag_name}`; }
+                else { downloadBtn.href = "#"; versionNote.innerHTML = `Android 8.0+ · Secure APK`; }
+                try { const jsonLd = JSON.parse(document.getElementById('json-ld').textContent); jsonLd.softwareVersion = latestRelease.tag_name; jsonLd.downloadUrl = downloadBtn.href; document.getElementById('json-ld').textContent = JSON.stringify(jsonLd); } catch(e) {}
             }
-
-            // Re-attach accordion event listeners
-            attachAccordionListeners();
-
-            // Auto-open the latest release
-            setTimeout(() => {
-                const firstItem = versionAccordion.querySelector('.accordion-item');
-                if (firstItem) {
-                    firstItem.classList.add('open');
-                    const content = firstItem.querySelector('.accordion-content');
-                    if (content) {
-                        content.style.maxHeight = content.scrollHeight + 'px';
-                    }
-                }
-            }, 500);
         }
 
-        function attachAccordionListeners() {
-            document.querySelectorAll('.accordion').forEach(acc => {
-                acc.querySelectorAll('.accordion-item').forEach(item => {
-                    const header = item.querySelector('.accordion-header');
-                    const content = item.querySelector('.accordion-content');
-                    
-                    // Remove existing listeners by cloning and replacing
-                    const newHeader = header.cloneNode(true);
-                    header.parentNode.replaceChild(newHeader, header);
-                    
-                    newHeader.addEventListener('click', () => {
-                        const isOpen = item.classList.contains('open');
-                        if (!isOpen) {
-                            // Close others
-                            acc.querySelectorAll('.accordion-item.open').forEach(o => {
-                                o.classList.remove('open');
-                                const oContent = o.querySelector('.accordion-content');
-                                if (oContent) oContent.style.maxHeight = 0;
-                            });
-                            item.classList.add('open');
-                            if (content) content.style.maxHeight = content.scrollHeight + 'px';
-                        } else {
-                            item.classList.remove('open');
-                            if (content) content.style.maxHeight = 0;
-                        }
-                    });
-                });
-            });
-        }
+        function setTheme(theme) { document.documentElement.setAttribute('data-theme', theme); localStorage.setItem('theme', theme); themeToggle.innerHTML = theme === 'dark' ? '<i class="bi bi-sun"></i>' : '<i class="bi bi-moon-stars"></i>'; }
+        const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); setTheme(savedTheme);
+        themeToggle.addEventListener('click', () => { const cur = document.documentElement.getAttribute('data-theme'); setTheme(cur === 'dark' ? 'light' : 'dark'); });
+        downloadBtn.addEventListener('click', (e) => { if(downloadBtn.href !== '#') showDownloadToastMsg(`Downloading AirBeats...`); });
+        copyLinkBtn.addEventListener('click', () => { if(downloadBtn.href !== '#') navigator.clipboard.writeText(downloadBtn.href); showDownloadToastMsg("Link copied!"); });
 
-        // ========== EXISTING FUNCTIONS (Theme, Visualizer, Audio) ==========
-        function setTheme(theme) {
-            document.documentElement.setAttribute('data-theme', theme);
-            localStorage.setItem('theme', theme);
-            themeToggle.innerHTML = theme === 'dark' ? '<i class="bi bi-sun"></i>' : '<i class="bi bi-moon-stars"></i>';
-        }
+        // ========== ENHANCED SHARE WITH ICON (sends both message and app icon) ==========
+        const appIconUrl = "https://raw.githubusercontent.com/drkvenom786/Airbeats/137e3935198c25bfbd5eef1a050002ed52fa84ff/icon.png";
 
-        // Initialize theme
-        const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        setTheme(savedTheme);
+        // Your exact requested share message with perfect formatting and emojis
+        const shareMessage = `🎧 Step into the future of music ✨
+AirBeats brings you seamless streaming & pure vibes 🔥
 
-        themeToggle.addEventListener('click', () => {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            setTheme(newTheme);
-        });
-
-        downloadBtn.addEventListener('click', (e) => {
-            if (downloadBtn.href !== '#') {
-                showDownloadToast(`Downloading AirBeats...`);
-            }
-        });
-
-        copyLinkBtn.addEventListener('click', () => {
-            if (downloadBtn.href !== '#') {
-                navigator.clipboard.writeText(downloadBtn.href);
-            }
-        });
+📲 Download the app now to start listening 🚀
+🎶 Your vibe starts here 👇`;
 
         shareBtn.addEventListener('click', async () => {
-            const shareData = {
-                title: `AirBeats Music App`,
-                text: 'Check out AirBeats - an amazing music player with premium features!',
-                url: window.location.href
-            };
-            try {
-                if (navigator.share) {
-                    await navigator.share(shareData);
+            if (navigator.share) {
+                try {
+                    // Fetch the app icon as a blob to attach as a file
+                    const response = await fetch(appIconUrl);
+                    if (response.ok) {
+                        const blob = await response.blob();
+                        const file = new File([blob], 'airbeats-icon.png', { type: 'image/png' });
+
+                        // Try to share with the icon file (this sends the image along with the message)
+                        await navigator.share({
+                            title: 'AirBeats - Future of Music',
+                            text: shareMessage,
+                            url: window.location.href,
+                            files: [file]
+                        });
+                        showDownloadToastMsg("✨ Shared with AirBeats icon!");
+                        return;
+                    }
+                } catch (shareError) {
+                    console.warn("Share with file failed, trying text-only share", shareError);
                 }
-            } catch (err) {}
-        });
 
-        backToTop.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        window.addEventListener('scroll', () => {
-            backToTop.style.display = window.scrollY > 500 ? 'flex' : 'none';
-        });
-
-        // Audio functions
-        function loadAudio() {
-            if (!audioLoaded) {
-                secretAudio.loop = isLooping;
-                secretAudio.load();
-                audioLoaded = true;
-            }
-        }
-
-        function showRhythmPlayer() {
-            rhythmPlayer.classList.remove('hiding');
-            rhythmPlayer.classList.add('show');
-            if (hideButtonTimeout) {
-                clearTimeout(hideButtonTimeout);
-                hideButtonTimeout = null;
-            }
-        }
-
-        function hideRhythmPlayer() {
-            rhythmPlayer.classList.add('hiding');
-            setTimeout(() => {
-                rhythmPlayer.classList.remove('show', 'playing', 'looping');
-                rhythmPlayer.classList.remove('hiding');
-            }, 500);
-        }
-
-        function scheduleHideButton() {
-            if (hideButtonTimeout) clearTimeout(hideButtonTimeout);
-            hideButtonTimeout = setTimeout(() => {
-                if (!isPlaying) hideRhythmPlayer();
-            }, 5000);
-        }
-
-        function playRhythm() {
-            loadAudio();
-            secretAudio.play().then(() => {
-                isPlaying = true;
-                showRhythmPlayer();
-                rhythmPlayer.classList.add('playing');
-                if (isLooping) rhythmPlayer.classList.add('looping');
-                rhythmIcon.className = 'bi bi-pause-fill';
-                appLogo.classList.add('logo-playing');
-            }).catch(error => {});
-        }
-
-        function pauseRhythm() {
-            secretAudio.pause();
-            isPlaying = false;
-            rhythmPlayer.classList.remove('playing');
-            appLogo.classList.remove('logo-playing');
-            rhythmIcon.className = 'bi bi-play-fill';
-            scheduleHideButton();
-        }
-
-        function toggleRhythm() {
-            isPlaying ? pauseRhythm() : playRhythm();
-        }
-
-        appLogo.addEventListener('click', function(event) {
-            if (event.detail === 2) toggleRhythm();
-        });
-
-        rhythmPlayer.addEventListener('click', (e) => {
-            e.stopPropagation();
-            toggleRhythm();
-        });
-
-        rhythmPlayer.addEventListener('mouseenter', () => {
-            if (!isPlaying) {
-                showRhythmPlayer();
-                scheduleHideButton();
+                // Fallback: share without file but still with the message and URL
+                try {
+                    await navigator.share({
+                        title: 'AirBeats - Future of Music',
+                        text: shareMessage,
+                        url: window.location.href
+                    });
+                } catch (err) {
+                    if (err.name !== "AbortError") showDownloadToastMsg("Sharing cancelled");
+                }
+            } else {
+                // For browsers without Web Share API, copy to clipboard with full message + URL
+                const fullShareText = `${shareMessage}\n\n${window.location.href}`;
+                navigator.clipboard.writeText(fullShareText);
+                showDownloadToastMsg("📋 Link & message copied to clipboard!");
             }
         });
 
-        // Visualizer
+        backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        window.addEventListener('scroll', () => backToTop.style.display = window.scrollY > 500 ? 'flex' : 'none');
+
+        function loadAudio() { if (!audioLoaded) { secretAudio.loop = isLooping; secretAudio.load(); audioLoaded = true; } }
+        function playRhythm() { loadAudio(); secretAudio.play().then(()=>{ isPlaying=true; rhythmPlayer.classList.add('playing'); rhythmIcon.className='bi bi-pause-fill'; appLogo.classList.add('logo-playing'); }).catch(e=>{}); }
+        function pauseRhythm() { secretAudio.pause(); isPlaying=false; rhythmPlayer.classList.remove('playing'); appLogo.classList.remove('logo-playing'); rhythmIcon.className='bi bi-play-fill'; }
+        function toggleRhythm() { isPlaying ? pauseRhythm() : playRhythm(); }
+
+        appLogo.addEventListener('click', (e) => { e.stopPropagation(); toggleRhythm(); });
+        rhythmPlayer.addEventListener('click', (e) => { e.stopPropagation(); toggleRhythm(); });
+
         function createVisualizer() {
             visualizer.innerHTML = '';
-            const screenWidth = window.innerWidth;
-            let barCount = screenWidth < 480 ? 25 : screenWidth < 768 ? 35 : screenWidth < 1024 ? 45 : 55;
-            for (let i = 0; i < barCount; i++) {
-                const bar = document.createElement('div');
-                bar.className = 'visualizer-bar';
-                bar.style.animation = 'visualizerPulse 2s infinite alternate';
-                visualizer.appendChild(bar);
-            }
-            animateVisualizer();
+            const barCount = window.innerWidth < 480 ? 20 : window.innerWidth < 768 ? 30 : 45;
+            for(let i=0;i<barCount;i++) { let bar = document.createElement('div'); bar.className='visualizer-bar'; visualizer.appendChild(bar); }
+            function animate(){ document.querySelectorAll('.visualizer-bar').forEach((bar,i)=>{ let wave = Math.sin(Date.now()*0.003 + i*0.2)*0.5+0.5; bar.style.height = `${15+wave*75}%`; }); requestAnimationFrame(animate); }
+            animate();
         }
-
-        function animateVisualizer() {
-            const bars = document.querySelectorAll('.visualizer-bar');
-            bars.forEach((bar, index) => {
-                const time = Date.now() * 0.002;
-                const wave = Math.sin(time + index * 0.3) * 0.5 + 0.5;
-                const newHeight = 10 + wave * 70;
-                bar.style.height = `${newHeight}%`;
-                const hue = (index * 5 + time * 10) % 360;
-                bar.style.background = `linear-gradient(to top, hsl(${hue}, 100%, 60%) 0%, var(--primary) 70%, var(--accent) 100%)`;
-            });
-            requestAnimationFrame(animateVisualizer);
-        }
-
         createVisualizer();
+        window.addEventListener('resize', () => { setTimeout(createVisualizer, 200); });
 
-        window.addEventListener('resize', () => {
-            clearTimeout(window.resizeTimeout);
-            window.resizeTimeout = setTimeout(createVisualizer, 250);
-        });
+        const observer = new IntersectionObserver((entries)=>entries.forEach(e=>e.isIntersecting&&e.target.classList.add('show')), {threshold:0.1});
+        document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 
-        // Reveal animations
-        function initRevealAnimations() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) entry.target.classList.add('show');
-                });
-            }, { threshold: 0.1 });
-            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-        }
-
-        // Keyboard shortcuts (removed toasts)
-        document.addEventListener('keydown', (e) => {
-            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-            if (e.key.toLowerCase() === 't') { e.preventDefault(); themeToggle.click(); }
-            if (e.key.toLowerCase() === 'd') { e.preventDefault(); downloadBtn.click(); }
-            if (e.key === ' ') { e.preventDefault(); toggleRhythm(); }
-            if (e.key.toLowerCase() === 'r' && !isPlaying) { e.preventDefault(); playRhythm(); }
-            if (e.key.toLowerCase() === 'p' && isPlaying) { e.preventDefault(); pauseRhythm(); }
-            if (e.key.toLowerCase() === 'l') {
-                e.preventDefault();
-                isLooping = !isLooping;
-                secretAudio.loop = isLooping;
-                isLooping ? rhythmPlayer.classList.add('looping') : rhythmPlayer.classList.remove('looping');
-            }
-            if (e.key.toLowerCase() === 's') {
-                e.preventDefault();
-                document.querySelector('.screenshot-frame').classList.toggle('zoomed');
-            }
-        });
-
-        // Konami code (removed toast)
-        let konamiCode = [];
-        const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-        document.addEventListener('keydown', (e) => {
-            konamiCode.push(e.key);
-            if (konamiCode.length > konamiSequence.length) konamiCode.shift();
-            if (konamiCode.join(',') === konamiSequence.join(',')) {
-                document.body.style.animation = 'rainbow 2s linear';
-                setTimeout(() => document.body.style.animation = '', 2000);
-                konamiCode = [];
-                if (!isPlaying) playRhythm();
-            }
-        });
-
-        // Screenshot click
-        document.querySelector('.screenshot-frame').addEventListener('click', function() {
-            this.classList.toggle('zoomed');
-        });
-
-        // Initialize everything
-        document.addEventListener('DOMContentLoaded', () => {
-            initRevealAnimations();
-            fetchAllReleases(); // Fetch all releases from GitHub
-            
-            document.body.addEventListener('click', loadAudio, { once: true });
-        });
+        fetchAllReleases();
     </script>
 </body>
 </html>
