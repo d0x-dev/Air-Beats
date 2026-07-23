@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AirBeats – Free Immersive Music Streaming & Web Audio Player</title>
+    
+    <!-- Primary Meta Tags -->
+    <meta name="description" content="Step into the future of music streaming with AirBeats. Experience high-quality audio streaming, real-time sound visualizers, custom equalizers, and pure vibes with zero ads.">
+    <meta name="keywords" content="AirBeats, music app, free music player, audio streaming, sound visualizer, equalizer, Spotify alternative, ad free music">
+    <meta name="theme-color" content="#ff1178">
+    <meta name="author" content="AirBeats Team">
+    <link rel="canonical" href="https://airbeats.app/">
+
+    <!-- Indexing & Crawler Directives -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+    <!-- Open Graph / Facebook / Discord -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://airbeats.app/">
+    <meta property="og:title" content="AirBeats – Immersive Music Experience & Web Audio Player">
+    <meta property="og:description" content="Step into the future of music streaming with AirBeats. High-quality sound, immersive visualizers, custom equalizers, and pure vibes with zero ads.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/drkvenom786/Airbeats/137e3935198c25bfbd5eef1a050002ed52fa84ff/icon.png">
+    <meta property="og:site_name" content="AirBeats">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter / X Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://airbeats.app/">
+    <meta name="twitter:title" content="AirBeats – Immersive Music Experience">
+    <meta name="twitter:description" content="Step into the future of music streaming with AirBeats. High-quality audio, real-time sound visualizer, and immersive soundscapes.">
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/drkvenom786/Airbeats/137e3935198c25bfbd5eef1a050002ed52fa84ff/icon.png">
+
+    <!-- Favicon -->
+    <link rel="icon" href="https://raw.githubusercontent.com/drkvenom786/Airbeats/137e3935198c25bfbd5eef1a050002ed52fa84ff/icon.png" type="image/png">
+
+    <!-- Google Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+    <!-- Application Stylesheet -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Google Validated Schema.org JSON-LD Structured Data Graph -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebApplication",
+          "@id": "https://airbeats.app/#webapp",
+          "url": "https://airbeats.app/",
+          "name": "AirBeats",
+          "alternateName": ["Air Beats", "AirBeats Player", "AirBeats Music Streaming"],
+          "description": "AirBeats is an advanced web-based music player and audio streaming application offering immersive visualizers, custom equalizers, and high-fidelity sound streaming without ads.",
+          "applicationCategory": "MultimediaApplication",
+          "operatingSystem": "All (Web Browser, Android, iOS, Windows, macOS, Linux)",
+          "offers": {
+            "@type": "Offer",
+            "price": "0.00",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock"
+          },
+          "author": {
+            "@type": "Organization",
+            "name": "AirBeats Team",
+            "url": "https://airbeats.app/"
+          }
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://airbeats.app/#organization",
+          "name": "AirBeats",
+          "url": "https://airbeats.app/",
+          "logo": "https://raw.githubusercontent.com/drkvenom786/Airbeats/137e3935198c25bfbd5eef1a050002ed52fa84ff/icon.png",
+          "sameAs": [
+            "https://github.com/drkvenom786/Airbeats"
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://airbeats.app/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is AirBeats?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "AirBeats is an immersive online web music player and audio streaming platform featuring real-time audio visualizers, custom equalization, high-quality audio playback, and a futuristic user interface."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is AirBeats completely free to use?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes! AirBeats is 100% free to use in any web browser on desktop and mobile devices, with zero subscription fees or ad interruptions."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does AirBeats support Android and Windows devices?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, AirBeats offers native application builds for Android (APK) and Windows, as well as a fully responsive Progressive Web Application (PWA)."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+
+    <!-- Controls -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle Dark and Light Mode"><i class="bi bi-moon-stars"></i></button>
+
+    <!-- Download Modal -->
+    <div class="modal-overlay" id="downloadModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Download AirBeats</h2>
+                <p id="modalSubtitle">Select your preferred build</p>
+            </div>
+            <div class="modal-options" id="modalOptions"></div>
+            <button class="modal-close-btn" onclick="document.getElementById('downloadModal').classList.remove('show')">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="download-toast" id="downloadToast">
+        <i class="bi bi-cloud-check"></i>
+        <span id="downloadToastMessage"></span>
+    </div>
+
+    <!-- Header Section -->
+    <header>
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+
+        <div class="container">
+            <div class="logo-container">
+                <div class="glowing-line"></div>
+                <img src="https://raw.githubusercontent.com/drkvenom786/Airbeats/137e3935198c25bfbd5eef1a050002ed52fa84ff/icon.png" class="app-logo" id="appLogo" alt="AirBeats Logo – Web Audio Player">
+            </div>
+
+            <!-- Single H1 Heading for Google #1 Ranking -->
+            <h1 class="hero-title">AirBeats</h1>
+            <p class="hero-subtitle">Step into the future of music streaming. Experience high-quality audio streaming, real-time sound visualizers, custom equalizers, and pure vibes with zero ads.</p>
+
+            <div class="platform-tabs" id="platformTabs">
+                <button class="platform-tab active" data-platform="android"><i class="bi bi-android2"></i> Android</button>
+                <button class="platform-tab" data-platform="windows"><i class="bi bi-windows"></i> Windows</button>
+            </div>
+
+            <div class="btns">
+                <a href="#" class="btn btn-primary" id="downloadBtn"><i class="bi bi-download"></i> <span id="downloadBtnText">Download APK</span></a>
+                <button class="btn btn-secondary" id="copyLinkBtn"><i class="bi bi-link-45deg"></i> Copy Link</button>
+                <button class="btn btn-secondary" id="shareBtn"><i class="bi bi-share"></i> Share App</button>
+            </div>
+
+            <div class="note" id="versionNote">Fetching latest version releases...</div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main>
+        <!-- Real-Time Audio Visualizer Section -->
+        <section id="visualizer-section">
+            <div class="container">
+                <div class="visualizer-container" id="visualizer"></div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features">
+            <div class="container">
+                <h2 class="features-title">Next-Gen Audio Features</h2>
+                <div class="features-scroller">
+                    <article class="card feature-card">
+                        <div class="feature-icon"><i class="bi bi-music-note-beamed"></i></div>
+                        <h3>Smart Playlists</h3>
+                        <p>AI-powered playlist generation that adapts to your activity, listening habits, and genre preferences.</p>
+                    </article>
+                    <article class="card feature-card">
+                        <div class="feature-icon"><i class="bi bi-sliders"></i></div>
+                        <h3>10-Band Equalizer</h3>
+                        <p>Customize bass boost, treble, and genre presets with precision 10-band equalization parameters.</p>
+                    </article>
+                    <article class="card feature-card">
+                        <div class="feature-icon"><i class="bi bi-cloud"></i></div>
+                        <h3>Cloud Synchronization</h3>
+                        <p>Seamlessly sync your music library across Android, Windows, and web browsers in real-time.</p>
+                    </article>
+                    <article class="card feature-card">
+                        <div class="feature-icon"><i class="bi bi-hdd"></i></div>
+                        <h3>Smart Offline Cache</h3>
+                        <p>Advanced client-side caching ensures continuous high-fidelity audio playback without internet.</p>
+                    </article>
+                    <article class="card feature-card">
+                        <div class="feature-icon"><i class="bi bi-moon-stars"></i></div>
+                        <h3>OLED Dark Mode</h3>
+                        <p>Ultra-sleek dark interface built with OLED power optimization for nighttime listening.</p>
+                    </article>
+                    <article class="card feature-card">
+                        <div class="feature-icon"><i class="bi bi-headphones"></i></div>
+                        <h3>Lossless Studio Audio</h3>
+                        <p>Stream hi-res audio up to 24-bit/192kHz studio quality with dynamic range compression.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- How to Install Section -->
+        <section id="install">
+            <div class="container">
+                <h2 class="features-title">How to Install AirBeats</h2>
+                <div class="install-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Download Build</h4>
+                            <p>Click the "Download" button above to get the official AirBeats APK or Windows installer.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Enable Permissions</h4>
+                            <p>On Android, allow installation from unknown sources in Settings → Security if prompted.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Install & Launch</h4>
+                            <p>Open the downloaded installer file and follow the quick setup wizard.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>Stream Music</h4>
+                            <p>Launch AirBeats to start enjoying ad-free, high-quality audio streaming immediately!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Frequently Asked Questions (FAQ) -->
+        <section id="faq">
+            <div class="container">
+                <h2 class="features-title">Frequently Asked Questions</h2>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <h3>What is AirBeats?</h3>
+                        <p>AirBeats is a free, modern web music player and application offering ad-free high quality audio streaming, real-time sound visualizers, and custom audio processing.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Is AirBeats completely free to use?</h3>
+                        <p>Yes! AirBeats is 100% free with zero subscription fees, hidden costs, or advertisement interruptions.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Which platforms are supported by AirBeats?</h3>
+                        <p>AirBeats is available on Android (APK), Windows 10/11, and any modern web browser via progressive web application standard.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section id="team">
+            <div class="container">
+                <h2 class="features-title">Meet The Developers</h2>
+                <div class="dev-grid">
+                    <div class="card dev-card">
+                        <div class="dev-header">
+                            <img src="https://avatars.githubusercontent.com/u/218248866" class="dev-avatar" alt="DarkBoy Lead Developer Avatar">
+                            <div class="dev-info">
+                                <a href="https://darkboy.pro" target="_blank" rel="noopener noreferrer"><h3>DarkBoy</h3></a>
+                                <span class="dev-role">Lead Developer</span>
+                                <p class="dev-bio">Architect behind AirBeats' core engine, audio DSP processing, and performance optimization.</p>
+                            </div>
+                        </div>
+                        <div class="dev-skills">
+                            <span class="skill-tag">Kotlin</span>
+                            <span class="skill-tag">C++</span>
+                            <span class="skill-tag">Audio DSP</span>
+                            <span class="skill-tag">TypeScript</span>
+                        </div>
+                    </div>
+
+                    <div class="card dev-card">
+                        <div class="dev-header">
+                            <img src="https://avatars.githubusercontent.com/u/227567962" class="dev-avatar" alt="VENOM UI/UX Specialist Avatar">
+                            <div class="dev-info">
+                                <a href="https://venomxhub.netlify.app" target="_blank" rel="noopener noreferrer"><h3>VENOM</h3></a>
+                                <span class="dev-role">UI/UX Specialist</span>
+                                <p class="dev-bio">Designer crafting intuitive interfaces, micro-animations, and responsive user experiences.</p>
+                            </div>
+                        </div>
+                        <div class="dev-skills">
+                            <span class="skill-tag">UI Design</span>
+                            <span class="skill-tag">Motion Design</span>
+                            <span class="skill-tag">Figma</span>
+                            <span class="skill-tag">Accessibility</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <p class="note">&copy; 2026 AirBeats. All Rights Reserved.</p>
+            <p class="note" style="margin-top: 0.4rem;">Crafted with <i class="bi bi-heart-fill" style="color: var(--primary);"></i> by DarkBoy &amp; VENOM</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="fab" id="backToTop" aria-label="Scroll back to top"><i class="bi bi-arrow-up"></i></button>
+
+    <!-- Application Script -->
+    <script src="js/app.js"></script>
+</body>
+</html>
