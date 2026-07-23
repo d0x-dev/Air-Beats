@@ -415,6 +415,40 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // 11. App Logo Rhythm Audio Player (Plays rhythm.mp3 on click)
+    const appLogo = document.getElementById('appLogo');
+    let audioPlayer = new Audio('rhythm.mp3');
+    let isPlayingAudio = false;
+
+    if (appLogo) {
+        appLogo.style.cursor = 'pointer';
+        appLogo.setAttribute('title', 'Click to play AirBeats Rhythm audio sample');
+
+        appLogo.addEventListener('click', () => {
+            if (!isPlayingAudio) {
+                audioPlayer.play().then(() => {
+                    isPlayingAudio = true;
+                    appLogo.classList.add('playing');
+                    showToast('🎵 Playing AirBeats Rhythm sample...');
+                }).catch(err => {
+                    console.warn('Audio playback error:', err);
+                    showToast('Error playing rhythm.mp3');
+                });
+            } else {
+                audioPlayer.pause();
+                isPlayingAudio = false;
+                appLogo.classList.remove('playing');
+                showToast('⏸️ Audio playback paused');
+            }
+        });
+
+        audioPlayer.addEventListener('ended', () => {
+            isPlayingAudio = false;
+            appLogo.classList.remove('playing');
+            showToast('🎵 Rhythm sample finished playing');
+        });
+    }
+
     // Immediate initial UI render
     updateMainButton();
     renderCompactVersionList();
