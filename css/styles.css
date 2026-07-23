@@ -680,3 +680,137 @@ footer {
     border-radius: 10px;
     margin-top: 0.5rem;
 }
+
+/* Version Master Section */
+.version-master-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.version-master-header {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.version-master-header:hover {
+    background: var(--surface-light);
+    border-color: var(--primary);
+}
+
+.version-master-title {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.version-master-title i {
+    color: var(--primary);
+    font-size: 1.3rem;
+}
+
+.version-badge {
+    background: var(--gradient);
+    padding: 0.25rem 0.7rem;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    color: white;
+}
+
+.version-master-header i.bi-chevron-down {
+    transition: transform 0.4s ease;
+    color: var(--primary);
+}
+
+.version-master-container.open .version-master-header i.bi-chevron-down {
+    transform: rotate(180deg);
+}
+
+.version-master-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    background: var(--surface);
+    border-radius: 0 0 var(--radius) var(--radius);
+}
+
+.version-master-container.open .version-master-content {
+    max-height: 500px;
+    margin-top: 0.8rem;
+    overflow-y: auto;
+}
+
+.versions-list-compact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    padding: 1rem;
+}
+
+.version-compact-item {
+    background: var(--surface-light);
+    border-radius: 12px;
+    padding: 1rem 1.2rem;
+    border-left: 4px solid var(--primary);
+    transition: all 0.3s ease;
+}
+
+.version-compact-item:hover {
+    transform: translateX(6px);
+    border-left-color: var(--accent);
+}
+
+.version-compact-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.4rem;
+}
+
+.version-tag-sm {
+    background: var(--gradient);
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.version-date-sm {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.version-download-sm {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: 0.6rem;
+}
+
+.download-sm-btn {
+    background: transparent;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    padding: 0.3rem 0.8rem;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: all 0.3s ease;
+}
+
+.download-sm-btn:hover {
+    background: var(--primary);
+    color: white;
+}

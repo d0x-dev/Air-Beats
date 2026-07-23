@@ -12,6 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const versionNote = document.getElementById('versionNote');
     const platformTabs = document.getElementById('platformTabs');
     const downloadModal = document.getElementById('downloadModal');
+    const masterHeader = document.getElementById('masterHeader');
+    const versionMasterContainer = document.getElementById('versionMasterContainer');
+    const compactList = document.getElementById('compactVersionsList');
+    const releaseCountBadge = document.getElementById('releaseCountBadge');
 
     let currentPlatform = detectPlatform();
     let latestRelease = null;
@@ -50,6 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
         updateMainButton();
+        renderCompactVersionList();
     }
 
     if (platformTabs) {
@@ -61,11 +66,30 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 3. GitHub Releases API Fetching
+    // 3. Robust Platform Release Resolution Logic
+    // Finds the latest release that actually has the specified platform binary (.exe for Windows, .apk for Android)
+    function getLatestReleaseForPlatform(platform) {
+        if (!allReleases || allReleases.length === 0) return latestRelease;
+
+        if (platform === 'windows') {
+            const winRelease = allReleases.find(rel => 
+                rel.assets && rel.assets.some(a => /\.exe$/i.test(a.name))
+            );
+            return winRelease || latestRelease;
+        } else {
+            const apkRelease = allReleases.find(rel => 
+                rel.assets && rel.assets.some(a => /\.apk$/i.test(a.name))
+            );
+            return apkRelease || latestRelease;
+        }
+    }
+
+    // 4. GitHub Releases API Fetching
     async function fetchReleases() {
         const repos = [
             "https://api.github.com/repos/drkvenom786/Airbeats/releases",
-            "https://api.github.com/repos/d0x-dev/Airbeats/releases"
+            "https://api.github.com/repos/d0x-dev/Airbeats/releases",
+            "https://api.github.com/repos/d0x-dev/air-beats/releases"
         ];
         
         for (const url of repos) {
@@ -77,6 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         allReleases = data.sort((a, b) => new Date(b.published_at) - new Date(a.published_at));
                         latestRelease = allReleases[0];
                         updateMainButton();
+                        renderCompactVersionList();
                         return;
                     }
                 }
@@ -85,30 +110,109 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Fallback release if API limits trigger
-        latestRelease = {
-            tag_name: "v3.1.0",
-            name: "AirBeats v3.1.0",
-            assets: [
-                { name: "AirBeats_v3.1.0_signed.apk", size: 34128498, browser_download_url: "https://github.com/drkvenom786/Airbeats/releases" }
-            ]
-        };
+        // Fallback releases if API rate limit triggers
+        allReleases = [
+            {
+                tag_name: "v5.9.0",
+                name: "AirBeats v5.9.0",
+                published_at: "2026-07-20T08:00:00Z",
+                assets: [
+                    { name: "AirBeats_v5.9.0_signed.apk", size: 35000000, browser_download_url: "https://github.com/drkvenom786/Airbeats/releases" }
+                ]
+            },
+            {
+                tag_name: "v5.7.0",
+                name: "AirBeats v5.7.0",
+                published_at: "2026-06-15T08:00:00Z",
+                assets: [
+                    { name: "AirBeats_v5.7.0_Setup.exe", size: 45000000, browser_download_url: "https://github.com/drkvenom786/Airbeats/releases" },
+                    { name: "AirBeats_v5.7.0_signed.apk", size: 34000000, browser_download_url: "https://github.com/drkvenom786/Airbeats/releases" }
+                ]
+            }
+        ];
+        latestRelease = allReleases[0];
         updateMainButton();
+        renderCompactVersionList();
     }
 
     function updateMainButton() {
-        if (!latestRelease) return;
+        const release = getLatestReleaseForPlatform(currentPlatform);
+        if (!release) return;
 
         if (currentPlatform === 'windows') {
             downloadBtnText.textContent = 'Download for Windows';
-            versionNote.innerHTML = `Windows 10/11 · Latest Release: ${latestRelease.tag_name}`;
+            versionNote.innerHTML = `Windows 10/11 · Latest Available: ${release.tag_name}`;
         } else {
             downloadBtnText.textContent = 'Download APK';
-            versionNote.innerHTML = `Android 8.0+ · Secure APK · Latest: ${latestRelease.tag_name}`;
+            versionNote.innerHTML = `Android 8.0+ · Secure APK · Latest: ${release.tag_name}`;
         }
     }
 
-    // 4. Modal & Toast Handling
+    // 5. Version History Accordion List Rendering
+    function renderCompactVersionList() {
+        if (!compactList || !allReleases || allReleases.length === 0) return;
+
+        let filteredReleases = allReleases;
+        if (currentPlatform === 'windows') {
+            filteredReleases = allReleases.filter(rel => rel.assets && rel.assets.some(a => /\.exe$/i.test(a.name)));
+        } else {
+            filteredReleases = allReleases.filter(rel => rel.assets && rel.assets.some(a => /\.apk$/i.test(a.name)));
+        }
+
+        if (releaseCountBadge) {
+            releaseCountBadge.textContent = `${filteredReleases.length} ${currentPlatform} releases`;
+        }
+
+        if (filteredReleases.length === 0) {
+            compactList.innerHTML = `<div class="note">No ${currentPlatform} build releases available.</div>`;
+            return;
+        }
+
+        let html = '';
+        filteredReleases.forEach(rel => {
+            const versionTag = rel.tag_name || 'v?.?.?';
+            const pubDate = rel.published_at ? new Date(rel.published_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : 'Recent';
+            const notes = rel.body ? rel.body.split('\n').filter(l => l.trim())[0] || 'Feature release' : 'Feature release';
+
+            let downloadableAssets = [];
+            if (currentPlatform === 'windows') {
+                downloadableAssets = (rel.assets || []).filter(a => a.name && /\.exe$/i.test(a.name));
+            } else {
+                downloadableAssets = (rel.assets || []).filter(a => a.name && /\.apk$/i.test(a.name));
+            }
+
+            let assetButtons = '';
+            downloadableAssets.forEach(asset => {
+                const size = (asset.size / (1024 * 1024)).toFixed(2);
+                const isSetup = /setup/i.test(asset.name);
+                const label = currentPlatform === 'windows' ? (isSetup ? 'Setup (.exe)' : 'Windows (.exe)') : 'APK Download';
+                const icon = currentPlatform === 'windows' ? (isSetup ? 'bi-windows' : 'bi-box-seam') : 'bi-android2';
+                assetButtons += `<a href="${asset.browser_download_url}" class="download-sm-btn" target="_blank" rel="noopener noreferrer"><i class="bi ${icon}"></i> ${label} (${size} MB)</a>`;
+            });
+
+            html += `
+                <div class="version-compact-item">
+                    <div class="version-compact-header">
+                        <span class="version-tag-sm">${versionTag}</span>
+                        <span class="version-date-sm">${pubDate}</span>
+                    </div>
+                    <div style="font-size:0.85rem; color:var(--text-muted); margin:0.3rem 0;">✨ ${notes.substring(0, 100)}</div>
+                    <div class="version-download-sm">
+                        ${assetButtons}
+                    </div>
+                </div>
+            `;
+        });
+        compactList.innerHTML = html;
+    }
+
+    if (masterHeader && versionMasterContainer) {
+        masterHeader.addEventListener('click', () => {
+            versionMasterContainer.classList.toggle('open');
+        });
+    }
+
+    // 6. Modal & Toast Handling
     function showToast(msg) {
         if (!downloadToast || !toastMsg) return;
         toastMsg.textContent = msg;
@@ -122,50 +226,62 @@ document.addEventListener('DOMContentLoaded', () => {
         const modalTitle = document.getElementById('modalTitle');
         const modalSubtitle = document.getElementById('modalSubtitle');
 
-        if (!modalOptions || !latestRelease) return;
+        if (!modalOptions) return;
         modalOptions.innerHTML = '';
+
+        const targetRelease = getLatestReleaseForPlatform(currentPlatform);
+        if (!targetRelease) return;
 
         if (currentPlatform === 'windows') {
             modalTitle.textContent = 'Download AirBeats for Windows';
-            modalSubtitle.textContent = `Version ${latestRelease.tag_name}`;
+            modalSubtitle.textContent = `Latest Available Windows Build: ${targetRelease.tag_name}`;
 
-            const exeAssets = (latestRelease.assets || []).filter(a => /\.exe$/i.test(a.name));
+            const exeAssets = (targetRelease.assets || []).filter(a => /\.exe$/i.test(a.name));
             if (exeAssets.length > 0) {
                 exeAssets.forEach(asset => {
                     const size = (asset.size / (1024 * 1024)).toFixed(2);
+                    const isSetup = /setup/i.test(asset.name);
+                    const label = isSetup ? 'Windows Setup Installer' : 'Windows Executable';
+                    const icon = isSetup ? 'bi-windows' : 'bi-box-seam';
                     modalOptions.innerHTML += `
                         <a href="${asset.browser_download_url}" class="modal-option-btn" target="_blank" rel="noopener noreferrer">
-                            <div>
-                                <strong>${asset.name}</strong>
-                                <div style="font-size:0.8rem; color:var(--text-muted);">Windows Installer</div>
+                            <div class="modal-option-left">
+                                <div class="modal-option-icon"><i class="bi ${icon}"></i></div>
+                                <div class="modal-option-text">
+                                    <strong>${label}</strong>
+                                    <div style="font-size:0.8rem; color:var(--text-muted);">${asset.name}</div>
+                                </div>
                             </div>
-                            <span>${size} MB</span>
+                            <span class="modal-option-size">${size} MB</span>
                         </a>
                     `;
                 });
             } else {
-                modalOptions.innerHTML = `<div class="note">Visit release page to download Windows build.</div>`;
+                modalOptions.innerHTML = `<a href="https://github.com/drkvenom786/Airbeats/releases" class="modal-option-btn" target="_blank">View All Releases on GitHub</a>`;
             }
         } else {
             modalTitle.textContent = 'Download AirBeats for Android';
-            modalSubtitle.textContent = `Version ${latestRelease.tag_name}`;
+            modalSubtitle.textContent = `Latest Available Android Build: ${targetRelease.tag_name}`;
 
-            const apkAssets = (latestRelease.assets || []).filter(a => /\.apk$/i.test(a.name));
+            const apkAssets = (targetRelease.assets || []).filter(a => /\.apk$/i.test(a.name));
             if (apkAssets.length > 0) {
                 apkAssets.forEach(asset => {
                     const size = (asset.size / (1024 * 1024)).toFixed(2);
                     modalOptions.innerHTML += `
                         <a href="${asset.browser_download_url}" class="modal-option-btn" target="_blank" rel="noopener noreferrer">
-                            <div>
-                                <strong>${asset.name}</strong>
-                                <div style="font-size:0.8rem; color:var(--text-muted);">Android Signed APK</div>
+                            <div class="modal-option-left">
+                                <div class="modal-option-icon"><i class="bi bi-android2"></i></div>
+                                <div class="modal-option-text">
+                                    <strong>Android Signed APK</strong>
+                                    <div style="font-size:0.8rem; color:var(--text-muted);">${asset.name}</div>
+                                </div>
                             </div>
-                            <span>${size} MB</span>
+                            <span class="modal-option-size">${size} MB</span>
                         </a>
                     `;
                 });
             } else {
-                modalOptions.innerHTML = `<a href="https://github.com/drkvenom786/Airbeats/releases" class="modal-option-btn" target="_blank">Download Latest APK</a>`;
+                modalOptions.innerHTML = `<a href="https://github.com/drkvenom786/Airbeats/releases" class="modal-option-btn" target="_blank">View All Releases on GitHub</a>`;
             }
         }
 
@@ -187,7 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 5. Copy Link & Web Share API
+    // 7. Copy Link & Web Share API
     if (copyLinkBtn) {
         copyLinkBtn.addEventListener('click', () => {
             navigator.clipboard.writeText('https://airbeats.app/');
@@ -216,7 +332,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 6. Sound Visualizer Bar Animation
+    // 8. Sound Visualizer Bar Animation
     function initVisualizer() {
         if (!visualizer) return;
         visualizer.innerHTML = '';
@@ -240,7 +356,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initVisualizer();
     window.addEventListener('resize', initVisualizer);
 
-    // 7. Scroll to Top
+    // 9. Scroll to Top
     if (backToTop) {
         window.addEventListener('scroll', () => {
             backToTop.style.display = window.scrollY > 400 ? 'flex' : 'none';
