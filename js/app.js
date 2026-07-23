@@ -18,8 +18,52 @@ document.addEventListener('DOMContentLoaded', () => {
     const releaseCountBadge = document.getElementById('releaseCountBadge');
 
     let currentPlatform = detectPlatform();
-    let latestRelease = null;
-    let allReleases = [];
+
+    // Initial Static Fallback Data (Preloaded so there is 0ms loading delay for Windows .exe and Android .apk)
+    let allReleases = [
+        {
+            tag_name: "5.9.0",
+            name: "AirBeats 5.9.0",
+            published_at: "2026-07-20T08:00:00Z",
+            body: "Latest Android release v5.9.0.",
+            assets: [
+                { name: "AirBeats_v5.9.0_signed.apk", size: 35000000, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/5.9.0/AirBeats_v5.9.0_signed.apk" }
+            ]
+        },
+        {
+            tag_name: "V5.8.0",
+            name: "AirBeats V5.8.0",
+            published_at: "2026-07-10T08:00:00Z",
+            body: "Android release V5.8.0.",
+            assets: [
+                { name: "AirBeats_v5.8.0_signed.apk", size: 34800000, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/V5.8.0/AirBeats_v5.8.0_signed.apk" }
+            ]
+        },
+        {
+            tag_name: "5.7.0",
+            name: "AirBeats 5.7.0",
+            published_at: "2026-06-15T08:00:00Z",
+            body: "Windows & Android Dual Release v5.7.0 with Setup and Portable executable builds.",
+            assets: [
+                { name: "Airbeats-v5.7.0-setup.exe", size: 45000000, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/5.7.0/Airbeats-v5.7.0-setup.exe" },
+                { name: "Airbeats-v5.7.0-potable.exe", size: 42000000, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/5.7.0/Airbeats-v5.7.0-potable.exe" },
+                { name: "AirBeats_v5.7.0_signed.apk", size: 34000000, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/5.7.0/AirBeats_v5.7.0_signed.apk" }
+            ]
+        },
+        {
+            tag_name: "5.6.0",
+            name: "AirBeats 5.6.0",
+            published_at: "2026-06-01T08:00:00Z",
+            body: "Windows & Android Release v5.6.0.",
+            assets: [
+                { name: "Airbeats-v5.6.0-setup.exe", size: 44000000, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/5.6.0/Airbeats-v5.6.0-setup.exe" },
+                { name: "Airbeats-v5.6.0-Potable.exe", size: 41000000, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/5.6.0/Airbeats-v5.6.0-Potable.exe" },
+                { name: "AirBeats_v5.6.0_signed.apk", size: 33500000, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/5.6.0/AirBeats_v5.6.0_signed.apk" }
+            ]
+        }
+    ];
+
+    let latestRelease = allReleases[0];
 
     // 1. Theme Switcher
     function setTheme(theme) {
@@ -67,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 3. Robust Platform Release Resolution Logic
-    // Finds the latest release that actually has the specified platform binary (.exe for Windows, .apk for Android)
+    // Scans all releases for the specified platform binary (.exe for Windows, .apk for Android)
     function getLatestReleaseForPlatform(platform) {
         if (!allReleases || allReleases.length === 0) return latestRelease;
 
@@ -84,7 +128,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 4. GitHub Releases API Fetching
+    function formatVersionTag(tag) {
+        if (!tag) return 'v1.0.0';
+        return tag.startsWith('v') || tag.startsWith('V') ? tag : `v${tag}`;
+    }
+
+    // 4. GitHub Releases API Fetching (Updates dynamically in background)
     async function fetchReleases() {
         const repos = [
             "https://api.github.com/repos/d0x-dev/AirBeats/releases",
@@ -105,39 +154,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
             } catch (e) {
-                console.warn("Failed to fetch releases from", url, e);
+                console.warn("Failed to fetch GitHub releases from", url, e);
             }
         }
-
-        // Fallback releases if API rate limit or CORS triggers
-        allReleases = [
-            {
-                tag_name: "5.9.0",
-                name: "AirBeats 5.9.0",
-                published_at: "2026-07-20T08:00:00Z",
-                assets: [
-                    { name: "AirBeats_v5.9.0_signed.apk", size: 35000000, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases" }
-                ]
-            },
-            {
-                tag_name: "5.7.0",
-                name: "AirBeats 5.7.0",
-                published_at: "2026-06-15T08:00:00Z",
-                assets: [
-                    { name: "Airbeats-v5.7.0-setup.exe", size: 45000000, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases" },
-                    { name: "Airbeats-v5.7.0-potable.exe", size: 42000000, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases" },
-                    { name: "AirBeats_v5.7.0_signed.apk", size: 34000000, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases" }
-                ]
-            }
-        ];
-        latestRelease = allReleases[0];
-        updateMainButton();
-        renderCompactVersionList();
-    }
-
-    function formatVersionTag(tag) {
-        if (!tag) return 'v1.0.0';
-        return tag.startsWith('v') || tag.startsWith('V') ? tag : `v${tag}`;
     }
 
     function updateMainButton() {
@@ -382,5 +401,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Immediate initial UI render
+    updateMainButton();
+    renderCompactVersionList();
+
+    // Background API fetch
     fetchReleases();
 });
