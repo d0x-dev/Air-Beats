@@ -42,7 +42,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
     <!-- Application Stylesheet with Cache-Busting -->
-    <link rel="stylesheet" href="css/styles.css?v=5.7.5">
+    <link rel="stylesheet" href="css/styles.css?v=5.8.0">
 
     <!-- Version History Accordion Inline Styles -->
     <style>
@@ -187,6 +187,65 @@
             background: var(--primary);
             color: white;
             transform: translateY(-2px);
+        }
+
+        /* Open Source Section */
+        .opensource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .opensource-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 1.8rem;
+        }
+
+        .opensource-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: white;
+            margin-bottom: 1.2rem;
+        }
+
+        .opensource-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+        }
+
+        .opensource-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .opensource-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 0.5rem;
+        }
+
+        .code-snippet {
+            background: var(--surface-light);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 0.6rem 0.8rem;
+            font-family: monospace;
+            font-size: 0.8rem;
+            color: var(--primary);
+            overflow-x: auto;
+            margin-top: 0.5rem;
         }
     </style>
 
@@ -483,6 +542,73 @@
                 </div>
             </div>
         </section>
+
+        <!-- Open Source & Community Contribution Section -->
+        <section id="opensource">
+            <div class="container">
+                <h2 class="features-title">100% Open Source &amp; Community Driven</h2>
+                <p style="text-align: center; max-width: 720px; margin: -1rem auto 2.5rem; color: var(--text-muted); font-size: 1.05rem;">
+                    AirBeats is free software licensed under the <strong>GNU General Public License v3.0</strong>. Anyone can inspect the code, build from source, translate into new languages, or submit contributions on GitHub.
+                </p>
+
+                <div class="opensource-grid">
+                    <!-- Card 1: GitHub Repository -->
+                    <div class="card opensource-card">
+                        <div>
+                            <div class="opensource-icon"><i class="bi bi-github"></i></div>
+                            <h3>GitHub Repository</h3>
+                            <p>Explore the full source code, star the repository, or fork it to start your own customizations.</p>
+                            <div class="opensource-badges">
+                                <span class="skill-tag"><i class="bi bi-shield-check"></i> GNU GPL v3.0</span>
+                                <span class="skill-tag"><i class="bi bi-star-fill" style="color:#eac54f;"></i> Stargazers</span>
+                                <span class="skill-tag"><i class="bi bi-diagram-2"></i> Open Forks</span>
+                            </div>
+                        </div>
+                        <a href="https://github.com/d0x-dev/AirBeats" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="width: 100%; margin-top: 1.2rem; justify-content: center;"><i class="bi bi-github"></i> View on GitHub</a>
+                    </div>
+
+                    <!-- Card 2: Translate on Crowdin -->
+                    <div class="card opensource-card">
+                        <div>
+                            <div class="opensource-icon" style="background: linear-gradient(135deg, #00e5ff, #7000ff);"><i class="bi bi-translate"></i></div>
+                            <h3>Translate AirBeats</h3>
+                            <p>Help translate AirBeats into your native language! Zero coding experience required – managed via Crowdin.</p>
+                            <div class="opensource-badges">
+                                <span class="skill-tag"><i class="bi bi-globe"></i> Global Localization</span>
+                                <span class="skill-tag"><i class="bi bi-people"></i> Crowdin Sync</span>
+                            </div>
+                        </div>
+                        <a href="https://crowdin.com/project/airbeats" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="width: 100%; margin-top: 1.2rem; justify-content: center;"><i class="bi bi-globe"></i> Translate on Crowdin</a>
+                    </div>
+
+                    <!-- Card 3: Contribute Code & PRs -->
+                    <div class="card opensource-card">
+                        <div>
+                            <div class="opensource-icon" style="background: linear-gradient(135deg, #ff1178, #ff9900);"><i class="bi bi-code-slash"></i></div>
+                            <h3>Contribute Code &amp; PRs</h3>
+                            <p>Fork the repository, create a feature branch, and submit a Pull Request to contribute directly to AirBeats.</p>
+                            <div class="code-snippet">
+                                <code>git clone https://github.com/d0x-dev/AirBeats.git</code>
+                            </div>
+                        </div>
+                        <a href="https://github.com/d0x-dev/AirBeats/pulls" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="width: 100%; margin-top: 1.2rem; justify-content: center;"><i class="bi bi-git"></i> Open a Pull Request</a>
+                    </div>
+
+                    <!-- Card 4: Build from Source -->
+                    <div class="card opensource-card">
+                        <div>
+                            <div class="opensource-icon" style="background: linear-gradient(135deg, #22c55e, #14b8a6);"><i class="bi bi-tools"></i></div>
+                            <h3>Build from Source</h3>
+                            <p>Build the Android debug or release APK locally using JDK 21 and Gradle build system.</p>
+                            <div class="code-snippet">
+                                <code>./gradlew assembleDebug</code>
+                            </div>
+                        </div>
+                        <a href="https://github.com/d0x-dev/AirBeats/blob/main/README.md#%EF%B8%8F-build-from-source" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="width: 100%; margin-top: 1.2rem; justify-content: center;"><i class="bi bi-book"></i> Read Build Guide</a>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- Footer Section -->
@@ -497,6 +623,6 @@
     <button class="fab" id="backToTop" aria-label="Scroll back to top"><i class="bi bi-arrow-up"></i></button>
 
     <!-- Application Script -->
-    <script src="js/app.js?v=5.7.5"></script>
+    <script src="js/app.js?v=5.8.0"></script>
 </body>
 </html>
