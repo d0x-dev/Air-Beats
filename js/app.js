@@ -401,21 +401,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 10. Features Horizontal Scroller Navigation
-    const scroller = document.getElementById('featuresScroller');
-    const scrollLeftBtn = document.getElementById('scrollLeftBtn');
-    const scrollRightBtn = document.getElementById('scrollRightBtn');
-
-    if (scroller && scrollLeftBtn && scrollRightBtn) {
-        scrollLeftBtn.addEventListener('click', () => {
-            scroller.scrollBy({ left: -320, behavior: 'smooth' });
-        });
-        scrollRightBtn.addEventListener('click', () => {
-            scroller.scrollBy({ left: 320, behavior: 'smooth' });
-        });
-    }
-
-    // 11. App Logo Rhythm Audio Player (Plays rhythm.mp3 on click)
+    // 10. App Logo Rhythm Audio Player (Plays rhythm.mp3 on click)
     const appLogo = document.getElementById('appLogo');
     let audioPlayer = new Audio('rhythm.mp3');
     let isPlayingAudio = false;
