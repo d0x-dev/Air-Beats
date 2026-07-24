@@ -36,6 +36,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 { name: "Airbeats-v5.7.0-potable.exe", size: 42000000, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/5.7.0/Airbeats-v5.7.0-potable.exe" },
                 { name: "AirBeats_v5.7.0_signed.apk", size: 34000000, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/5.7.0/AirBeats_v5.7.0_signed.apk" }
             ]
+        },
+        {
+            tag_name: "5.6.0",
+            name: "AirBeats v5.6.0",
+            published_at: "2026-06-01T08:00:00Z",
+            body: "### ✨ AirBeats v5.6.0 Dual Release\n- 💻 **Windows Desktop Executable**\n- 📱 **Android Signed APK**",
+            assets: [
+                { name: "Airbeats-v5.6.0-setup.exe", size: 44000000, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/5.6.0/Airbeats-v5.6.0-setup.exe" },
+                { name: "Airbeats-v5.6.0-Potable.exe", size: 41000000, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/5.6.0/Airbeats-v5.6.0-Potable.exe" },
+                { name: "AirBeats_v5.6.0_signed.apk", size: 33500000, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/5.6.0/AirBeats_v5.6.0_signed.apk" }
+            ]
         }
     ];
 
@@ -118,16 +129,20 @@ document.addEventListener('DOMContentLoaded', () => {
         if (ossVersionBadge) ossVersionBadge.textContent = `${tag} (Latest Stable)`;
         if (androidVersionBadge) androidVersionBadge.textContent = tag;
 
-        // Find latest Windows release
+        // Find latest Windows release containing .exe
         const winRelease = allReleases.find(r => r.assets && r.assets.some(a => /\.exe$/i.test(a.name)));
         if (windowsVersionBadge && winRelease) {
             windowsVersionBadge.textContent = formatVersionTag(winRelease.tag_name);
+            const winDownloadBtn = document.getElementById('windows-download-btn');
+            const winExeAsset = winRelease.assets.find(a => /\.exe$/i.test(a.name));
+            if (winDownloadBtn && winExeAsset) {
+                winDownloadBtn.href = winExeAsset.browser_download_url;
+            }
         }
     }
 
-    // 4. Screenshots Section Accordion & Carousel
+    // 4. Screenshots Section Accordion & Carousel Stage
     const screenshotsHeader = document.getElementById('screenshots-header');
-    const screenshotsToggle = document.getElementById('screenshots-toggle');
     const screenshotsContent = document.getElementById('screenshots-content');
     const screenshotsIcon = document.getElementById('screenshots-icon');
 
@@ -144,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Screenshots Stage Navigation
+    // Screenshots Carousel Logic
     const track = document.getElementById('screenshots-track');
     const slides = document.querySelectorAll('.screenshots-slide');
     const prevBtn = document.getElementById('screenshots-prev');
@@ -188,7 +203,6 @@ document.addEventListener('DOMContentLoaded', () => {
             indexEl.textContent = String(currentSlide + 1).padStart(2, '0');
         }
 
-        // Update indicators
         if (indicatorsEl) {
             const dots = indicatorsEl.querySelectorAll('.screenshots-indicator');
             dots.forEach((dot, idx) => {
@@ -196,7 +210,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Update preview rail
         previewCards.forEach((card, idx) => {
             card.classList.toggle('is-active', idx === currentSlide);
         });
@@ -211,26 +224,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
     buildIndicators();
 
-    // 5. Changelog Modal Trigger (Parses markdown via marked.js)
+    // 5. Changelog Modal Triggers
     const changelogTrigger = document.getElementById('changelog-trigger');
+    const windowsChangelogTrigger = document.getElementById('windows-changelog-trigger');
     const changelogDialog = document.getElementById('changelog-dialog');
     const changelogContent = document.getElementById('changelog-content');
 
-    if (changelogTrigger && changelogDialog) {
-        changelogTrigger.addEventListener('click', () => {
-            changelogDialog.showModal();
-            if (!latestRelease) return;
+    function openChangelogModal(targetRel) {
+        if (!changelogDialog || !changelogContent) return;
+        changelogDialog.showModal();
+        const rel = targetRel || latestRelease;
+        if (!rel) return;
 
-            let bodyMarkdown = latestRelease.body || '### Release Notes\nNo release notes provided.';
-            if (window.marked) {
-                changelogContent.innerHTML = `<div class="prose prose-invert max-w-none text-on-surface-variant">${window.marked.parse(bodyMarkdown)}</div>`;
-            } else {
-                changelogContent.innerHTML = `<pre class="text-sm text-on-surface-variant whitespace-pre-wrap">${bodyMarkdown}</pre>`;
-            }
+        let bodyMarkdown = `### ${rel.name || formatVersionTag(rel.tag_name)} Release Notes\n\n${rel.body || 'No release notes provided.'}`;
+        if (window.marked) {
+            changelogContent.innerHTML = `<div class="prose prose-invert max-w-none text-on-surface-variant">${window.marked.parse(bodyMarkdown)}</div>`;
+        } else {
+            changelogContent.innerHTML = `<pre class="text-sm text-on-surface-variant whitespace-pre-wrap">${bodyMarkdown}</pre>`;
+        }
+    }
+
+    if (changelogTrigger) {
+        changelogTrigger.addEventListener('click', () => openChangelogModal(latestRelease));
+    }
+    if (windowsChangelogTrigger) {
+        windowsChangelogTrigger.addEventListener('click', () => {
+            const winRel = allReleases.find(r => r.assets && r.assets.some(a => /\.exe$/i.test(a.name)));
+            openChangelogModal(winRel || latestRelease);
         });
     }
 
-    // 6. Previous Versions Modal Trigger
+    // 6. Previous Versions Modal Popup Logic (Android & Windows)
     const versionsTrigger = document.getElementById('versions-trigger');
     const windowsVersionsTrigger = document.getElementById('windows-versions-trigger');
     const versionsDialog = document.getElementById('versions-dialog');
@@ -239,43 +263,83 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderVersionsModal(filterPlatform = 'all') {
         if (!versionsDialog || !versionsList) return;
 
+        const dialogTitle = versionsDialog.querySelector('.dialog-header h3');
+        if (dialogTitle) {
+            if (filterPlatform === 'windows') {
+                dialogTitle.innerHTML = `<span class="flex items-center gap-2"><span class="material-symbols-outlined text-primary">laptop_windows</span> Previous Windows Desktop Builds (.exe)</span>`;
+            } else if (filterPlatform === 'android') {
+                dialogTitle.innerHTML = `<span class="flex items-center gap-2"><span class="material-symbols-outlined text-tertiary">android</span> Previous Android Releases (.apk)</span>`;
+            } else {
+                dialogTitle.innerHTML = `<span class="flex items-center gap-2"><span class="material-symbols-outlined text-primary">history</span> Previous Releases &amp; Builds</span>`;
+            }
+        }
+
+        let filteredReleases = allReleases;
+        if (filterPlatform === 'windows') {
+            filteredReleases = allReleases.filter(rel => rel.assets && rel.assets.some(a => /\.exe$/i.test(a.name)));
+        } else if (filterPlatform === 'android') {
+            filteredReleases = allReleases.filter(rel => rel.assets && rel.assets.some(a => /\.apk$/i.test(a.name)));
+        }
+
+        if (!filteredReleases || filteredReleases.length === 0) {
+            versionsList.innerHTML = `<p class="text-on-surface-variant text-center py-6">No previous ${filterPlatform} releases found in repository history.</p>`;
+            versionsDialog.showModal();
+            return;
+        }
+
         let html = '';
-        allReleases.forEach(rel => {
+        filteredReleases.forEach(rel => {
             const tag = formatVersionTag(rel.tag_name);
             const pubDate = rel.published_at ? new Date(rel.published_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : 'Recent';
+            const rawNotes = rel.body ? rel.body.split('\n').filter(l => l.trim())[0] || 'Feature release' : 'Feature release';
+            const cleanNotes = rawNotes.replace(/[#*`]/g, '').substring(0, 110);
 
-            let apkAssets = (rel.assets || []).filter(a => a.name && /\.apk$/i.test(a.name));
-            let exeAssets = (rel.assets || []).filter(a => a.name && /\.exe$/i.test(a.name));
-
-            let buttonsHtml = '';
-            apkAssets.forEach(a => {
-                const size = (a.size / (1024 * 1024)).toFixed(2);
-                buttonsHtml += `<a href="${a.browser_download_url}" target="_blank" rel="noopener noreferrer" class="dialog-filled-btn text-xs no-underline flex items-center gap-1"><span class="material-symbols-outlined" style="font-size:16px">android</span> APK (${size} MB)</a>`;
-            });
-            exeAssets.forEach(a => {
-                const size = (a.size / (1024 * 1024)).toFixed(2);
-                buttonsHtml += `<a href="${a.browser_download_url}" target="_blank" rel="noopener noreferrer" class="dialog-text-btn border border-primary text-xs no-underline flex items-center gap-1"><span class="material-symbols-outlined" style="font-size:16px">laptop_windows</span> .exe (${size} MB)</a>`;
-            });
-
-            if (buttonsHtml !== '') {
-                html += `
-                    <div class="bg-surface-container-high p-4 rounded-xl mb-3 border border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                        <div>
-                            <div class="flex items-center gap-2">
-                                <span class="font-title-md text-on-surface font-bold">${tag}</span>
-                                <span class="text-xs text-on-surface-variant">${pubDate}</span>
-                            </div>
-                            <p class="text-xs text-on-surface-variant mt-1">${rel.name || 'Official Release'}</p>
-                        </div>
-                        <div class="flex flex-wrap gap-2">
-                            ${buttonsHtml}
-                        </div>
-                    </div>
-                `;
+            let downloadableAssets = [];
+            if (filterPlatform === 'windows') {
+                downloadableAssets = (rel.assets || []).filter(a => a.name && /\.exe$/i.test(a.name));
+            } else if (filterPlatform === 'android') {
+                downloadableAssets = (rel.assets || []).filter(a => a.name && /\.apk$/i.test(a.name));
+            } else {
+                downloadableAssets = rel.assets || [];
             }
+
+            let assetButtons = '';
+            downloadableAssets.forEach(asset => {
+                const size = (asset.size / (1024 * 1024)).toFixed(2);
+                const isSetup = /setup/i.test(asset.name);
+                const isPortable = /portable|potable/i.test(asset.name);
+                const isExe = /\.exe$/i.test(asset.name);
+
+                const label = isExe ? (isSetup ? 'Setup (.exe)' : isPortable ? 'Portable (.exe)' : 'Windows (.exe)') : 'APK Download';
+                const icon = isExe ? (isSetup ? 'laptop_windows' : 'inventory_2') : 'android';
+                const btnClass = isExe ? 'bg-primary-container text-on-primary-container hover:brightness-110' : 'bg-tertiary-container text-on-tertiary-container hover:brightness-110';
+
+                assetButtons += `
+                    <a href="${asset.browser_download_url}" target="_blank" rel="noopener noreferrer" class="${btnClass} px-4 py-2 rounded-full text-xs font-semibold no-underline inline-flex items-center gap-1.5 active:scale-95 transition-all">
+                        <span class="material-symbols-outlined" style="font-size:16px">${icon}</span>
+                        ${label} (${size} MB)
+                    </a>
+                `;
+            });
+
+            html += `
+                <div class="bg-surface-container-high p-5 rounded-2xl mb-4 border border-white/5 shadow-md flex flex-col gap-3">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="px-3 py-1 rounded-full bg-primary/20 text-primary font-bold text-xs">${tag}</span>
+                            <span class="text-xs text-on-surface-variant">${pubDate}</span>
+                        </div>
+                        <span class="text-xs text-on-surface-variant font-medium">${downloadableAssets.length} file(s)</span>
+                    </div>
+                    <p class="text-xs text-on-surface-variant leading-relaxed">✨ ${cleanNotes}</p>
+                    <div class="flex flex-wrap gap-2 pt-3 border-t border-white/5">
+                        ${assetButtons}
+                    </div>
+                </div>
+            `;
         });
 
-        versionsList.innerHTML = html || `<p class="text-on-surface-variant text-center py-4">No previous versions found.</p>`;
+        versionsList.innerHTML = html;
         versionsDialog.showModal();
     }
 
