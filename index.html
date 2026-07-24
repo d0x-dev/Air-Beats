@@ -1,255 +1,134 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html id="app-root" lang="en">
+
 <head>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6JTGMLLK8S"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-6JTGMLLK8S');
+    </script>
+
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AirBeats – Free Immersive Music Streaming & Web Audio Player</title>
-    
-    <!-- Primary Meta Tags -->
-    <meta name="description" content="Step into the future of music streaming with AirBeats. Experience high-quality audio streaming, real-time sound visualizers, custom equalizers, and pure vibes with zero ads.">
-    <meta name="keywords" content="AirBeats, music app, free music player, audio streaming, sound visualizer, equalizer, Spotify alternative, ad free music">
-    <meta name="theme-color" content="#ff1178">
-    <meta name="author" content="AirBeats Team">
-    <link rel="canonical" href="https://airbeats.app/">
+    <meta name="description" content="AirBeats - Advanced YouTube Music Client with Material Design 3 for Android & Windows. Ad-free streaming, visualizers, and equalizers.">
+    <title>AirBeats – Advanced YouTube Music Client</title>
 
-    <!-- Indexing & Crawler Directives -->
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <!-- Tailwind CSS with M3 Configuration -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-primary-container": "#594983",
+                        "secondary": "#ccc2dc",
+                        "inverse-primary": "#665590",
+                        "on-primary-fixed-variant": "#4d3d76",
+                        "on-primary-fixed": "#210f48",
+                        "surface-dim": "#141317",
+                        "tertiary": "#ffd9e3",
+                        "surface-container-lowest": "#0e0e11",
+                        "tertiary-container": "#efb8c8",
+                        "surface-container-low": "#1c1b1f",
+                        "surface": "#141317",
+                        "primary-fixed": "#e9ddff",
+                        "on-secondary": "#332d41",
+                        "on-tertiary-fixed": "#31111d",
+                        "on-tertiary": "#492532",
+                        "on-secondary-fixed-variant": "#4a4359",
+                        "secondary-fixed-dim": "#ccc2dc",
+                        "inverse-on-surface": "#313034",
+                        "on-tertiary-fixed-variant": "#633b48",
+                        "on-surface": "#e5e1e7",
+                        "surface-container": "#201f23",
+                        "surface-container-highest": "#353438",
+                        "on-background": "#e5e1e7",
+                        "secondary-fixed": "#e9def9",
+                        "error-container": "#93000a",
+                        "surface-variant": "#353438",
+                        "on-surface-variant": "#cac4d0",
+                        "on-secondary-container": "#bab1ca",
+                        "primary-container": "#d0bcff",
+                        "primary": "#e9ddff",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed-dim": "#d0bcff",
+                        "tertiary-fixed-dim": "#efb8c8",
+                        "on-primary": "#37265e",
+                        "surface-bright": "#3a383d",
+                        "on-tertiary-container": "#704654",
+                        "tertiary-fixed": "#ffd9e3",
+                        "on-secondary-fixed": "#1e182b",
+                        "surface-tint": "#d0bcff",
+                        "inverse-surface": "#e5e1e7",
+                        "on-error": "#690005",
+                        "outline": "#948f9a",
+                        "background": "#141317",
+                        "outline-variant": "#49454f",
+                        "error": "#ffb4ab",
+                        "surface-container-high": "#2b292d",
+                        "secondary-container": "#4a4359"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "player-padding": "32px",
+                        "base": "8px",
+                        "margin-horizontal": "24px",
+                        "list-item-gap": "12px",
+                        "gutter-grid": "16px"
+                    },
+                    fontFamily: {
+                        "title-lg": ["Be Vietnam Pro"],
+                        "body-md": ["Be Vietnam Pro"],
+                        "label-sm": ["Be Vietnam Pro"],
+                        "body-lg": ["Be Vietnam Pro"],
+                        "display-lg": ["Epilogue"],
+                        "headline-lg": ["Epilogue"],
+                        "label-lg": ["Be Vietnam Pro"],
+                        "headline-md": ["Epilogue"],
+                        "title-md": ["Be Vietnam Pro"]
+                    },
+                    fontSize: {
+                        "title-lg": ["22px", { lineHeight: "28px", fontWeight: "500" }],
+                        "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+                        "label-sm": ["11px", { lineHeight: "16px", fontWeight: "500" }],
+                        "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                        "display-lg": ["57px", { lineHeight: "64px", letterSpacing: "-0.25px", fontWeight: "700" }],
+                        "headline-lg": ["32px", { lineHeight: "40px", fontWeight: "600" }],
+                        "label-lg": ["14px", { lineHeight: "20px", fontWeight: "500" }],
+                        "headline-md": ["28px", { lineHeight: "36px", fontWeight: "600" }],
+                        "title-md": ["16px", { lineHeight: "24px", fontWeight: "500" }]
+                    }
+                }
+            }
+        }
+    </script>
 
-    <!-- Open Graph / Facebook / Discord -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://airbeats.app/">
-    <meta property="og:title" content="AirBeats – Immersive Music Experience & Web Audio Player">
-    <meta property="og:description" content="Step into the future of music streaming with AirBeats. High-quality sound, immersive visualizers, custom equalizers, and pure vibes with zero ads.">
-    <meta property="og:image" content="https://raw.githubusercontent.com/drkvenom786/Airbeats/137e3935198c25bfbd5eef1a050002ed52fa84ff/icon.png">
-    <meta property="og:site_name" content="AirBeats">
-    <meta property="og:locale" content="en_US">
-
-    <!-- Twitter / X Cards -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://airbeats.app/">
-    <meta name="twitter:title" content="AirBeats – Immersive Music Experience">
-    <meta name="twitter:description" content="Step into the future of music streaming with AirBeats. High-quality audio, real-time sound visualizer, and immersive soundscapes.">
-    <meta name="twitter:image" content="https://raw.githubusercontent.com/drkvenom786/Airbeats/137e3935198c25bfbd5eef1a050002ed52fa84ff/icon.png">
+    <!-- Google Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700;800;900&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
     <!-- Favicon -->
     <link rel="icon" href="https://raw.githubusercontent.com/drkvenom786/Airbeats/137e3935198c25bfbd5eef1a050002ed52fa84ff/icon.png" type="image/png">
+    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/drkvenom786/Airbeats/137e3935198c25bfbd5eef1a050002ed52fa84ff/icon.png">
 
-    <!-- Google Fonts & Icons -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <!-- Custom M3 Stylesheet -->
+    <link rel="stylesheet" href="css/styles.css?v=5.8.3">
 
-    <!-- Application Stylesheet with Cache-Busting -->
-    <link rel="stylesheet" href="css/styles.css?v=5.8.1">
+    <!-- Marked.js (Changelog markdown parser) -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-    <!-- Version History Accordion Inline Styles -->
-    <style>
-        .version-master-wrapper {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 0.5rem;
-        }
-
-        .version-master-header {
-            background: var(--surface);
-            border-radius: var(--radius);
-            padding: 1.2rem 1.8rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .version-master-header:hover {
-            background: var(--surface-light);
-            border-color: var(--primary);
-            transform: translateY(-2px);
-        }
-
-        .version-master-title {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            font-weight: 700;
-            font-size: 1.15rem;
-        }
-
-        .version-master-title i {
-            color: var(--primary);
-            font-size: 1.4rem;
-        }
-
-        .version-badge {
-            background: var(--gradient);
-            padding: 0.25rem 0.8rem;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            color: white;
-            font-weight: 600;
-        }
-
-        .version-master-header i.bi-chevron-down {
-            transition: transform 0.4s ease;
-            color: var(--primary);
-            font-size: 1.2rem;
-        }
-
-        .version-master-container.open .version-master-header i.bi-chevron-down {
-            transform: rotate(180deg);
-        }
-
-        .version-master-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            background: var(--surface);
-            border-radius: 0 0 var(--radius) var(--radius);
-        }
-
-        .version-master-container.open .version-master-content {
-            max-height: 600px;
-            margin-top: 0.8rem;
-            overflow-y: auto;
-            border: 1px solid var(--border);
-        }
-
-        .versions-list-compact {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            padding: 1.2rem;
-        }
-
-        .version-compact-item {
-            background: var(--surface-light);
-            border-radius: 14px;
-            padding: 1.2rem 1.5rem;
-            border-left: 4px solid var(--primary);
-            transition: all 0.3s ease;
-        }
-
-        .version-compact-item:hover {
-            transform: translateX(6px);
-            border-left-color: var(--accent);
-            background: rgba(255, 255, 255, 0.03);
-        }
-
-        .version-compact-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-        }
-
-        .version-tag-sm {
-            background: var(--gradient);
-            padding: 0.25rem 0.7rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: white;
-        }
-
-        .version-date-sm {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        .version-download-sm {
-            display: flex;
-            justify-content: flex-end;
-            flex-wrap: wrap;
-            gap: 0.6rem;
-            margin-top: 0.8rem;
-        }
-
-        .download-sm-btn {
-            background: transparent;
-            border: 1px solid var(--primary);
-            color: var(--primary);
-            padding: 0.4rem 1rem;
-            border-radius: 30px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .download-sm-btn:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        /* Open Source Section */
-        .opensource-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .opensource-card {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 1.8rem;
-        }
-
-        .opensource-icon {
-            width: 56px;
-            height: 56px;
-            border-radius: 16px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.6rem;
-            color: white;
-            margin-bottom: 1.2rem;
-        }
-
-        .opensource-card h3 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 0.6rem;
-        }
-
-        .opensource-card p {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            line-height: 1.5;
-            margin-bottom: 1rem;
-        }
-
-        .opensource-badges {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.4rem;
-            margin-top: 0.5rem;
-        }
-
-        .code-snippet {
-            background: var(--surface-light);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 0.6rem 0.8rem;
-            font-family: monospace;
-            font-size: 0.8rem;
-            color: var(--primary);
-            overflow-x: auto;
-            margin-top: 0.5rem;
-        }
-    </style>
-
-    <!-- Google Validated Schema.org JSON-LD Structured Data Graph -->
+    <!-- Structured Data JSON-LD -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -259,387 +138,668 @@
           "@id": "https://airbeats.app/#webapp",
           "url": "https://airbeats.app/",
           "name": "AirBeats",
-          "alternateName": ["Air Beats", "AirBeats Player", "AirBeats Music Streaming"],
-          "description": "AirBeats is an advanced web-based music player and audio streaming application offering immersive visualizers, custom equalizers, and high-fidelity sound streaming without ads.",
+          "alternateName": ["Air Beats", "AirBeats Player", "AirBeats YouTube Music"],
+          "description": "AirBeats is an advanced YouTube Music client built with Material Design 3 offering ad-free high fidelity streaming, visualizers, and custom equalizers.",
           "applicationCategory": "MultimediaApplication",
-          "operatingSystem": "All (Web Browser, Android, iOS, Windows, macOS, Linux)",
+          "operatingSystem": "Android, Windows, Web",
           "offers": {
             "@type": "Offer",
             "price": "0.00",
             "priceCurrency": "USD",
             "availability": "https://schema.org/InStock"
-          },
-          "author": {
-            "@type": "Organization",
-            "name": "AirBeats Team",
-            "url": "https://airbeats.app/"
           }
-        },
-        {
-          "@type": "Organization",
-          "@id": "https://airbeats.app/#organization",
-          "name": "AirBeats",
-          "url": "https://airbeats.app/",
-          "logo": "https://raw.githubusercontent.com/drkvenom786/Airbeats/137e3935198c25bfbd5eef1a050002ed52fa84ff/icon.png",
-          "sameAs": [
-            "https://github.com/drkvenom786/Airbeats"
-          ]
-        },
-        {
-          "@type": "FAQPage",
-          "@id": "https://airbeats.app/#faq",
-          "mainEntity": [
-            {
-              "@type": "Question",
-              "name": "What is AirBeats?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "AirBeats is an immersive online web music player and audio streaming platform featuring real-time audio visualizers, custom equalization, high-quality audio playback, and a futuristic user interface."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Is AirBeats completely free to use?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Yes! AirBeats is 100% free to use in any web browser on desktop and mobile devices, with zero subscription fees or ad interruptions."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Does AirBeats support Android and Windows devices?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Yes, AirBeats offers native application builds for Android (APK) and Windows, as well as a fully responsive Progressive Web Application (PWA)."
-              }
-            }
-          ]
         }
       ]
     }
     </script>
 </head>
-<body>
 
-    <!-- Controls -->
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle Dark and Light Mode"><i class="bi bi-moon-stars"></i></button>
+<body class="bg-background text-on-background font-body-md selection:bg-primary-container selection:text-on-primary-container">
 
-    <!-- Download Modal -->
-    <div class="modal-overlay" id="downloadModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="modalTitle">Download AirBeats</h2>
-                <p id="modalSubtitle">Select your preferred build</p>
-            </div>
-            <div class="modal-options" id="modalOptions"></div>
-            <button class="modal-close-btn" onclick="document.getElementById('downloadModal').classList.remove('show')">Cancel</button>
-        </div>
+    <!-- Static Material Design 3 Particle Background -->
+    <div class="particle-bg">
+        <div class="particle particle-1"></div>
+        <div class="particle particle-2"></div>
+        <div class="particle particle-3"></div>
+        <div class="particle particle-4"></div>
+        <div class="particle particle-5"></div>
     </div>
 
-    <!-- Previous Versions Popup Modal -->
-    <div class="modal-overlay" id="previousVersionsModal">
-        <div class="modal-content" style="max-width: 600px;">
-            <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 0.8rem; margin-bottom: 1rem;">
-                <div>
-                    <h2 id="prevModalTitle" style="font-size: 1.35rem; color: var(--text); display: flex; items-center; gap: 0.5rem;"><i class="bi bi-clock-history" style="color: var(--primary);"></i> Previous Versions</h2>
-                    <p id="prevModalSubtitle" style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem;">Select and download previous build releases</p>
-                </div>
-                <button class="modal-close-btn" style="width: auto; padding: 0.3rem 0.7rem; margin: 0;" onclick="document.getElementById('previousVersionsModal').classList.remove('show')"><i class="bi bi-x-lg"></i></button>
-            </div>
-            
-            <div class="platform-tabs" id="modalPlatformTabs" style="margin-bottom: 1rem; display: flex; justify-content: center; width: 100%;">
-                <button class="platform-tab active" data-modal-platform="android"><i class="bi bi-android2"></i> Android Builds</button>
-                <button class="platform-tab" data-modal-platform="windows"><i class="bi bi-windows"></i> Windows Builds</button>
-            </div>
+    <!-- ═══════════════════════ DIALOGS ═══════════════════════ -->
 
-            <div id="previousVersionsList" style="max-height: 420px; overflow-y: auto; padding-right: 4px;"></div>
+    <!-- Language Dialog -->
+    <dialog id="language-dialog" class="glass-dialog">
+        <div class="dialog-header">
+            <h2 class="font-title-lg text-on-surface">Select Language</h2>
+            <button class="dialog-icon-btn" onclick="document.getElementById('language-dialog').close()" aria-label="Close">
+                <span class="material-symbols-outlined">close</span>
+            </button>
         </div>
-    </div>
-
-    <!-- Toast Notification -->
-    <div class="download-toast" id="downloadToast">
-        <i class="bi bi-cloud-check"></i>
-        <span id="downloadToastMessage"></span>
-    </div>
-
-    <!-- Header Section -->
-    <header>
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="blob blob-3"></div>
-
-        <div class="container">
-            <div class="logo-container">
-                <div class="glowing-line"></div>
-                <img src="https://raw.githubusercontent.com/drkvenom786/Airbeats/137e3935198c25bfbd5eef1a050002ed52fa84ff/icon.png" class="app-logo" id="appLogo" alt="AirBeats Logo – Web Audio Player">
+        <div class="dialog-content">
+            <div class="flex flex-col gap-1">
+                <a class="dialog-list-item" href="#">
+                    <img src="https://flagicons.lipis.dev/flags/4x3/gb.svg" alt="EN" class="flag-icon">
+                    <span class="text-on-surface font-body-lg">English</span>
+                </a>
+                <a class="dialog-list-item" href="#">
+                    <img src="https://flagicons.lipis.dev/flags/4x3/es.svg" alt="ES" class="flag-icon">
+                    <span class="text-on-surface font-body-lg">Español</span>
+                </a>
+                <a class="dialog-list-item" href="#">
+                    <img src="https://flagicons.lipis.dev/flags/4x3/br.svg" alt="PT" class="flag-icon">
+                    <span class="text-on-surface font-body-lg">Português</span>
+                </a>
+                <a class="dialog-list-item" href="#">
+                    <img src="https://flagicons.lipis.dev/flags/4x3/in.svg" alt="HI" class="flag-icon">
+                    <span class="text-on-surface font-body-lg">Hindi</span>
+                </a>
             </div>
-
-            <!-- Single H1 Heading for Google #1 Ranking -->
-            <h1 class="hero-title">AirBeats</h1>
-            <p class="hero-subtitle">Step into the future of music streaming. Experience high-quality audio streaming, real-time sound visualizers, custom equalizers, and pure vibes with zero ads.</p>
-
-            <div class="platform-tabs" id="platformTabs">
-                <button class="platform-tab active" data-platform="android"><i class="bi bi-android2"></i> Android</button>
-                <button class="platform-tab" data-platform="windows"><i class="bi bi-windows"></i> Windows</button>
-            </div>
-
-            <div class="btns">
-                <a href="#" class="btn btn-primary" id="downloadBtn"><i class="bi bi-download"></i> <span id="downloadBtnText">Download APK</span></a>
-                <button class="btn btn-secondary" id="prevVersionsBtn"><i class="bi bi-clock-history"></i> Previous Versions</button>
-                <button class="btn btn-secondary" id="copyLinkBtn"><i class="bi bi-link-45deg"></i> Copy Link</button>
-                <button class="btn btn-secondary" id="shareBtn"><i class="bi bi-share"></i> Share App</button>
-            </div>
-
-            <div class="note" id="versionNote">Fetching latest version releases...</div>
         </div>
-    </header>
+    </dialog>
 
-    <!-- Main Content Area -->
-    <main>
-        <!-- Real-Time Audio Visualizer Section -->
-        <section id="visualizer-section">
-            <div class="container">
-                <div class="visualizer-container" id="visualizer"></div>
+    <!-- Warning Dialog (Demo Notice) -->
+    <dialog id="warning-dialog" class="glass-dialog">
+        <div class="dialog-header">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center flex-shrink-0">
+                    <span class="material-symbols-outlined text-secondary" style="font-size:20px">info</span>
+                </div>
+                <h2 class="font-title-lg text-on-surface">AirBeats Demo Notice</h2>
             </div>
-        </section>
+        </div>
+        <div class="dialog-content">
+            <p class="text-on-surface-variant font-body-lg">AirBeats is available as an Android APK and Windows application. You can explore the full source code and download builds directly from GitHub.</p>
+        </div>
+        <div class="dialog-actions">
+            <button id="dismissBtn" class="dialog-text-btn" onclick="document.getElementById('warning-dialog').close()">Close</button>
+            <a href="https://github.com/d0x-dev/AirBeats" target="_blank" class="dialog-filled-btn no-underline">Go to GitHub</a>
+        </div>
+    </dialog>
 
-        <!-- Features Section -->
-        <section id="features">
-            <div class="container">
-                <h2 class="features-title">Next-Gen Audio Features</h2>
-                <div class="features-scroller" id="featuresScroller">
-                    <article class="card feature-card">
-                        <div class="feature-icon"><i class="bi bi-music-note-beamed"></i></div>
-                        <h3>Smart Playlists</h3>
-                        <p>AI-powered playlist generation that adapts to your activity, listening habits, and genre preferences.</p>
-                    </article>
-                    <article class="card feature-card">
-                        <div class="feature-icon"><i class="bi bi-sliders"></i></div>
-                        <h3>10-Band Equalizer</h3>
-                        <p>Customize bass boost, treble, and genre presets with precision 10-band equalization parameters.</p>
-                    </article>
-                    <article class="card feature-card">
-                        <div class="feature-icon"><i class="bi bi-cloud"></i></div>
-                        <h3>Cloud Synchronization</h3>
-                        <p>Seamlessly sync your music library across Android, Windows, and web browsers in real-time.</p>
-                    </article>
-                    <article class="card feature-card">
-                        <div class="feature-icon"><i class="bi bi-hdd"></i></div>
-                        <h3>Smart Offline Cache</h3>
-                        <p>Advanced client-side caching ensures continuous high-fidelity audio playback without internet.</p>
-                    </article>
-                    <article class="card feature-card">
-                        <div class="feature-icon"><i class="bi bi-moon-stars"></i></div>
-                        <h3>OLED Dark Mode</h3>
-                        <p>Ultra-sleek dark interface built with OLED power optimization for nighttime listening.</p>
-                    </article>
-                    <article class="card feature-card">
-                        <div class="feature-icon"><i class="bi bi-headphones"></i></div>
-                        <h3>Lossless Studio Audio</h3>
-                        <p>Stream hi-res audio up to 24-bit/192kHz studio quality with dynamic range compression.</p>
-                    </article>
+    <!-- ═══════════════════════ NAVIGATION ═══════════════════════ -->
+
+    <nav class="fixed top-0 w-full z-50 bg-slate-950/65 backdrop-blur-2xl border-b border-white/10">
+        <div class="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
+
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 no-underline">
+                <img id="logo" src="https://raw.githubusercontent.com/drkvenom786/Airbeats/137e3935198c25bfbd5eef1a050002ed52fa84ff/icon.png" alt="AirBeats Logo" width="36" height="36" class="rounded-lg cursor-pointer" title="Click to play rhythm music">
+                <span class="text-2xl font-black tracking-tighter text-violet-300 font-['Epilogue']">AirBeats</span>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <div class="hidden md:flex gap-8 items-center">
+                <a href="#features" class="font-['Epilogue'] font-medium text-slate-400 hover:text-slate-100 transition-colors no-underline">Features</a>
+                <a href="#screenshots" class="font-['Epilogue'] font-medium text-slate-400 hover:text-slate-100 transition-colors no-underline">Interface</a>
+                <a href="#opensource" class="font-['Epilogue'] font-medium text-slate-400 hover:text-slate-100 transition-colors no-underline">Open Source</a>
+                <a href="#downloads" class="font-['Epilogue'] font-medium text-slate-400 hover:text-slate-100 transition-colors no-underline">Downloads</a>
+                <a href="https://github.com/d0x-dev/AirBeats" target="_blank" rel="noopener noreferrer" class="font-['Epilogue'] font-medium text-slate-400 hover:text-slate-100 transition-colors no-underline">GitHub</a>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-2">
+                <button id="languageSelector" class="flex items-center gap-1 px-3 py-2 rounded-full hover:bg-white/10 text-on-surface-variant transition-colors font-label-lg" aria-label="Select language" onclick="document.getElementById('language-dialog').showModal()">
+                    <span class="material-symbols-outlined">language</span>
+                    <span id="languageText" class="hidden lg:inline text-sm">EN</span>
+                    <span class="material-symbols-outlined" style="font-size:18px">expand_more</span>
+                </button>
+
+                <!-- Download APK Button -->
+                <a id="nav-download-btn" href="#downloads" class="bg-primary-container text-on-primary-container px-5 py-2 rounded-full font-label-lg active:scale-95 transition-all duration-200 no-underline hidden sm:inline-flex items-center gap-2">
+                    <span class="material-symbols-outlined" style="font-size:18px">download</span>
+                    Download
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ═══════════════════════ MAIN CONTENT ═══════════════════════ -->
+
+    <main class="pt-24">
+
+        <!-- ─── HERO SECTION ─── -->
+        <section class="relative px-margin-horizontal py-20 overflow-hidden">
+            <!-- Background glow -->
+            <div class="absolute top-0 right-0 w-1/2 h-full opacity-20 pointer-events-none">
+                <div class="w-full h-full bg-gradient-to-l from-primary-container to-transparent blur-3xl rounded-full translate-x-1/2"></div>
+            </div>
+
+            <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16">
+                <!-- Text Content -->
+                <div class="flex-1 text-center lg:text-left z-10">
+                    <!-- Developer chip -->
+                    <div class="developer-chip inline-flex items-center gap-2 bg-secondary-container text-on-secondary-container px-4 py-2 rounded-full font-label-sm mb-6">
+                        <span class="material-symbols-outlined" style="font-size:16px">code</span>
+                        Dev By DarkBoy &amp; VENOM
+                    </div>
+
+                    <h1 class="font-display-lg text-display-lg text-primary mb-6 leading-tight">AirBeats</h1>
+                    <p class="font-headline-md text-headline-md text-on-surface-variant mb-10 max-w-xl">
+                        🚀 Advanced YouTube Music Client with Material Design 3 for Android &amp; Windows.
+                    </p>
+
+                    <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
+                        <a id="hero-download-btn" href="#downloads" class="bg-primary text-on-primary px-10 py-4 rounded-full font-label-lg text-lg flex items-center gap-2 ambient-glow hover:brightness-110 active:scale-95 transition-all no-underline">
+                            <span class="material-symbols-outlined">download</span>
+                            Download APK
+                        </a>
+                        <button id="hero-demo-btn" class="bg-surface-container-high text-on-surface px-10 py-4 rounded-full font-label-lg text-lg border border-outline-variant/30 hover:bg-surface-container-highest transition-all flex items-center gap-2" onclick="document.getElementById('warning-dialog').showModal()">
+                            <span class="material-symbols-outlined">play_circle</span>
+                            View Releases
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mockup Preview -->
+                <div class="flex-1 relative">
+                    <div class="relative z-10 rounded-lg overflow-hidden glass-card p-4 ambient-glow transform lg:rotate-3">
+                        <img src="img/reproductor.png" alt="AirBeats Immersive Player Preview" class="w-full rounded-DEFAULT" onerror="this.src='sc.png'">
+                    </div>
+                    <div class="absolute -top-10 -left-10 w-32 h-32 bg-tertiary-container/20 rounded-full blur-2xl"></div>
                 </div>
             </div>
         </section>
 
-        <!-- How to Install Section -->
-        <section id="install">
-            <div class="container">
-                <h2 class="features-title">How to Install AirBeats</h2>
-                <div class="install-steps">
-                    <div class="step">
-                        <div class="step-number">1</div>
-                        <div class="step-content">
-                            <h4>Download Build</h4>
-                            <p>Click the "Download" button above to get the official AirBeats APK or Windows installer.</p>
+        <!-- ─── FEATURES SECTION ─── -->
+        <section id="features" class="px-margin-horizontal py-24 bg-surface-container-lowest">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="font-headline-lg text-headline-lg text-on-surface mb-4">Features</h2>
+                    <p class="text-on-surface-variant max-w-2xl mx-auto">
+                        Discover all the powerful capabilities that make AirBeats the ultimate client for your music library.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- Feature 1 -->
+                    <div class="glass-card p-6 rounded-lg hover:bg-surface-container-high transition-colors">
+                        <div class="feature-icon-wrap bg-primary-container/30 text-primary">
+                            <span class="material-symbols-outlined">music_note</span>
                         </div>
+                        <h3 class="font-title-md text-on-surface mb-2">YouTube Music Integration</h3>
+                        <p class="text-on-surface-variant text-sm leading-relaxed">Full access to your favorite YouTube Music tracks, playlists, artists, and personalized recommendations.</p>
                     </div>
-                    <div class="step">
-                        <div class="step-number">2</div>
-                        <div class="step-content">
-                            <h4>Enable Permissions</h4>
-                            <p>On Android, allow installation from unknown sources in Settings → Security if prompted.</p>
+
+                    <!-- Feature 2 -->
+                    <div class="glass-card p-6 rounded-lg hover:bg-surface-container-high transition-colors">
+                        <div class="feature-icon-wrap bg-secondary-container/60 text-secondary">
+                            <span class="material-symbols-outlined">palette</span>
                         </div>
+                        <h3 class="font-title-md text-on-surface mb-2">Material Design 3</h3>
+                        <p class="text-on-surface-variant text-sm leading-relaxed">Built with modern Material You principles, vivid dynamic color palettes, and fluid micro-animations.</p>
                     </div>
-                    <div class="step">
-                        <div class="step-number">3</div>
-                        <div class="step-content">
-                            <h4>Install & Launch</h4>
-                            <p>Open the downloaded installer file and follow the quick setup wizard.</p>
+
+                    <!-- Feature 3 -->
+                    <div class="glass-card p-6 rounded-lg hover:bg-surface-container-high transition-colors">
+                        <div class="feature-icon-wrap bg-tertiary-container/30 text-tertiary">
+                            <span class="material-symbols-outlined">tune</span>
                         </div>
+                        <h3 class="font-title-md text-on-surface mb-2">10-Band Equalizer</h3>
+                        <p class="text-on-surface-variant text-sm leading-relaxed">Customize bass boost, treble, and genre presets with precision 10-band audio equalization DSP parameters.</p>
                     </div>
-                    <div class="step">
-                        <div class="step-number">4</div>
-                        <div class="step-content">
-                            <h4>Stream Music</h4>
-                            <p>Launch AirBeats to start enjoying ad-free, high-quality audio streaming immediately!</p>
+
+                    <!-- Feature 4 -->
+                    <div class="glass-card p-6 rounded-lg hover:bg-surface-container-high transition-colors">
+                        <div class="feature-icon-wrap bg-primary-container/30 text-primary">
+                            <span class="material-symbols-outlined">download_for_offline</span>
                         </div>
+                        <h3 class="font-title-md text-on-surface mb-2">Smart Offline Downloads</h3>
+                        <p class="text-on-surface-variant text-sm leading-relaxed">Download your favorite songs and albums for offline listening anytime without internet access.</p>
+                    </div>
+
+                    <!-- Feature 5 -->
+                    <div class="glass-card p-6 rounded-lg hover:bg-surface-container-high transition-colors">
+                        <div class="feature-icon-wrap bg-secondary-container/60 text-secondary">
+                            <span class="material-symbols-outlined">search</span>
+                        </div>
+                        <h3 class="font-title-md text-on-surface mb-2">Advanced Search &amp; Discovery</h3>
+                        <p class="text-on-surface-variant text-sm leading-relaxed">Instant search across songs, albums, artists, and playlists with smart autocomplete indexing.</p>
+                    </div>
+
+                    <!-- Feature 6 -->
+                    <div class="glass-card p-6 rounded-lg hover:bg-surface-container-high transition-colors">
+                        <div class="feature-icon-wrap bg-tertiary-container/30 text-tertiary">
+                            <span class="material-symbols-outlined">graphic_eq</span>
+                        </div>
+                        <h3 class="font-title-md text-on-surface mb-2">Hi-Res Audio Playback</h3>
+                        <p class="text-on-surface-variant text-sm leading-relaxed">Stream lossless studio-quality audio up to 24-bit/192kHz with dynamic range compression.</p>
+                    </div>
+
+                    <!-- Feature 7 -->
+                    <div class="glass-card p-6 rounded-lg hover:bg-surface-container-high transition-colors">
+                        <div class="feature-icon-wrap bg-primary-container/30 text-primary">
+                            <span class="material-symbols-outlined">dark_mode</span>
+                        </div>
+                        <h3 class="font-title-md text-on-surface mb-2">OLED Dark Mode</h3>
+                        <p class="text-on-surface-variant text-sm leading-relaxed">Ultra-sleek pitch black interface engineered specifically for OLED screen power savings during night listening.</p>
+                    </div>
+
+                    <!-- Feature 8 -->
+                    <div class="glass-card p-6 rounded-lg hover:bg-surface-container-high transition-colors">
+                        <div class="feature-icon-wrap bg-secondary-container/60 text-secondary">
+                            <span class="material-symbols-outlined">queue_music</span>
+                        </div>
+                        <h3 class="font-title-md text-on-surface mb-2">Smart AI Playlists</h3>
+                        <p class="text-on-surface-variant text-sm leading-relaxed">AI-powered playlist generation that adapts to your activity, listening habits, and mood preferences.</p>
+                    </div>
+
+                    <!-- Feature 9 -->
+                    <div class="glass-card p-6 rounded-lg hover:bg-surface-container-high transition-colors">
+                        <div class="feature-icon-wrap bg-tertiary-container/30 text-tertiary">
+                            <span class="material-symbols-outlined">devices</span>
+                        </div>
+                        <h3 class="font-title-md text-on-surface mb-2">Cross-Platform Support</h3>
+                        <p class="text-on-surface-variant text-sm leading-relaxed">Available on Android 6.0+ devices as well as native Windows 10/11 desktop application builds.</p>
+                    </div>
+
+                    <!-- Feature 10 -->
+                    <div class="glass-card p-6 rounded-lg hover:bg-surface-container-high transition-colors">
+                        <div class="feature-icon-wrap bg-primary-container/30 text-primary">
+                            <span class="material-symbols-outlined">translate</span>
+                        </div>
+                        <h3 class="font-title-md text-on-surface mb-2">Multi-Language Localization</h3>
+                        <p class="text-on-surface-variant text-sm leading-relaxed">Translated into dozens of global languages by our active community via Crowdin integration.</p>
+                    </div>
+
+                    <!-- Feature 11 -->
+                    <div class="glass-card p-6 rounded-lg hover:bg-surface-container-high transition-colors">
+                        <div class="feature-icon-wrap bg-secondary-container/60 text-secondary">
+                            <span class="material-symbols-outlined">code</span>
+                        </div>
+                        <h3 class="font-title-md text-on-surface mb-2">Continuous Open Source Updates</h3>
+                        <p class="text-on-surface-variant text-sm leading-relaxed">Regular release updates with new features, performance tweaks, and security enhancements on GitHub.</p>
+                    </div>
+
+                    <!-- Feature 12 -->
+                    <div class="glass-card p-6 rounded-lg hover:bg-surface-container-high transition-colors">
+                        <div class="feature-icon-wrap bg-tertiary-container/30 text-tertiary">
+                            <span class="material-symbols-outlined">block</span>
+                        </div>
+                        <h3 class="font-title-md text-on-surface mb-2">100% Free &amp; Zero Ads</h3>
+                        <p class="text-on-surface-variant text-sm leading-relaxed">Pure music enjoyment with zero subscription fees, hidden paywalls, or commercial advertisement interruptions.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Version History Section -->
-        <section id="versions">
-            <div class="container">
-                <h2 class="features-title">Version History</h2>
-                <div class="version-master-wrapper">
-                    <div class="version-master-container" id="versionMasterContainer">
-                        <div class="version-master-header" id="masterHeader">
-                            <div class="version-master-title"><i class="bi bi-clock-history"></i> All Releases <span class="version-badge" id="releaseCountBadge">Loading...</span></div>
-                            <i class="bi bi-chevron-down"></i>
-                        </div>
-                        <div class="version-master-content">
-                            <div id="compactVersionsList" class="versions-list-compact">Loading releases...</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Frequently Asked Questions (FAQ) -->
-        <section id="faq">
-            <div class="container">
-                <h2 class="features-title">Frequently Asked Questions</h2>
-                <div class="faq-grid">
-                    <div class="faq-item">
-                        <h3>What is AirBeats?</h3>
-                        <p>AirBeats is a free, modern web music player and application offering ad-free high quality audio streaming, real-time sound visualizers, and custom audio processing.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3>Is AirBeats completely free to use?</h3>
-                        <p>Yes! AirBeats is 100% free with zero subscription fees, hidden costs, or advertisement interruptions.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3>Which platforms are supported by AirBeats?</h3>
-                        <p>AirBeats is available on Android (APK), Windows 10/11, and any modern web browser via progressive web application standard.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Team Section -->
-        <section id="team">
-            <div class="container">
-                <h2 class="features-title">Meet The Developers</h2>
-                <div class="dev-grid">
-                    <div class="card dev-card">
-                        <div class="dev-header">
-                            <img src="https://avatars.githubusercontent.com/u/218248866" class="dev-avatar" alt="DarkBoy Lead Developer Avatar">
-                            <div class="dev-info">
-                                <a href="https://darkboy.pro" target="_blank" rel="noopener noreferrer"><h3>DarkBoy</h3></a>
-                                <span class="dev-role">Lead Developer</span>
-                                <p class="dev-bio">Architect behind AirBeats' core engine, audio DSP processing, and performance optimization.</p>
-                            </div>
-                        </div>
-                        <div class="dev-skills">
-                            <span class="skill-tag">Kotlin</span>
-                            <span class="skill-tag">C++</span>
-                            <span class="skill-tag">Audio DSP</span>
-                            <span class="skill-tag">TypeScript</span>
-                        </div>
-                    </div>
-
-                    <div class="card dev-card">
-                        <div class="dev-header">
-                            <img src="https://avatars.githubusercontent.com/u/227567962" class="dev-avatar" alt="VENOM UI/UX Specialist Avatar">
-                            <div class="dev-info">
-                                <a href="https://venomxhub.netlify.app" target="_blank" rel="noopener noreferrer"><h3>VENOM</h3></a>
-                                <span class="dev-role">UI/UX Specialist</span>
-                                <p class="dev-bio">Designer crafting intuitive interfaces, micro-animations, and responsive user experiences.</p>
-                            </div>
-                        </div>
-                        <div class="dev-skills">
-                            <span class="skill-tag">UI Design</span>
-                            <span class="skill-tag">Motion Design</span>
-                            <span class="skill-tag">Figma</span>
-                            <span class="skill-tag">Accessibility</span>
+        <!-- ─── OPEN SOURCE SECTION ─── -->
+        <section id="opensource" class="px-margin-horizontal py-24 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto glass-card rounded-xl p-12 md:p-20 relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
+                <div class="max-w-xl text-center md:text-left">
+                    <span class="inline-block px-4 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm mb-6">COMMUNITY DRIVEN</span>
+                    <h2 class="font-headline-lg text-headline-lg text-on-surface mb-6">Open Source at its Heart</h2>
+                    <p class="text-on-surface-variant font-body-lg mb-8">
+                        AirBeats is built out in the open by music lovers for music lovers. Licensed under <strong>GNU GPL-3.0</strong>. Anyone can inspect the source code, build locally, or submit contributions on GitHub.
+                    </p>
+                    <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+                        <a href="https://github.com/d0x-dev/AirBeats" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 bg-on-surface text-surface px-8 py-3 rounded-full font-label-lg active:scale-95 transition-all no-underline">
+                            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1; font-size:20px">star</span>
+                            Star on GitHub
+                        </a>
+                        <div class="flex items-center gap-2 px-6 py-3 border border-outline-variant rounded-full text-on-surface">
+                            <span class="font-title-md">GNU GPL-3.0</span>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <!-- Open Source & Community Contribution Section -->
-        <section id="opensource">
-            <div class="container">
-                <h2 class="features-title">100% Open Source &amp; Community Driven</h2>
-                <p style="text-align: center; max-width: 720px; margin: -1rem auto 2.5rem; color: var(--text-muted); font-size: 1.05rem;">
-                    AirBeats is free software licensed under the <strong>GNU General Public License v3.0</strong>. Anyone can inspect the code, build from source, translate into new languages, or submit contributions on GitHub.
-                </p>
-
-                <div class="opensource-grid">
-                    <!-- Card 1: GitHub Repository -->
-                    <div class="card opensource-card">
+                <!-- Developer Cards & Version Info -->
+                <div class="flex flex-col gap-6 w-full max-w-sm items-center">
+                    <div class="w-full bg-surface-container-high p-6 rounded-lg flex items-center gap-4 border border-white/5">
+                        <div class="w-12 h-12 rounded-full bg-primary-container/20 flex items-center justify-center flex-shrink-0">
+                            <img src="https://avatars.githubusercontent.com/u/218248866" class="rounded-full w-full h-full object-cover" alt="DarkBoy">
+                        </div>
                         <div>
-                            <div class="opensource-icon"><i class="bi bi-github"></i></div>
-                            <h3>GitHub Repository</h3>
-                            <p>Explore the full source code, star the repository, or fork it to start your own customizations.</p>
-                            <div class="opensource-badges">
-                                <span class="skill-tag"><i class="bi bi-shield-check"></i> GNU GPL v3.0</span>
-                                <span class="skill-tag"><i class="bi bi-star-fill" style="color:#eac54f;"></i> Stargazers</span>
-                                <span class="skill-tag"><i class="bi bi-diagram-2"></i> Open Forks</span>
+                            <div class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-secondary text-[20px] leading-none">verified</span>
+                                <a href="https://darkboy.pro" target="_blank" rel="noopener noreferrer" class="text-on-surface font-title-md hover:text-primary no-underline">DarkBoy</a>
                             </div>
+                            <p class="text-on-surface-variant text-sm">Lead Developer &amp; Architect</p>
                         </div>
-                        <a href="https://github.com/d0x-dev/AirBeats" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="width: 100%; margin-top: 1.2rem; justify-content: center;"><i class="bi bi-github"></i> View on GitHub</a>
                     </div>
 
-                    <!-- Card 2: Translate on Crowdin -->
-                    <div class="card opensource-card">
-                        <div>
-                            <div class="opensource-icon" style="background: linear-gradient(135deg, #00e5ff, #7000ff);"><i class="bi bi-translate"></i></div>
-                            <h3>Translate AirBeats</h3>
-                            <p>Help translate AirBeats into your native language! Zero coding experience required – managed via Crowdin.</p>
-                            <div class="opensource-badges">
-                                <span class="skill-tag"><i class="bi bi-globe"></i> Global Localization</span>
-                                <span class="skill-tag"><i class="bi bi-people"></i> Crowdin Sync</span>
-                            </div>
+                    <div class="w-full bg-surface-container-high p-6 rounded-lg flex items-center gap-4 border border-white/5">
+                        <div class="w-12 h-12 rounded-full bg-secondary-container/60 flex items-center justify-center flex-shrink-0">
+                            <img src="https://avatars.githubusercontent.com/u/227567962" class="rounded-full w-full h-full object-cover" alt="VENOM">
                         </div>
-                        <a href="https://crowdin.com/project/airbeats" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="width: 100%; margin-top: 1.2rem; justify-content: center;"><i class="bi bi-globe"></i> Translate on Crowdin</a>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-secondary text-[20px] leading-none">verified</span>
+                                <a href="https://venomxhub.netlify.app" target="_blank" rel="noopener noreferrer" class="text-on-surface font-title-md hover:text-primary no-underline">VENOM</a>
+                            </div>
+                            <p class="text-on-surface-variant text-sm">UI/UX Specialist &amp; Designer</p>
+                        </div>
                     </div>
 
-                    <!-- Card 3: Contribute Code & PRs -->
-                    <div class="card opensource-card">
-                        <div>
-                            <div class="opensource-icon" style="background: linear-gradient(135deg, #ff1178, #ff9900);"><i class="bi bi-code-slash"></i></div>
-                            <h3>Contribute Code &amp; PRs</h3>
-                            <p>Fork the repository, create a feature branch, and submit a Pull Request to contribute directly to AirBeats.</p>
-                            <div class="code-snippet">
-                                <code>git clone https://github.com/d0x-dev/AirBeats.git</code>
-                            </div>
+                    <div class="w-full bg-surface-container-high p-6 rounded-lg flex items-center gap-4 border border-white/5 translate-x-0 md:translate-x-4">
+                        <div class="w-12 h-12 rounded-full bg-secondary-container/60 flex items-center justify-center flex-shrink-0">
+                            <span class="material-symbols-outlined text-secondary">new_releases</span>
                         </div>
-                        <a href="https://github.com/d0x-dev/AirBeats/pulls" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="width: 100%; margin-top: 1.2rem; justify-content: center;"><i class="bi bi-git"></i> Open a Pull Request</a>
+                        <div>
+                            <p class="text-on-surface font-title-md">Latest Stable Version</p>
+                            <p id="oss-version-badge" class="text-on-surface-variant text-sm">v5.9.0 (Loading...)</p>
+                        </div>
                     </div>
+                </div>
+            </div>
 
-                    <!-- Card 4: Build from Source -->
-                    <div class="card opensource-card">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-primary/5 blur-3xl -z-0 pointer-events-none"></div>
+        </section>
+
+        <!-- ─── SCREENSHOTS SECTION (EXPANDABLE ACCORDION) ─── -->
+        <section id="screenshots" class="px-margin-horizontal py-24 bg-surface">
+            <div class="max-w-7xl mx-auto">
+                <!-- Header with collapse toggle -->
+                <div class="mb-16">
+                    <div class="flex items-center justify-between cursor-pointer group" id="screenshots-header">
                         <div>
-                            <div class="opensource-icon" style="background: linear-gradient(135deg, #22c55e, #14b8a6);"><i class="bi bi-tools"></i></div>
-                            <h3>Build from Source</h3>
-                            <p>Build the Android debug or release APK locally using JDK 21 and Gradle build system.</p>
-                            <div class="code-snippet">
-                                <code>./gradlew assembleDebug</code>
-                            </div>
+                            <h2 class="font-headline-lg text-headline-lg text-on-surface">The Interface</h2>
+                            <p class="text-on-surface-variant mt-2">Explore the Material Design 3 experience of AirBeats.</p>
                         </div>
-                        <a href="https://github.com/d0x-dev/AirBeats/blob/main/README.md#%EF%B8%8F-build-from-source" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="width: 100%; margin-top: 1.2rem; justify-content: center;"><i class="bi bi-book"></i> Read Build Guide</a>
+                        <button id="screenshots-toggle" class="p-3 rounded-full hover:bg-white/10 transition-colors" aria-label="Expand/Collapse">
+                            <span id="screenshots-icon" class="material-symbols-outlined text-on-surface-variant rotated">expand_more</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Collapsible Carousel Content -->
+                <div id="screenshots-content" class="transition-all duration-300 ease-in-out overflow-hidden max-h-[2000px]">
+                    <div class="screenshots-shell glass-card rounded-xl border border-white/5 p-5 md:p-8 lg:p-10">
+                        <div class="screenshots-carousel-layout">
+                            <div class="screenshots-hero-panel">
+                                <div class="flex flex-wrap items-start justify-between gap-4 mb-8">
+                                    <div class="max-w-2xl">
+                                        <span class="screenshots-chip inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium">
+                                            <span class="material-symbols-outlined text-[18px]">photo_library</span>
+                                            Material 3 Expressive
+                                        </span>
+                                        <h3 id="screenshots-title" class="font-headline-md text-headline-md text-on-surface mt-5">
+                                            Immersive Audio Player
+                                        </h3>
+                                        <p id="screenshots-description" class="text-on-surface-variant font-body-lg mt-3 max-w-xl">
+                                            Album artwork focus, expanded controls, real-time audio visualizers, and clean music hierarchy.
+                                        </p>
+                                    </div>
+                                    <div class="screenshots-counter">
+                                        <span class="text-on-surface-variant text-sm">Active View</span>
+                                        <p id="screenshots-current-index" class="font-headline-md text-headline-md text-secondary mt-1">01</p>
+                                    </div>
+                                </div>
+
+                                <div class="screenshots-stage">
+                                    <button id="screenshots-prev" type="button" class="screenshots-nav-button" aria-label="Previous screenshot">
+                                        <span class="material-symbols-outlined">chevron_left</span>
+                                    </button>
+
+                                    <div class="screenshots-viewport">
+                                        <div id="screenshots-track" class="screenshots-track">
+                                            <article class="screenshots-slide ambient-glow" data-title="Immersive Audio Player" data-description="Album artwork focus, expanded controls, real-time audio visualizers, and clean music hierarchy.">
+                                                <div class="screenshots-device-frame">
+                                                    <img alt="Player Screen" class="w-full h-full object-cover" src="img/reproductor.png">
+                                                </div>
+                                            </article>
+
+                                            <article class="screenshots-slide ambient-glow" data-title="Smart Music Library" data-description="Organized collections, instant search index, and clear album cards for exploring your music.">
+                                                <div class="screenshots-device-frame">
+                                                    <img alt="Library Screen" class="w-full h-full object-cover" src="img/reproductor.png">
+                                                </div>
+                                            </article>
+
+                                            <article class="screenshots-slide ambient-glow" data-title="Advanced Audio DSP &amp; Settings" data-description="Grouped preferences, 10-band equalizer sliders, and clean elevated Material 3 surfaces.">
+                                                <div class="screenshots-device-frame">
+                                                    <img alt="Settings Screen" class="w-full h-full object-cover" src="img/reproductor.png">
+                                                </div>
+                                            </article>
+                                        </div>
+                                    </div>
+
+                                    <button id="screenshots-next" type="button" class="screenshots-nav-button" aria-label="Next screenshot">
+                                        <span class="material-symbols-outlined">chevron_right</span>
+                                    </button>
+                                </div>
+
+                                <div class="screenshots-footer">
+                                    <div id="screenshots-indicators" class="screenshots-indicators" aria-label="Select screenshot"></div>
+                                    <p class="text-on-surface-variant text-sm">Swipe or click controls to switch views.</p>
+                                </div>
+                            </div>
+
+                            <aside class="screenshots-preview-rail" aria-label="Quick screenshot preview">
+                                <button type="button" class="screenshots-preview-card is-active" data-screenshot-index="0">
+                                    <div class="screenshots-preview-thumb">
+                                        <img alt="Player Preview" class="w-full h-full object-cover" src="img/reproductor.png">
+                                    </div>
+                                    <div>
+                                        <p class="font-title-md text-on-surface">Immersive Player</p>
+                                        <p class="text-on-surface-variant text-sm mt-1">Playback focused interface.</p>
+                                    </div>
+                                </button>
+
+                                <button type="button" class="screenshots-preview-card" data-screenshot-index="1">
+                                    <div class="screenshots-preview-thumb">
+                                        <img alt="Library Preview" class="w-full h-full object-cover" src="img/reproductor.png">
+                                    </div>
+                                    <div>
+                                        <p class="font-title-md text-on-surface">Smart Library</p>
+                                        <p class="text-on-surface-variant text-sm mt-1">Playlists, albums &amp; artists.</p>
+                                    </div>
+                                </button>
+
+                                <button type="button" class="screenshots-preview-card" data-screenshot-index="2">
+                                    <div class="screenshots-preview-thumb">
+                                        <img alt="Settings Preview" class="w-full h-full object-cover" src="img/reproductor.png">
+                                    </div>
+                                    <div>
+                                        <p class="font-title-md text-on-surface">Audio DSP Settings</p>
+                                        <p class="text-on-surface-variant text-sm mt-1">10-band equalizer presets.</p>
+                                    </div>
+                                </button>
+                            </aside>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
+
+        <!-- ─── SUPPORT SECTION ─── -->
+        <section class="px-margin-horizontal py-20">
+            <div class="max-w-3xl mx-auto">
+                <div class="glass-card rounded-xl p-10 text-center border border-white/5">
+                    <div class="w-14 h-14 rounded-full bg-secondary-container flex items-center justify-center mx-auto mb-6">
+                        <span class="material-symbols-outlined text-secondary" style="font-size:26px">support_agent</span>
+                    </div>
+                    <h2 class="font-headline-md text-headline-md text-on-surface mb-3">Need Help or Support?</h2>
+                    <p class="text-on-surface-variant font-body-lg mb-8 max-w-md mx-auto">
+                        Submit a issue, report a bug, or connect directly with the AirBeats development team.
+                    </p>
+                    <a href="https://github.com/d0x-dev/AirBeats/issues" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-secondary-container text-on-secondary-container px-8 py-3 rounded-full font-label-lg active:scale-95 transition-all hover:brightness-110 no-underline">
+                        <span class="material-symbols-outlined" style="font-size:18px">send</span>
+                        Request Help on GitHub
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── DOWNLOADS SECTION ─── -->
+        <section id="downloads" class="px-margin-horizontal py-24 bg-gradient-to-b from-surface to-slate-950">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="font-headline-lg text-headline-lg text-on-surface mb-4">Downloads</h2>
+                    <p class="text-on-surface-variant max-w-2xl mx-auto">
+                        Download the latest official AirBeats releases for Android &amp; Windows.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+                    <!-- Android Download Card -->
+                    <div class="glass-card rounded-xl p-8 border border-white/5">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-12 h-12 rounded-full bg-tertiary-container/20 text-tertiary flex items-center justify-center flex-shrink-0">
+                                <span class="material-symbols-outlined">android</span>
+                            </div>
+                            <div>
+                                <h3 class="font-title-lg text-on-surface">Android Build</h3>
+                                <p class="text-on-surface-variant text-sm">Download signed APK package.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="version-chip version-chip--stable">Stable Build</span>
+                            <span id="android-version-badge" class="version-chip">v5.9.0</span>
+                        </div>
+
+                        <div class="flex flex-wrap gap-6 mb-8">
+                            <button id="changelog-trigger" class="flex items-center gap-2 text-primary hover:text-on-primary-container transition-colors font-label-lg">
+                                <span class="material-symbols-outlined" style="font-size:18px">list_alt</span>
+                                View Changelog
+                            </button>
+                            <button id="versions-trigger" class="flex items-center gap-2 text-primary hover:text-on-primary-container transition-colors font-label-lg">
+                                <span class="material-symbols-outlined" style="font-size:18px">history</span>
+                                Previous Versions
+                            </button>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-6 border-t border-white/10">
+                            <a id="android-download-btn" href="https://github.com/d0x-dev/AirBeats/releases/download/5.9.0/AirBeats_v5.9.0_signed.apk" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 bg-primary text-on-primary px-8 py-3 rounded-full font-label-lg ambient-glow hover:brightness-110 active:scale-95 transition-all no-underline">
+                                <span class="material-symbols-outlined">download</span>
+                                <span id="android-download-text">Download APK</span>
+                            </a>
+                            <p class="text-on-surface-variant font-label-sm">Requires Android 6.0+</p>
+                        </div>
+                    </div>
+
+                    <!-- Windows Download Card -->
+                    <div class="glass-card rounded-xl p-8 border border-white/5">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-12 h-12 rounded-full bg-primary-container/20 text-primary flex items-center justify-center flex-shrink-0">
+                                <span class="material-symbols-outlined">laptop_windows</span>
+                            </div>
+                            <div>
+                                <h3 class="font-title-lg text-on-surface">Windows Desktop</h3>
+                                <p class="text-on-surface-variant text-sm">Download Windows Setup or Portable .exe</p>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="version-chip version-chip--stable">Windows Build</span>
+                            <span id="windows-version-badge" class="version-chip">v5.7.0</span>
+                        </div>
+
+                        <div class="flex flex-wrap gap-6 mb-8">
+                            <button id="windows-changelog-trigger" class="flex items-center gap-2 text-primary hover:text-on-primary-container transition-colors font-label-lg">
+                                <span class="material-symbols-outlined" style="font-size:18px">list_alt</span>
+                                View Changelog
+                            </button>
+                            <button id="windows-versions-trigger" class="flex items-center gap-2 text-primary hover:text-on-primary-container transition-colors font-label-lg">
+                                <span class="material-symbols-outlined" style="font-size:18px">history</span>
+                                Previous Versions
+                            </button>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-6 border-t border-white/10">
+                            <a id="windows-download-btn" href="https://github.com/d0x-dev/AirBeats/releases/download/5.7.0/Airbeats-v5.7.0-setup.exe" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 bg-primary text-on-primary px-8 py-3 rounded-full font-label-lg ambient-glow hover:brightness-110 active:scale-95 transition-all no-underline">
+                                <span class="material-symbols-outlined">download</span>
+                                <span id="windows-download-text">Download Windows (.exe)</span>
+                            </a>
+                            <p class="text-on-surface-variant font-label-sm">Requires Windows 10/11</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
     </main>
 
-    <!-- Footer Section -->
-    <footer>
-        <div class="container">
-            <p class="note">&copy; 2026 AirBeats. All Rights Reserved.</p>
-            <p class="note" style="margin-top: 0.4rem;">Crafted with <i class="bi bi-heart-fill" style="color: var(--primary);"></i> by DarkBoy &amp; VENOM</p>
+    <!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+
+    <footer class="bg-slate-950 w-full py-12 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-8">
+            <div class="flex flex-col lg:flex-row justify-between items-center gap-8 mb-10">
+                <div class="text-center lg:text-left">
+                    <span class="text-xl font-black text-slate-100 font-['Epilogue']">AirBeats</span>
+                    <p class="text-slate-500 font-['Epilogue'] text-sm mt-1">&copy; 2026 <a href="https://darkboy.pro" target="_blank" rel="noopener noreferrer" class="text-violet-300 hover:text-violet-200 no-underline transition-colors">DarkBoy</a> &amp; <a href="https://venomxhub.netlify.app" target="_blank" rel="noopener noreferrer" class="text-violet-300 hover:text-violet-200 no-underline transition-colors">VENOM</a>. All Rights Reserved.</p>
+                </div>
+
+                <div class="flex flex-wrap gap-3 justify-center">
+                    <a href="https://github.com/d0x-dev" target="_blank" rel="noopener noreferrer" class="footer-chip">
+                        <span class="material-symbols-outlined" style="font-size:16px">developer_mode</span>
+                        Dev
+                    </a>
+                    <a href="https://github.com/d0x-dev/AirBeats" target="_blank" rel="noopener noreferrer" class="footer-chip">
+                        <span class="material-symbols-outlined" style="font-size:16px">code</span>
+                        Source Code
+                    </a>
+                    <a href="https://raw.githubusercontent.com/d0x-dev/AirBeats/main/LICENSE" target="_blank" rel="noopener noreferrer" class="footer-chip">
+                        <span class="material-symbols-outlined" style="font-size:16px">description</span>
+                        License (GPL-3.0)
+                    </a>
+                    <a href="https://t.me/songpy" target="_blank" rel="noopener noreferrer" class="footer-chip">
+                        <span class="material-symbols-outlined" style="font-size:16px">send</span>
+                        Telegram
+                    </a>
+                    <a href="https://crowdin.com/project/airbeats" target="_blank" rel="noopener noreferrer" class="footer-chip">
+                        <span class="material-symbols-outlined" style="font-size:16px">translate</span>
+                        Crowdin
+                    </a>
+                    <a href="https://github.com/d0x-dev/AirBeats/issues" target="_blank" rel="noopener noreferrer" class="footer-chip">
+                        <span class="material-symbols-outlined" style="font-size:16px">support</span>
+                        Support
+                    </a>
+                </div>
+            </div>
+
+            <div class="border-t border-white/5 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-slate-500 text-sm font-['Epilogue']">Licensed under GNU General Public License v3.0 Open Source License.</p>
+                <div class="flex gap-6">
+                    <a href="#features" class="text-slate-500 hover:text-violet-200 transition-colors font-['Epilogue'] text-sm no-underline">Features</a>
+                    <a href="#downloads" class="text-slate-500 hover:text-violet-200 transition-colors font-['Epilogue'] text-sm no-underline">Downloads</a>
+                    <a href="https://github.com/d0x-dev/AirBeats" target="_blank" rel="noopener noreferrer" class="text-slate-500 hover:text-violet-200 transition-colors font-['Epilogue'] text-sm no-underline">GitHub</a>
+                </div>
+            </div>
         </div>
     </footer>
 
-    <!-- Back to Top Button -->
-    <button class="fab" id="backToTop" aria-label="Scroll back to top"><i class="bi bi-arrow-up"></i></button>
+    <!-- ═══════════════════════ MODALS ═══════════════════════ -->
+
+    <!-- Changelog Dialog -->
+    <dialog id="changelog-dialog" class="glass-dialog glass-dialog--large">
+        <div class="dialog-header">
+            <h3 class="text-on-surface font-title-md">Changelog Release Notes</h3>
+            <button id="close-changelog-btn" class="dialog-icon-btn" onclick="document.getElementById('changelog-dialog').close()">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <div id="changelog-content" class="dialog-content dialog-content--scroll">
+            <div class="loading-indicator">
+                <div class="circular-progress"></div>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- Versions History Dialog -->
+    <dialog id="versions-dialog" class="glass-dialog glass-dialog--large">
+        <div class="dialog-header">
+            <h3 class="text-on-surface font-title-md">Previous Versions &amp; Builds</h3>
+            <button id="close-versions-btn" class="dialog-icon-btn" onclick="document.getElementById('versions-dialog').close()">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <div id="versions-list" class="dialog-content dialog-content--scroll">
+            <div class="loading-indicator">
+                <div class="circular-progress"></div>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- Toast Notification -->
+    <div id="downloadToast" class="download-toast">
+        <span class="material-symbols-outlined">cloud_download</span>
+        <span id="downloadToastMessage"></span>
+    </div>
 
     <!-- Application Script -->
-    <script src="js/app.js?v=5.8.1"></script>
+    <script src="js/app.js?v=5.8.3"></script>
 </body>
+
 </html>
