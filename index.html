@@ -152,18 +152,22 @@
         </div>
         <div class="dialog-content">
             <div class="flex flex-col gap-1">
-                <a class="dialog-list-item" href="#">
+                <button class="dialog-list-item w-full text-left bg-transparent border-0 cursor-pointer" data-lang="es">
                     <img src="https://flagicons.lipis.dev/flags/4x3/es.svg" alt="ES" class="flag-icon">
                     <span class="text-on-surface font-body-lg">Español</span>
-                </a>
-                <a class="dialog-list-item" href="#">
+                </button>
+                <button class="dialog-list-item w-full text-left bg-transparent border-0 cursor-pointer" data-lang="en">
                     <img src="https://flagicons.lipis.dev/flags/4x3/gb.svg" alt="EN" class="flag-icon">
                     <span class="text-on-surface font-body-lg">English</span>
-                </a>
-                <a class="dialog-list-item" href="#">
+                </button>
+                <button class="dialog-list-item w-full text-left bg-transparent border-0 cursor-pointer" data-lang="pt">
                     <img src="https://flagicons.lipis.dev/flags/4x3/br.svg" alt="PT" class="flag-icon">
                     <span class="text-on-surface font-body-lg">Português</span>
-                </a>
+                </button>
+                <button class="dialog-list-item w-full text-left bg-transparent border-0 cursor-pointer" data-lang="hi">
+                    <img src="https://flagicons.lipis.dev/flags/4x3/in.svg" alt="HI" class="flag-icon">
+                    <span class="text-on-surface font-body-lg">Hindi</span>
+                </button>
             </div>
         </div>
     </dialog>
@@ -201,9 +205,9 @@
 
             <!-- Desktop Nav -->
             <div class="hidden md:flex gap-8 items-center">
-                <a href="#features" class="font-['Epilogue'] font-medium text-slate-400 hover:text-slate-100 transition-colors">Características</a>
-                <a href="#screenshots" class="font-['Epilogue'] font-medium text-slate-400 hover:text-slate-100 transition-colors">Capturas</a>
-                <a href="#downloads" class="font-['Epilogue'] font-medium text-slate-400 hover:text-slate-100 transition-colors">Descargas</a>
+                <a href="#features" class="font-['Epilogue'] font-medium text-slate-400 hover:text-slate-100 transition-colors" data-i18n="nav_features">Características</a>
+                <a href="#screenshots" class="font-['Epilogue'] font-medium text-slate-400 hover:text-slate-100 transition-colors" data-i18n="nav_screenshots">Capturas</a>
+                <a href="#downloads" class="font-['Epilogue'] font-medium text-slate-400 hover:text-slate-100 transition-colors" data-i18n="nav_downloads">Descargas</a>
                 <a href="https://github.com/d0x-dev/AirBeats" target="_blank" class="font-['Epilogue'] font-medium text-slate-400 hover:text-slate-100 transition-colors">GitHub</a>
             </div>
 
@@ -218,7 +222,7 @@
                 <!-- Download APK (nav) -->
                 <a id="nav-download-btn" href="#downloads" class="bg-primary-container text-on-primary-container px-5 py-2 rounded-full font-label-lg active:scale-95 transition-all duration-200 no-underline hidden sm:inline-flex items-center gap-2">
                     <span class="material-symbols-outlined" style="font-size:18px">download</span>
-                    Descargar
+                    <span data-i18n="nav_download_btn">Descargar</span>
                 </a>
             </div>
         </div>
@@ -245,18 +249,18 @@
                     </div>
 
                     <h1 class="font-display-lg text-display-lg text-primary mb-6 leading-tight">AirBeats</h1>
-                    <p class="font-headline-md text-headline-md text-on-surface-variant mb-10 max-w-xl">
+                    <p class="font-headline-md text-headline-md text-on-surface-variant mb-10 max-w-xl" data-i18n="hero_subtitle">
                         Un cliente de YouTube Music con Material Design 3, para Android y Windows.
                     </p>
 
                     <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
                         <a id="hero-download-btn" href="#downloads" class="bg-primary text-on-primary px-10 py-4 rounded-full font-label-lg text-lg flex items-center gap-2 ambient-glow hover:brightness-110 active:scale-95 transition-all no-underline">
                             <span class="material-symbols-outlined">download</span>
-                            Descargar APK
+                            <span data-i18n="hero_download_apk">Descargar APK</span>
                         </a>
                         <button id="hero-demo-btn" class="bg-surface-container-high text-on-surface px-10 py-4 rounded-full font-label-lg text-lg border border-outline-variant/30 hover:bg-surface-container-highest transition-all flex items-center gap-2" onclick="document.getElementById('warning-dialog').showModal()">
                             <span class="material-symbols-outlined">play_circle</span>
-                            Probar Demo
+                            <span data-i18n="hero_demo_btn">Probar Demo</span>
                         </button>
                     </div>
                 </div>
@@ -275,8 +279,8 @@
         <section id="features" class="px-margin-horizontal py-24 bg-surface-container-lowest">
             <div class="max-w-7xl mx-auto">
                 <div class="text-center mb-16">
-                    <h2 class="font-headline-lg text-headline-lg text-on-surface mb-4">Características</h2>
-                    <p class="text-on-surface-variant max-w-2xl mx-auto">
+                    <h2 class="font-headline-lg text-headline-lg text-on-surface mb-4" data-i18n="features_title">Características</h2>
+                    <p class="text-on-surface-variant max-w-2xl mx-auto" data-i18n="features_subtitle">
                         Descubre todas las funciones que hacen de AirBeats el mejor cliente para tu música.
                     </p>
                 </div>
@@ -387,12 +391,12 @@
             <div class="max-w-7xl mx-auto glass-card rounded-xl p-12 md:p-20 relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
                 <div class="max-w-xl text-center md:text-left">
                     <span class="inline-block px-4 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm mb-6">COMMUNITY DRIVEN</span>
-                    <h2 class="font-headline-lg text-headline-lg text-on-surface mb-6">Open Source at its Heart</h2>
-                    <p class="text-on-surface-variant font-body-lg mb-8">AirBeats es construido por amantes de la música para amantes de la música. Contribuye, personaliza y ayúdanos a construir el mejor reproductor de código abierto para Android y Windows.</p>
+                    <h2 class="font-headline-lg text-headline-lg text-on-surface mb-6" data-i18n="oss_title">Open Source at its Heart</h2>
+                    <p class="text-on-surface-variant font-body-lg mb-8" data-i18n="oss_desc">AirBeats es construido por amantes de la música para amantes de la música. Contribuye, personaliza y ayúdanos a construir el mejor reproductor de código abierto para Android y Windows.</p>
                     <div class="flex flex-wrap gap-4 justify-center md:justify-start">
                         <a href="https://github.com/d0x-dev/AirBeats" target="_blank" class="flex items-center gap-2 bg-on-surface text-surface px-8 py-3 rounded-full font-label-lg active:scale-95 transition-all no-underline">
                             <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1; font-size:20px">star</span>
-                            Star on GitHub
+                            <span data-i18n="oss_star">Star en GitHub</span>
                         </a>
                         <div class="flex items-center gap-2 px-6 py-3 border border-outline-variant rounded-full text-on-surface">
                             <span class="font-title-md">GPL-3.0</span>
@@ -430,7 +434,7 @@
                             <span class="material-symbols-outlined text-secondary">verified</span>
                         </div>
                         <div>
-                            <p class="text-on-surface font-title-md">Última versión estable</p>
+                            <p class="text-on-surface font-title-md" data-i18n="oss_version_title">Última versión estable</p>
                             <p id="oss-version-badge" class="text-on-surface-variant text-sm">Cargando...</p>
                         </div>
                     </div>
@@ -446,8 +450,8 @@
                 <div class="mb-16">
                     <div class="flex items-center justify-between cursor-pointer group" id="screenshots-header">
                         <div>
-                            <h2 class="font-headline-lg text-headline-lg text-on-surface">La Interfaz</h2>
-                            <p class="text-on-surface-variant mt-2">Un vistazo a la experiencia de AirBeats.</p>
+                            <h2 class="font-headline-lg text-headline-lg text-on-surface" data-i18n="shots_title">La Interfaz</h2>
+                            <p class="text-on-surface-variant mt-2" data-i18n="shots_subtitle">Un vistazo a la experiencia de AirBeats.</p>
                         </div>
                         <button id="screenshots-toggle" class="p-3 rounded-full hover:bg-white/10 transition-colors" aria-label="Expandir/Colapsar">
                             <span id="screenshots-icon" class="material-symbols-outlined text-on-surface-variant rotated">
@@ -476,7 +480,7 @@
                                         </p>
                                     </div>
                                     <div class="screenshots-counter">
-                                        <span class="text-on-surface-variant text-sm">Vista activa</span>
+                                        <span class="text-on-surface-variant text-sm" data-i18n="shots_active">Vista activa</span>
                                         <p id="screenshots-current-index" class="font-headline-md text-headline-md text-secondary mt-1">
                                             01
                                         </p>
@@ -517,7 +521,7 @@
 
                                 <div class="screenshots-footer">
                                     <div id="screenshots-indicators" class="screenshots-indicators" aria-label="Seleccionar captura"></div>
-                                    <p class="text-on-surface-variant text-sm">Desliza o usa los controles para cambiar la vista.</p>
+                                    <p class="text-on-surface-variant text-sm" data-i18n="shots_hint">Desliza o usa los controles para cambiar la vista.</p>
                                 </div>
                             </div>
 
@@ -565,13 +569,13 @@
                     <div class="w-14 h-14 rounded-full bg-secondary-container flex items-center justify-center mx-auto mb-6">
                         <span class="material-symbols-outlined text-secondary" style="font-size:26px">support_agent</span>
                     </div>
-                    <h2 class="font-headline-md text-headline-md text-on-surface mb-3">¿Necesitas ayuda?</h2>
-                    <p class="text-on-surface-variant font-body-lg mb-8 max-w-md mx-auto">
+                    <h2 class="font-headline-md text-headline-md text-on-surface mb-3" data-i18n="support_title">¿Necesitas ayuda?</h2>
+                    <p class="text-on-surface-variant font-body-lg mb-8 max-w-md mx-auto" data-i18n="support_desc">
                         Envía una solicitud o reporta un problema directamente al equipo de desarrollo en GitHub.
                     </p>
                     <a class="inline-flex items-center gap-2 bg-secondary-container text-on-secondary-container px-8 py-3 rounded-full font-label-lg active:scale-95 transition-all hover:brightness-110 no-underline" href="https://github.com/d0x-dev/AirBeats/issues" target="_blank">
                         <span class="material-symbols-outlined" style="font-size:18px">send</span>
-                        Solicitar ayuda
+                        <span data-i18n="support_btn">Solicitar ayuda</span>
                     </a>
                 </div>
             </div>
@@ -581,8 +585,8 @@
         <section id="downloads" class="px-margin-horizontal py-24 bg-gradient-to-b from-surface to-slate-950">
             <div class="max-w-7xl mx-auto">
                 <div class="text-center mb-16">
-                    <h2 class="font-headline-lg text-headline-lg text-on-surface mb-4">Descargas</h2>
-                    <p class="text-on-surface-variant max-w-2xl mx-auto">
+                    <h2 class="font-headline-lg text-headline-lg text-on-surface mb-4" data-i18n="downloads_title">Descargas</h2>
+                    <p class="text-on-surface-variant max-w-2xl mx-auto" data-i18n="downloads_subtitle">
                         Descarga la versión más reciente de AirBeats para tu plataforma.
                     </p>
                 </div>
@@ -597,32 +601,32 @@
                             </div>
                             <div>
                                 <h3 class="font-title-lg text-on-surface">Android</h3>
-                                <p class="text-on-surface-variant text-sm">Descarga la última versión estable.</p>
+                                <p class="text-on-surface-variant text-sm" data-i18n="android_card_sub">Descarga la última versión estable.</p>
                             </div>
                         </div>
 
                         <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="version-chip version-chip--stable">Versión Estable</span>
+                            <span class="version-chip version-chip--stable" data-i18n="android_stable_chip">Versión Estable</span>
                             <span id="android-version-badge" class="version-chip">Cargando...</span>
                         </div>
 
                         <div class="flex flex-wrap gap-6 mb-8">
                             <button id="changelog-trigger" class="flex items-center gap-2 text-primary hover:text-on-primary-container transition-colors font-label-lg">
                                 <span class="material-symbols-outlined" style="font-size:18px">list_alt</span>
-                                Ver cambios
+                                <span data-i18n="view_changelog">Ver cambios</span>
                             </button>
                             <button id="versions-trigger" class="flex items-center gap-2 text-primary hover:text-on-primary-container transition-colors font-label-lg">
                                 <span class="material-symbols-outlined" style="font-size:18px">history</span>
-                                Versiones anteriores
+                                <span data-i18n="previous_versions">Versiones anteriores</span>
                             </button>
                         </div>
 
                         <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-6 border-t border-white/10">
                             <a id="android-download-btn" href="https://github.com/d0x-dev/AirBeats/releases/download/5.9.0/AirBeats_v5.9.0_signed.apk" target="_blank" class="flex items-center gap-3 bg-primary text-on-primary px-8 py-3 rounded-full font-label-lg ambient-glow hover:brightness-110 active:scale-95 transition-all no-underline">
                                 <span class="material-symbols-outlined">download</span>
-                                <span id="android-download-text">Descargar APK</span>
+                                <span id="android-download-text" data-i18n="android_download_text">Descargar APK</span>
                             </a>
-                            <p class="text-on-surface-variant font-label-sm">Requiere Android 6.0+</p>
+                            <p class="text-on-surface-variant font-label-sm" data-i18n="android_req">Requiere Android 6.0+</p>
                         </div>
                     </div>
 
@@ -636,32 +640,32 @@
                             </div>
                             <div>
                                 <h3 class="font-title-lg text-on-surface">Windows</h3>
-                                <p class="text-on-surface-variant text-sm">Descarga el instalador ejecutable para PC.</p>
+                                <p class="text-on-surface-variant text-sm" data-i18n="windows_card_sub">Descarga el instalador ejecutable para PC.</p>
                             </div>
                         </div>
 
                         <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="version-chip version-chip--stable">Versión Windows</span>
+                            <span class="version-chip version-chip--stable" data-i18n="windows_chip">Versión Windows</span>
                             <span id="windows-version-badge" class="version-chip">v5.7.0</span>
                         </div>
 
                         <div class="flex flex-wrap gap-6 mb-8">
                             <button id="windows-changelog-trigger" class="flex items-center gap-2 text-primary hover:text-on-primary-container transition-colors font-label-lg">
                                 <span class="material-symbols-outlined" style="font-size:18px">list_alt</span>
-                                Ver cambios
+                                <span data-i18n="view_changelog">Ver cambios</span>
                             </button>
                             <button id="windows-versions-trigger" class="flex items-center gap-2 text-primary hover:text-on-primary-container transition-colors font-label-lg">
                                 <span class="material-symbols-outlined" style="font-size:18px">history</span>
-                                Versiones anteriores
+                                <span data-i18n="previous_versions">Versiones anteriores</span>
                             </button>
                         </div>
 
                         <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-6 border-t border-white/10">
                             <a id="windows-download-btn" href="https://github.com/d0x-dev/AirBeats/releases/download/5.7.0/Airbeats-v5.7.0-setup.exe" target="_blank" class="flex items-center gap-3 bg-primary text-on-primary px-8 py-3 rounded-full font-label-lg ambient-glow hover:brightness-110 active:scale-95 transition-all no-underline">
                                 <span class="material-symbols-outlined">download</span>
-                                <span id="windows-download-text">Descargar Windows (.exe)</span>
+                                <span id="windows-download-text" data-i18n="windows_download_text">Descargar Windows (.exe)</span>
                             </a>
-                            <p class="text-on-surface-variant font-label-sm">Requiere Windows 10/11</p>
+                            <p class="text-on-surface-variant font-label-sm" data-i18n="windows_req">Requiere Windows 10/11</p>
                         </div>
                     </div>
 
@@ -678,7 +682,7 @@
             <div class="flex flex-col lg:flex-row justify-between items-center gap-8 mb-10">
                 <div class="text-center lg:text-left">
                     <span class="text-xl font-black text-slate-100 font-['Epilogue']">AirBeats</span>
-                    <p class="text-slate-500 font-['Epilogue'] text-sm mt-1">&copy; 2026 <a href="https://darkboy.pro" target="_blank" class="text-violet-300 hover:text-violet-200 no-underline transition-colors">DarkBoy</a> &amp; <a href="https://venomxhub.netlify.app" target="_blank" class="text-violet-300 hover:text-violet-200 no-underline transition-colors">VENOM</a>. Todos los derechos reservados.</p>
+                    <p class="text-slate-500 font-['Epilogue'] text-sm mt-1">&copy; 2026 <a href="https://darkboy.pro" target="_blank" class="text-violet-300 hover:text-violet-200 no-underline transition-colors">DarkBoy</a> &amp; <a href="https://venomxhub.netlify.app" target="_blank" class="text-violet-300 hover:text-violet-200 no-underline transition-colors">VENOM</a>. <span data-i18n="footer_rights">Todos los derechos reservados.</span></p>
                 </div>
 
                 <div class="flex flex-wrap gap-3 justify-center">
@@ -710,10 +714,10 @@
             </div>
 
             <div class="border-t border-white/5 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
-                <p class="text-slate-500 text-sm font-['Epilogue']">Licenciado bajo la Licencia de Código Abierto GPL-3.0.</p>
+                <p class="text-slate-500 text-sm font-['Epilogue']" data-i18n="footer_license">Licenciado bajo la Licencia de Código Abierto GPL-3.0.</p>
                 <div class="flex gap-6">
-                    <a href="#features" class="text-slate-500 hover:text-violet-200 transition-colors font-['Epilogue'] text-sm no-underline">Características</a>
-                    <a href="#downloads" class="text-slate-500 hover:text-violet-200 transition-colors font-['Epilogue'] text-sm no-underline">Descargas</a>
+                    <a href="#features" class="text-slate-500 hover:text-violet-200 transition-colors font-['Epilogue'] text-sm no-underline" data-i18n="nav_features">Características</a>
+                    <a href="#downloads" class="text-slate-500 hover:text-violet-200 transition-colors font-['Epilogue'] text-sm no-underline" data-i18n="nav_downloads">Descargas</a>
                     <a href="https://github.com/d0x-dev/AirBeats" target="_blank" class="text-slate-500 hover:text-violet-200 transition-colors font-['Epilogue'] text-sm no-underline">GitHub</a>
                 </div>
             </div>

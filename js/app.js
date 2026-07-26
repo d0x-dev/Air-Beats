@@ -1,5 +1,192 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // DOM Elements
+    // ═══════════════════════ MULTI-LANGUAGE TRANSLATION DICTIONARY ═══════════════════════
+    const translations = {
+        es: {
+            nav_features: "Características",
+            nav_screenshots: "Capturas",
+            nav_downloads: "Descargas",
+            nav_download_btn: "Descargar",
+            hero_subtitle: "Un cliente de YouTube Music con Material Design 3, para Android y Windows.",
+            hero_download_apk: "Descargar APK",
+            hero_demo_btn: "Probar Demo",
+            features_title: "Características",
+            features_subtitle: "Descubre todas las funciones que hacen de AirBeats el mejor cliente para tu música.",
+            oss_title: "Open Source at its Heart",
+            oss_desc: "AirBeats es construido por amantes de la música para amantes de la música. Contribuye, personaliza y ayúdanos a construir el mejor reproductor de código abierto para Android y Windows.",
+            oss_star: "Star en GitHub",
+            oss_version_title: "Última versión estable",
+            shots_title: "La Interfaz",
+            shots_subtitle: "Un vistazo a la experiencia de AirBeats.",
+            shots_active: "Vista activa",
+            shots_hint: "Desliza o usa los controles para cambiar la vista.",
+            support_title: "¿Necesitas ayuda?",
+            support_desc: "Envía una solicitud o reporta un problema directamente al equipo de desarrollo en GitHub.",
+            support_btn: "Solicitar ayuda",
+            downloads_title: "Descargas",
+            downloads_subtitle: "Descarga la versión más reciente de AirBeats para tu plataforma.",
+            android_card_sub: "Descarga la última versión estable.",
+            android_stable_chip: "Versión Estable",
+            windows_card_sub: "Descarga el instalador ejecutable para PC.",
+            windows_chip: "Versión Windows",
+            view_changelog: "Ver cambios",
+            previous_versions: "Versiones anteriores",
+            android_download_text: "Descargar APK",
+            windows_download_text: "Descargar Windows (.exe)",
+            footer_rights: "Todos los derechos reservados.",
+            footer_license: "Licenciado bajo la Licencia de Código Abierto GPL-3.0.",
+            android_req: "Requiere Android 6.0+",
+            windows_req: "Requiere Windows 10/11",
+            lang_dialog_title: "Seleccionar idioma"
+        },
+        en: {
+            nav_features: "Features",
+            nav_screenshots: "Screenshots",
+            nav_downloads: "Downloads",
+            nav_download_btn: "Download",
+            hero_subtitle: "An advanced YouTube Music client built with Material Design 3 for Android & Windows.",
+            hero_download_apk: "Download APK",
+            hero_demo_btn: "View Demo",
+            features_title: "Features",
+            features_subtitle: "Discover all the powerful capabilities that make AirBeats the ultimate music client.",
+            oss_title: "Open Source at its Heart",
+            oss_desc: "AirBeats is built by music lovers for music lovers. Contribute, customize, and help us build the best open-source music player for Android & Windows.",
+            oss_star: "Star on GitHub",
+            oss_version_title: "Latest Stable Version",
+            shots_title: "The Interface",
+            shots_subtitle: "A glimpse into the Material Design 3 experience of AirBeats.",
+            shots_active: "Active View",
+            shots_hint: "Swipe or click controls to switch views.",
+            support_title: "Need Help?",
+            support_desc: "Submit a request or report an issue directly to the development team on GitHub.",
+            support_btn: "Request Help",
+            downloads_title: "Downloads",
+            downloads_subtitle: "Download the latest official release of AirBeats for your operating system.",
+            android_card_sub: "Download the latest stable Android build.",
+            android_stable_chip: "Stable Build",
+            windows_card_sub: "Download the Windows executable installer.",
+            windows_chip: "Windows Build",
+            view_changelog: "View Changelog",
+            previous_versions: "Previous Versions",
+            android_download_text: "Download APK",
+            windows_download_text: "Download Windows (.exe)",
+            footer_rights: "All Rights Reserved.",
+            footer_license: "Licensed under GNU General Public License v3.0 Open Source License.",
+            android_req: "Requires Android 6.0+",
+            windows_req: "Requires Windows 10/11",
+            lang_dialog_title: "Select Language"
+        },
+        pt: {
+            nav_features: "Recursos",
+            nav_screenshots: "Capturas",
+            nav_downloads: "Downloads",
+            nav_download_btn: "Baixar",
+            hero_subtitle: "Um cliente do YouTube Music com Material Design 3 para Android e Windows.",
+            hero_download_apk: "Baixar APK",
+            hero_demo_btn: "Testar Demo",
+            features_title: "Recursos",
+            features_subtitle: "Descubra todos os recursos que tornam o AirBeats o melhor cliente para sua música.",
+            oss_title: "Código Aberto no Coração",
+            oss_desc: "O AirBeats é construído por amantes da música para amantes da música. Contribua, personalize e ajude-nos a criar o melhor reprodutor para Android e Windows.",
+            oss_star: "Star no GitHub",
+            oss_version_title: "Última versão estável",
+            shots_title: "A Interface",
+            shots_subtitle: "Um relance da experiência Material Design 3 do AirBeats.",
+            shots_active: "Visão ativa",
+            shots_hint: "Deslize ou use os controles para alternar as exibições.",
+            support_title: "Precisa de ajuda?",
+            support_desc: "Envie uma solicitação ou informe um problema diretamente para a equipe no GitHub.",
+            support_btn: "Pedir ajuda",
+            downloads_title: "Downloads",
+            downloads_subtitle: "Baixe a versão mais recente do AirBeats para sua plataforma.",
+            android_card_sub: "Baixe a versão estável mais recente para Android.",
+            android_stable_chip: "Versão Estável",
+            windows_card_sub: "Baixe o instalador executável para Windows.",
+            windows_chip: "Versão Windows",
+            view_changelog: "Ver alterações",
+            previous_versions: "Versões anteriores",
+            android_download_text: "Baixar APK",
+            windows_download_text: "Baixar Windows (.exe)",
+            footer_rights: "Todos os direitos reservados.",
+            footer_license: "Licenciado sob a Licença de Código Aberto GPL-3.0.",
+            android_req: "Requer Android 6.0+",
+            windows_req: "Requer Windows 10/11",
+            lang_dialog_title: "Selecionar idioma"
+        },
+        hi: {
+            nav_features: "विशेषताएं",
+            nav_screenshots: "स्क्रीनशॉट",
+            nav_downloads: "डाउनलोड",
+            nav_download_btn: "डाउनलोड",
+            hero_subtitle: "एंड्रॉइड और विंडोज के लिए मैटेरियल डिजाइन 3 के साथ एक उन्नत यूट्यूब म्यूजिक क्लाइंट।",
+            hero_download_apk: "APK डाउनलोड करें",
+            hero_demo_btn: "डेमो देखें",
+            features_title: "विशेषताएं",
+            features_subtitle: "उन सभी विशेषताओं की खोज करें जो AirBeats को आपके संगीत के लिए सर्वश्रेष्ठ बनाती हैं।",
+            oss_title: "ओपन सोर्स संगीत प्लेयर",
+            oss_desc: "AirBeats संगीत प्रेमियों द्वारा संगीत प्रेमियों के लिए बनाया गया है। योगदान दें, अनुकूलित करें और सर्वश्रेष्ठ ओपन-सोर्स प्लेयर बनाने में हमारी मदद करें।",
+            oss_star: "GitHub पर स्टार दें",
+            oss_version_title: "नवीनतम स्थिर संस्करण",
+            shots_title: "इंटरफ़ेस",
+            shots_subtitle: "AirBeats अनुभव की एक झलक।",
+            shots_active: "सक्रिय दृश्य",
+            shots_hint: "दृश्य बदलने के लिए स्वाइप या नियंत्रण का उपयोग करें।",
+            support_title: "क्या आपको मदद चाहिए?",
+            support_desc: "GitHub पर सीधे विकास टीम को अनुरोध भेजें या समस्या की रिपोर्ट करें।",
+            support_btn: "मदद लें",
+            downloads_title: "डाउनलोड",
+            downloads_subtitle: "अपने ऑपरेटिंग सिस्टम के लिए AirBeats का नवीनतम आधिकारिक संस्करण डाउनलोड करें।",
+            android_card_sub: "नवीनतम स्थिर एंड्रॉइड बिल्ड डाउनलोड करें।",
+            android_stable_chip: "स्थिर बिल्ड",
+            windows_card_sub: "विंडोज निष्पादन योग्य इंस्टॉलर डाउनलोड करें।",
+            windows_chip: "विंडोज बिल्ड",
+            view_changelog: "बदलाव देखें",
+            previous_versions: "पिछले संस्करण",
+            android_download_text: "APK डाउनलोड करें",
+            windows_download_text: "विंडोज डाउनलोड (.exe)",
+            footer_rights: "सर्वाधिकार सुरक्षित।",
+            footer_license: "GPL-3.0 ओपन सोर्स लाइसेंस के तहत लाइसेंस प्राप्त।",
+            android_req: "एंड्रॉइड 6.0+ आवश्यक",
+            windows_req: "विंडोज 10/11 आवश्यक",
+            lang_dialog_title: "भाषा चुनें"
+        }
+    };
+
+    let currentLang = localStorage.getItem('airbeats_lang') || 'es';
+
+    function setLanguage(lang) {
+        if (!translations[lang]) lang = 'es';
+        currentLang = lang;
+        localStorage.setItem('airbeats_lang', lang);
+
+        const langText = document.getElementById('languageText');
+        if (langText) langText.textContent = lang.toUpperCase();
+
+        const dict = translations[lang];
+
+        // Update elements with data-i18n
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (dict[key]) {
+                el.textContent = dict[key];
+            }
+        });
+
+        // Close language dialog if open
+        const langDialog = document.getElementById('language-dialog');
+        if (langDialog && langDialog.open) langDialog.close();
+    }
+
+    // Attach listener to language selection buttons in modal
+    document.querySelectorAll('[data-lang]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const lang = btn.getAttribute('data-lang');
+            setLanguage(lang);
+            showToast(`🌐 Language changed to ${lang.toUpperCase()}`);
+        });
+    });
+
+    // ═══════════════════════ DOM ELEMENTS & RELEASES ═══════════════════════
     const logo = document.getElementById('logo');
     const downloadToast = document.getElementById('downloadToast');
     const toastMsg = document.getElementById('downloadToastMessage');
@@ -126,7 +313,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!latestRelease) return;
         const tag = formatVersionTag(latestRelease.tag_name);
 
-        if (ossVersionBadge) ossVersionBadge.textContent = `${tag} (Última versión)`;
+        if (ossVersionBadge) ossVersionBadge.textContent = `${tag} (${translations[currentLang].oss_version_title || 'Última versión'})`;
         if (androidVersionBadge) androidVersionBadge.textContent = tag;
 
         // Find latest Windows release
@@ -349,6 +536,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (windowsVersionsTrigger) {
         windowsVersionsTrigger.addEventListener('click', () => renderVersionsModal('windows'));
     }
+
+    // Apply stored language on initial load
+    setLanguage(currentLang);
 
     fetchReleases();
 });
