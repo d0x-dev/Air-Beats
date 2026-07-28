@@ -151,10 +151,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    let currentLang = localStorage.getItem('airbeats_lang') || 'es';
+    let currentLang = localStorage.getItem('airbeats_lang') || 'en';
 
     function setLanguage(lang) {
-        if (!translations[lang]) lang = 'es';
+        if (!translations[lang]) lang = 'en';
         currentLang = lang;
         localStorage.setItem('airbeats_lang', lang);
 
