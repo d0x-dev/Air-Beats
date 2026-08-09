@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>AirBeats - Support & Feedback</title>
+    
+    <link rel="stylesheet" href="css/styles.css?v=6.1.0">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-primary-container": "#594983",
+                        "secondary": "#ccc2dc",
+                        "inverse-primary": "#665590",
+                        "on-primary-fixed-variant": "#4d3d76",
+                        "on-primary-fixed": "#210f48",
+                        "surface-dim": "#141317",
+                        "tertiary": "#ffd9e3",
+                        "surface-container-lowest": "#0e0e11",
+                        "tertiary-container": "#efb8c8",
+                        "surface-container-low": "#1c1b1f",
+                        "surface": "#141317",
+                        "primary-fixed": "#e9ddff",
+                        "on-secondary": "#332d41",
+                        "on-tertiary-fixed": "#31111d",
+                        "on-tertiary": "#492532",
+                        "on-secondary-fixed-variant": "#4a4359",
+                        "secondary-fixed-dim": "#ccc2dc",
+                        "inverse-on-surface": "#313034",
+                        "on-tertiary-fixed-variant": "#633b48",
+                        "on-surface": "#e5e1e7",
+                        "surface-bright": "#3a383d",
+                        "on-tertiary-fixed-variant": "#633b48",
+                        "primary-fixed": "#e9ddff",
+                        "tertiary-fixed": "#ffd9e3",
+                        "secondary": "#ccc2dc",
+                        "tertiary-container": "#efb8c8",
+                        "surface": "#141317",
+                        "on-surface-variant": "#cac4d0",
+                        "surface-container": "#201f23",
+                        "background": "#141317",
+                        "on-secondary-container": "#bab1ca",
+                        "inverse-surface": "#e5e1e7",
+                        "surface-tint": "#d0bcff",
+                        "on-background": "#e5e1e7",
+                        "on-secondary-fixed": "#1e182b",
+                        "error": "#ffb4ab",
+                        "on-tertiary": "#492532",
+                        "on-primary-fixed": "#210f48",
+                        "inverse-primary": "#665590",
+                        "outline": "#948f9a",
+                        "surface-dim": "#141317",
+                        "surface-container-high": "#2b292d",
+                        "secondary-fixed": "#e9def9",
+                        "on-secondary-fixed-variant": "#4a4359",
+                        "surface-container-low": "#1c1b1f",
+                        "error-container": "#93000a",
+                        "primary-fixed-dim": "#d0bcff",
+                        "on-primary-container": "#594983",
+                        "secondary-container": "#4a4359",
+                        "primary": "#e9ddff",
+                        "on-error-container": "#ffdad6",
+                        "inverse-on-surface": "#313034",
+                        "outline-variant": "#49454f",
+                        "tertiary-fixed-dim": "#efb8c8"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "player-padding": "32px",
+                        "gutter-grid": "16px",
+                        "base": "8px",
+                        "margin-horizontal": "24px",
+                        "list-item-gap": "12px"
+                    },
+                    fontFamily: {
+                        "body-md": ["Be Vietnam Pro"],
+                        "body-lg": ["Be Vietnam Pro"],
+                        "title-md": ["Be Vietnam Pro"],
+                        "headline-md": ["Epilogue"],
+                        "display-lg": ["Epilogue"],
+                        "title-lg": ["Be Vietnam Pro"],
+                        "headline-lg": ["Epilogue"],
+                        "label-sm": ["Be Vietnam Pro"],
+                        "label-lg": ["Be Vietnam Pro"]
+                    },
+                    fontSize: {
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "500" }],
+                        "headline-md": ["28px", { "lineHeight": "36px", "fontWeight": "600" }],
+                        "display-lg": ["57px", { "lineHeight": "64px", "letterSpacing": "-0.25px", "fontWeight": "700" }],
+                        "title-lg": ["22px", { "lineHeight": "28px", "fontWeight": "500" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "label-sm": ["11px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "500" }]
+                    }
+                },
+            },
+        }
+    </script>
+
+    <!-- Google Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500&family=Epilogue:wght@600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <link rel="icon" href="https://raw.githubusercontent.com/drkvenom786/Airbeats/137e3935198c25bfbd5eef1a050002ed52fa84ff/icon.png" type="image/png">
+    
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        body {
+            background-color: #141317;
+            color: #e5e1e7;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col font-body-md">
+    <!-- TopNavBar -->
+    <header class="bg-zinc-950/65 backdrop-blur-3xl fixed top-0 left-0 right-0 w-full z-50 border-b border-white/5 shadow-[0_8px_32px_0_rgba(208,188,255,0.12)]">
+        <div class="grid grid-cols-3 items-center px-6 h-16 w-full max-w-7xl mx-auto">
+            <!-- Logo -->
+            <a href="index.html" class="flex items-center gap-3 no-underline justify-self-start">
+                <img src="https://raw.githubusercontent.com/drkvenom786/Airbeats/137e3935198c25bfbd5eef1a050002ed52fa84ff/icon.png" alt="AirBeats" width="34" height="34" class="rounded-lg">
+                <span class="text-2xl font-black tracking-tighter text-violet-300 font-['Epilogue']">AirBeats</span>
+            </a>
+            
+            <!-- Nav -->
+            <nav class="hidden md:flex justify-center gap-8 items-center font-['Epilogue'] text-sm tracking-wide">
+                <a class="text-zinc-400 font-medium hover:bg-white/10 transition-colors duration-300 px-3 py-1 rounded-full no-underline" href="index.html">Home</a>
+                <a class="text-violet-300 font-bold border-b-2 border-violet-300 px-3 py-1 no-underline" href="form.html">Support</a>
+            </nav>
+            
+            <div class="justify-self-end"></div>
+        </div>
+    </header>
+
+    <main class="flex-grow pt-32 pb-24 px-6 md:px-margin-horizontal max-w-4xl mx-auto w-full">
+        <!-- Hero Section -->
+        <div class="mb-12 text-center md:text-left">
+            <h1 class="font-headline-lg text-headline-lg text-primary mb-4">Send Feedback</h1>
+            <p class="font-body-lg text-body-lg text-on-surface-variant">Submit your issue, request a feature, or leave feedback for the AirBeats team</p>
+        </div>
+
+        <!-- Form Layout -->
+        <div class="bg-surface-container rounded-lg p-8 shadow-2xl relative overflow-hidden">
+            <!-- Glass Decorative Element -->
+            <div class="absolute -top-24 -right-24 w-64 h-64 bg-primary/10 blur-[100px] rounded-full"></div>
+            
+            <form id="form" class="space-y-10 relative z-10">
+                <input type="hidden" name="access_key" value="359251f7-72a8-4d76-8b5e-b9b43bebb3a3">
+                <input type="hidden" name="from_name" value="AirBeats Support Form">
+                <input type="hidden" name="subject" value="New Support Message - AirBeats">
+
+                <!-- Name Field -->
+                <div class="group">
+                    <label class="block font-label-lg text-label-lg text-on-surface-variant mb-3 px-1">Your Name</label>
+                    <div class="flex items-center bg-surface-container-highest border border-outline-variant/30 rounded-full px-6 py-4 focus-within:border-primary-container transition-all group-hover:bg-surface-variant">
+                        <span class="material-symbols-outlined text-primary-container mr-4">person</span>
+                        <input name="name" required class="bg-transparent border-none focus:ring-0 focus:outline-none w-full text-on-surface placeholder:text-outline font-title-md" placeholder="Enter your name here" type="text" />
+                    </div>
+                </div>
+
+                <!-- Message Type Cards (Bento style selection) -->
+                <div>
+                    <label class="block font-label-lg text-label-lg text-on-surface-variant mb-4 px-1">What would you like to tell us?</label>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <!-- Feedback -->
+                        <label class="cursor-pointer group">
+                            <input checked class="hidden peer" name="message_type" type="radio" value="Feedback" />
+                            <div class="h-full bg-surface-container-low border border-outline-variant/30 p-6 rounded-lg peer-checked:bg-secondary-container peer-checked:border-primary-container transition-all hover:border-outline">
+                                <div class="flex flex-col items-center text-center">
+                                    <div class="bg-primary/10 p-3 rounded-full mb-4">
+                                        <span class="material-symbols-outlined text-primary">comment</span>
+                                    </div>
+                                    <div class="font-title-md text-on-surface mb-1">Feedback</div>
+                                    <div class="font-label-sm text-on-surface-variant">Share your thoughts or experience</div>
+                                </div>
+                            </div>
+                        </label>
+                        <!-- Feature Request -->
+                        <label class="cursor-pointer group">
+                            <input class="hidden peer" name="message_type" type="radio" value="Feature Request" />
+                            <div class="h-full bg-surface-container-low border border-outline-variant/30 p-6 rounded-lg peer-checked:bg-secondary-container peer-checked:border-primary-container transition-all hover:border-outline">
+                                <div class="flex flex-col items-center text-center">
+                                    <div class="bg-tertiary/10 p-3 rounded-full mb-4">
+                                        <span class="material-symbols-outlined text-tertiary">request_quote</span>
+                                    </div>
+                                    <div class="font-title-md text-on-surface mb-1">Feature Request</div>
+                                    <div class="font-label-sm text-on-surface-variant">Request a new app feature</div>
+                                </div>
+                            </div>
+                        </label>
+                        <!-- Bug Report -->
+                        <label class="cursor-pointer group">
+                            <input class="hidden peer" name="message_type" type="radio" value="Bug Report" />
+                            <div class="h-full bg-surface-container-low border border-outline-variant/30 p-6 rounded-lg peer-checked:bg-secondary-container peer-checked:border-primary-container transition-all hover:border-outline">
+                                <div class="flex flex-col items-center text-center">
+                                    <div class="bg-error/10 p-3 rounded-full mb-4">
+                                        <span class="material-symbols-outlined text-error">bug_report</span>
+                                    </div>
+                                    <div class="font-title-md text-on-surface mb-1">Bug Report</div>
+                                    <div class="font-label-sm text-on-surface-variant">Report an issue or bug</div>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Description Area -->
+                <div class="group">
+                    <label class="block font-label-lg text-label-lg text-on-surface-variant mb-3 px-1">Description</label>
+                    <div class="flex items-start bg-surface-container-highest border border-outline-variant/30 rounded-2xl px-6 py-4 focus-within:border-primary-container focus-within:ring-2 focus-within:ring-primary-container/40 transition-all group-hover:bg-surface-variant">
+                        <span class="material-symbols-outlined text-primary-container mr-4 mt-1">description</span>
+                        <textarea name="message" required class="bg-transparent border-none focus:ring-0 focus:outline-none w-full text-on-surface placeholder:text-outline font-title-md resize-y" placeholder="Tell us more details..." rows="5"></textarea>
+                    </div>
+                </div>
+
+                <!-- Email Field -->
+                <div>
+                    <label class="block font-label-lg text-label-lg text-on-surface-variant mb-3 px-1">Your Email (for private response)</label>
+                    <div class="flex items-center bg-surface-container-highest border border-outline-variant/30 rounded-full px-6 py-4 focus-within:ring-2 focus-within:ring-primary-container transition-all">
+                        <span class="material-symbols-outlined text-on-surface-variant mr-4">alternate_email</span>
+                        <input name="email" required class="bg-transparent border-none focus:ring-0 focus:outline-none w-full text-on-surface placeholder:text-outline font-title-md" placeholder="you@example.com" type="email" />
+                    </div>
+                </div>
+
+                <!-- Action Button -->
+                <div class="pt-4 flex justify-center md:justify-start">
+                    <button id="submitBtn" type="submit" class="w-full md:w-auto flex items-center justify-center gap-3 font-['Epilogue'] text-lg font-bold px-10 py-4 rounded-full transition-all duration-300 active:scale-95 group cursor-pointer border-0 shadow-[0_0_25px_rgba(208,188,255,0.4)] hover:shadow-[0_0_35px_rgba(208,188,255,0.75)] hover:-translate-y-0.5" style="background-color: #d0bcff; color: #37265e;">
+                        <span>Send Message</span>
+                        <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">send</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Decorative Info Cards -->
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="flex items-start gap-4 p-6 bg-surface-container-low border border-outline-variant/20 rounded-lg">
+                <span class="material-symbols-outlined text-primary-container">verified_user</span>
+                <div>
+                    <h3 class="font-title-md text-on-surface mb-1">Privacy Guaranteed</h3>
+                    <p class="font-body-md text-on-surface-variant">Your data is protected and will only be used to contact you regarding your submission.</p>
+                </div>
+            </div>
+            <div class="flex items-start gap-4 p-6 bg-surface-container-low border border-outline-variant/20 rounded-lg">
+                <span class="material-symbols-outlined text-primary-container">schedule</span>
+                <div>
+                    <h3 class="font-title-md text-on-surface mb-1">Response Time</h3>
+                    <p class="font-body-md text-on-surface-variant">We typically respond within 24 hours due to high request volume.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- BottomNavBar (Mobile Only) -->
+    <nav class="md:hidden bg-zinc-950/80 backdrop-blur-2xl fixed bottom-0 left-0 right-0 w-full z-50 flex justify-around items-center px-4 pt-3 pb-6 rounded-t-lg border-t border-white/10 shadow-[0_-4px_24px_rgba(0,0,0,0.4)]">
+        <a href="index.html" class="flex flex-col items-center justify-center text-zinc-500 hover:text-violet-100 transition-all active:scale-90 duration-200 no-underline">
+            <span class="material-symbols-outlined">home</span>
+            <span class="font-['Epilogue'] text-[10px] font-semibold uppercase tracking-tighter mt-1">Home</span>
+        </a>
+        <a href="form.html" class="flex flex-col items-center justify-center bg-violet-900/40 text-violet-200 rounded-full px-5 py-1.5 active:scale-90 duration-200 no-underline">
+            <span class="material-symbols-outlined">feedback</span>
+            <span class="font-['Epilogue'] text-[10px] font-semibold uppercase tracking-tighter mt-1">Support</span>
+        </a>
+    </nav>
+
+    <!-- Footer -->
+    <footer class="bg-zinc-950 w-full py-12 mt-auto border-t border-zinc-900">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center px-8 gap-4">
+            <div class="font-bold text-zinc-300 font-['Epilogue']">AirBeats</div>
+            <div class="font-['Epilogue'] text-xs text-zinc-500 text-center md:text-left">
+                &copy; 2026 AirBeats Open Source. Built for rhythm.
+            </div>
+            <div class="flex gap-6">
+                <a class="text-zinc-500 hover:text-violet-200 transition-colors duration-300 font-['Epilogue'] text-xs no-underline" href="index.html">Home</a>
+                <a class="text-zinc-500 hover:text-violet-200 transition-colors duration-300 font-['Epilogue'] text-xs no-underline" href="https://github.com/d0x-dev/AirBeats" target="_blank">GitHub</a>
+                <a class="text-zinc-500 hover:text-violet-200 transition-colors duration-300 font-['Epilogue'] text-xs no-underline" href="https://raw.githubusercontent.com/d0x-dev/AirBeats/main/LICENSE" target="_blank">License</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification in English -->
+    <div id="toastNotification" class="toast-notification">
+        <span id="toastIcon" class="material-symbols-outlined">check_circle</span>
+        <span id="toastMessage">Success! Your message has been sent successfully.</span>
+    </div>
+
+    <!-- Web3Forms Submission Script with Rate Limiting -->
+    <script>
+        const RATE_LIMIT_MAX = 5;
+        const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000; // 1 hour window
+
+        function showToast(type, message) {
+            const toast = document.getElementById('toastNotification');
+            const toastIcon = document.getElementById('toastIcon');
+            const toastMessage = document.getElementById('toastMessage');
+            if (!toast) return;
+
+            toastMessage.textContent = message;
+            toast.className = 'toast-notification show ' + (type === 'success' ? 'toast-success' : 'toast-error');
+            toastIcon.textContent = type === 'success' ? 'check_circle' : 'error';
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 4500);
+        }
+
+        function checkRateLimit() {
+            const now = Date.now();
+            let lastReset = parseInt(localStorage.getItem('airbeats_last_reset') || '0', 10);
+            let submitCount = parseInt(localStorage.getItem('airbeats_submit_count') || '0', 10);
+
+            if (!lastReset || (now - lastReset) > RATE_LIMIT_WINDOW_MS) {
+                lastReset = now;
+                submitCount = 0;
+                localStorage.setItem('airbeats_last_reset', lastReset.toString());
+                localStorage.setItem('airbeats_submit_count', '0');
+            }
+
+            if (submitCount >= RATE_LIMIT_MAX) {
+                const remainingMinutes = Math.ceil((RATE_LIMIT_WINDOW_MS - (now - lastReset)) / (60 * 1000));
+                showToast('error', `Rate limit exceeded. Maximum 5 messages per hour allowed. Please try again in ${remainingMinutes} minute(s).`);
+                return false;
+            }
+
+            return true;
+        }
+
+        function incrementRateLimit() {
+            let submitCount = parseInt(localStorage.getItem('airbeats_submit_count') || '0', 10);
+            submitCount += 1;
+            localStorage.setItem('airbeats_submit_count', submitCount.toString());
+        }
+
+        const form = document.getElementById('form');
+        if (form) {
+            const submitBtn = document.getElementById('submitBtn');
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                if (!checkRateLimit()) {
+                    return;
+                }
+
+                const formData = new FormData(form);
+                const object = Object.fromEntries(formData);
+                object.access_key = "359251f7-72a8-4d76-8b5e-b9b43bebb3a3";
+                const json = JSON.stringify(object);
+
+                const btnSpan = submitBtn.querySelector('span');
+                const originalText = btnSpan ? btnSpan.textContent : submitBtn.textContent;
+                if (btnSpan) btnSpan.textContent = "Sending...";
+                else submitBtn.textContent = "Sending...";
+                submitBtn.disabled = true;
+
+                // Submit to Cloudflare Worker API route (/api/submit)
+                const SUBMIT_ENDPOINT = "/api/submit";
+
+                try {
+                    const response = await fetch(SUBMIT_ENDPOINT, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Accept": "application/json"
+                        },
+                        body: json
+                    });
+                    const data = await response.json();
+                    if (response.ok && data.success) {
+                        incrementRateLimit();
+                        showToast('success', 'Success! Your message has been sent successfully.');
+                        form.reset();
+                    } else {
+                        showToast('error', 'Error: ' + (data.message || 'Failed to send message. Please try again.'));
+                    }
+                } catch (error) {
+                    showToast('error', 'Something went wrong. Please check your connection and try again.');
+                } finally {
+                    if (btnSpan) btnSpan.textContent = originalText;
+                    else submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }
+            });
+        }
+    </script>
+</body>
+</html>
