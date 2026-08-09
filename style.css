@@ -35,25 +35,11 @@
   --transition-smooth: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Reset & Base Setup */
-* {
-  margin: 0;
-  padding: 0;
+/* Reset & Base Setup for Phone Emulator */
+.phone-frame, .phone-frame * {
   box-sizing: border-box;
   user-select: none;
   -webkit-font-smoothing: antialiased;
-}
-
-body {
-  background-color: #070907;
-  color: var(--text-main);
-  font-family: var(--font-main);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow-x: hidden;
-  position: relative;
 }
 
 /* Background Ambient Dynamic Lighting */

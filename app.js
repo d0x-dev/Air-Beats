@@ -278,7 +278,8 @@ class AirBeatsApp {
       'btnResultsBackToSearch',
       'btnNPAckHome',
       'btnLikedBackToLib',
-      'btnStatsBackHome'
+      'btnStatsBackHome',
+      'btnSettingsBackHome'
     ];
 
     backBtnIds.forEach(id => {
