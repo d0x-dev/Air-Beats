@@ -194,13 +194,13 @@
 
     <!-- ═══════════════════════ NAVIGATION ═══════════════════════ -->
 
-    <nav class="fixed top-0 w-full z-50 bg-slate-950/65 backdrop-blur-2xl border-b border-white/10">
-        <div class="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
+    <nav class="fixed top-0 w-full z-50 bg-slate-950/80 backdrop-blur-2xl border-b border-white/10">
+        <div class="flex justify-between items-center px-4 sm:px-6 py-4 max-w-7xl mx-auto">
 
             <!-- Logo -->
             <a href="#" class="flex items-center gap-3 no-underline">
                 <img id="logo" src="https://raw.githubusercontent.com/drkvenom786/Airbeats/137e3935198c25bfbd5eef1a050002ed52fa84ff/icon.png" alt="AirBeats" width="34" height="34" class="rounded-lg cursor-pointer" title="Click to play rhythm.mp3 audio sample">
-                <span class="text-2xl font-black tracking-tighter text-violet-300 font-['Epilogue']">AirBeats</span>
+                <span class="text-xl sm:text-2xl font-black tracking-tighter text-violet-300 font-['Epilogue']">AirBeats</span>
             </a>
 
             <!-- Desktop Nav -->
@@ -220,11 +220,36 @@
                 </button>
 
                 <!-- Download APK (nav) -->
-                <a id="nav-download-btn" href="#downloads" class="bg-primary-container text-on-primary-container px-5 py-2 rounded-full font-label-lg active:scale-95 transition-all duration-200 no-underline hidden sm:inline-flex items-center gap-2">
+                <a id="nav-download-btn" href="#downloads" class="bg-primary-container text-on-primary-container px-4 sm:px-5 py-2 rounded-full font-label-lg active:scale-95 transition-all duration-200 no-underline hidden sm:inline-flex items-center gap-2">
                     <span class="material-symbols-outlined" style="font-size:18px">download</span>
                     <span data-i18n="nav_download_btn">Download</span>
                 </a>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden flex items-center justify-center p-2 rounded-full hover:bg-white/10 text-on-surface-variant transition-colors" aria-label="Toggle navigation menu">
+                    <span class="material-symbols-outlined" id="mobile-menu-icon">menu</span>
+                </button>
             </div>
+        </div>
+
+        <!-- Mobile Nav Menu Dropdown -->
+        <div id="mobile-nav-menu" class="hidden md:hidden flex-col gap-3 px-6 pb-6 pt-3 border-t border-white/10 bg-slate-950/95 backdrop-blur-2xl">
+            <a href="#features" class="mobile-nav-link font-['Epilogue'] font-medium text-slate-300 hover:text-white py-2 transition-colors flex items-center gap-3 no-underline" data-i18n="nav_features">
+                <span class="material-symbols-outlined text-[20px]">featured_play_list</span>
+                Features
+            </a>
+            <a href="#screenshots" class="mobile-nav-link font-['Epilogue'] font-medium text-slate-300 hover:text-white py-2 transition-colors flex items-center gap-3 no-underline" data-i18n="nav_screenshots">
+                <span class="material-symbols-outlined text-[20px]">photo_library</span>
+                Screenshots
+            </a>
+            <a href="#downloads" class="mobile-nav-link font-['Epilogue'] font-medium text-slate-300 hover:text-white py-2 transition-colors flex items-center gap-3 no-underline" data-i18n="nav_downloads">
+                <span class="material-symbols-outlined text-[20px]">download</span>
+                Downloads
+            </a>
+            <a href="https://github.com/d0x-dev/AirBeats" target="_blank" class="mobile-nav-link font-['Epilogue'] font-medium text-slate-300 hover:text-white py-2 transition-colors flex items-center gap-3 no-underline">
+                <span class="material-symbols-outlined text-[20px]">code</span>
+                GitHub
+            </a>
         </div>
     </nav>
 
@@ -255,13 +280,9 @@
 
                     <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
                         <a id="hero-download-btn" href="#downloads" class="bg-primary text-on-primary px-10 py-4 rounded-full font-label-lg text-lg flex items-center gap-2 ambient-glow hover:brightness-110 active:scale-95 transition-all no-underline">
-                            <span class="material-symbols-outlined">download</span>
-                            <span data-i18n="hero_download_apk">Download APK</span>
+                            <span class="material-symbols-outlined" id="hero-download-icon">download</span>
+                            <span id="hero-download-text" data-i18n="hero_download_apk">Download APK</span>
                         </a>
-                        <button id="hero-demo-btn" class="bg-surface-container-high text-on-surface px-10 py-4 rounded-full font-label-lg text-lg border border-outline-variant/30 hover:bg-surface-container-highest transition-all flex items-center gap-2" onclick="document.getElementById('warning-dialog').showModal()">
-                            <span class="material-symbols-outlined">play_circle</span>
-                            <span data-i18n="hero_demo_btn">Try Demo</span>
-                        </button>
                     </div>
                 </div>
 
@@ -530,9 +551,10 @@
                                     <div class="screenshots-preview-thumb">
                                         <img alt="Player preview" class="w-full h-full object-cover" src="immersive_player.jpeg">
                                     </div>
-                                    <div>
-                                        <p class="font-title-md text-on-surface">Immersive Player</p>
-                                        <p class="text-on-surface-variant text-sm mt-1">Playback focused experience.</p>
+                                    <div class="screenshots-preview-info">
+                                        <span class="preview-index-badge">01</span>
+                                        <p class="font-title-md text-on-surface preview-card-title">Immersive Player</p>
+                                        <p class="text-on-surface-variant text-sm mt-1 preview-card-sub">Playback focused experience.</p>
                                     </div>
                                 </button>
 
@@ -540,9 +562,10 @@
                                     <div class="screenshots-preview-thumb">
                                         <img alt="Library preview" class="w-full h-full object-cover" src="smart_library.jpeg">
                                     </div>
-                                    <div>
-                                        <p class="font-title-md text-on-surface">Smart Library</p>
-                                        <p class="text-on-surface-variant text-sm mt-1">Clear access to playlists &amp; artists.</p>
+                                    <div class="screenshots-preview-info">
+                                        <span class="preview-index-badge">02</span>
+                                        <p class="font-title-md text-on-surface preview-card-title">Smart Library</p>
+                                        <p class="text-on-surface-variant text-sm mt-1 preview-card-sub">Clear access to playlists &amp; artists.</p>
                                     </div>
                                 </button>
 
@@ -550,9 +573,10 @@
                                     <div class="screenshots-preview-thumb">
                                         <img alt="Settings preview" class="w-full h-full object-cover" src="advance_settings.jpeg">
                                     </div>
-                                    <div>
-                                        <p class="font-title-md text-on-surface">Advanced Settings</p>
-                                        <p class="text-on-surface-variant text-sm mt-1">Deep customization controls.</p>
+                                    <div class="screenshots-preview-info">
+                                        <span class="preview-index-badge">03</span>
+                                        <p class="font-title-md text-on-surface preview-card-title">Advanced Settings</p>
+                                        <p class="text-on-surface-variant text-sm mt-1 preview-card-sub">Deep customization controls.</p>
                                     </div>
                                 </button>
                             </aside>
