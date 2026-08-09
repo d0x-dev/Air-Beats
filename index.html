@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html id="app-root" lang="es">
+<html id="app-root" lang="en">
 
 <head>
     <!-- Google Analytics -->
@@ -197,7 +197,7 @@
 
     <!-- ═══════════════════════ NAVIGATION ═══════════════════════ -->
 
-    <nav class="fixed top-0 w-full z-50 bg-slate-950/65 backdrop-blur-2xl border-b border-white/10">
+    <nav class="fixed top-0 left-0 right-0 w-full z-50 bg-slate-950/65 backdrop-blur-2xl border-b border-white/10">
         <div class="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
 
             <!-- Logo -->
@@ -211,6 +211,7 @@
                 <a href="#features" class="font-['Epilogue'] font-medium text-slate-400 hover:text-slate-100 transition-colors" data-i18n="nav_features">Características</a>
                 <a href="#screenshots" class="font-['Epilogue'] font-medium text-slate-400 hover:text-slate-100 transition-colors" data-i18n="nav_screenshots">Capturas</a>
                 <a href="#downloads" class="font-['Epilogue'] font-medium text-slate-400 hover:text-slate-100 transition-colors" data-i18n="nav_downloads">Descargas</a>
+                <a href="form.html" class="font-['Epilogue'] font-medium text-slate-400 hover:text-slate-100 transition-colors" data-i18n="nav_support">Support</a>
                 <a href="https://github.com/d0x-dev/AirBeats" target="_blank" class="font-['Epilogue'] font-medium text-slate-400 hover:text-slate-100 transition-colors">GitHub</a>
             </div>
 
@@ -233,10 +234,10 @@
 
     <!-- ═══════════════════════ MAIN CONTENT ═══════════════════════ -->
 
-    <main class="pt-24">
+    <main class="pt-24 w-full">
 
         <!-- ─── HERO ─── -->
-        <section class="relative px-margin-horizontal py-20 overflow-hidden">
+        <section class="relative px-margin-horizontal py-20 overflow-hidden w-full">
             <!-- Background glow -->
             <div class="absolute top-0 right-0 w-1/2 h-full opacity-20 pointer-events-none">
                 <div class="w-full h-full bg-gradient-to-l from-primary-container to-transparent blur-3xl rounded-full translate-x-1/2"></div>
@@ -884,7 +885,7 @@
         </section>
 
         <!-- ─── FEATURES ─── -->
-        <section id="features" class="px-margin-horizontal py-24 bg-surface-container-lowest">
+        <section id="features" class="px-margin-horizontal py-24 bg-surface-container-lowest w-full">
             <div class="max-w-7xl mx-auto">
                 <div class="text-center mb-16">
                     <h2 class="font-headline-lg text-headline-lg text-on-surface mb-4" data-i18n="features_title">Características</h2>
@@ -956,7 +957,7 @@
                             <span class="material-symbols-outlined">build</span>
                         </div>
                         <h3 class="font-title-md text-on-surface mb-2">Funcionalidades Avanzadas</h3>
-                        <p class="text-on-surface-variant text-sm leading-relaxed">Control de reproducción ecualizador de 10 bandas, gestos y soporte para Chromecast y Bluetooth.</p>
+                        <p class="text-on-surface-variant text-sm leading-relaxed">Control de reproducción ecualizador de 10 bandas, gestos y compatibilidad para Chromecast y Bluetooth.</p>
                     </div>
 
                     <div class="glass-card p-6 rounded-lg hover:bg-surface-container-high transition-colors">
@@ -971,7 +972,7 @@
                         <div class="feature-icon-wrap bg-primary-container/30 text-primary">
                             <span class="material-symbols-outlined">translate</span>
                         </div>
-                        <h3 class="font-title-md text-on-surface mb-2">Soporte Multilingüe</h3>
+                        <h3 class="font-title-md text-on-surface mb-2">Soporte Multilenguaje</h3>
                         <p class="text-on-surface-variant text-sm leading-relaxed">Disponible en varios idiomas con traducciones precisas y localización culturalmente relevante.</p>
                     </div>
 
@@ -995,7 +996,7 @@
         </section>
 
         <!-- ─── OPEN SOURCE ─── -->
-        <section id="opensource" class="px-margin-horizontal py-24 relative overflow-hidden">
+        <section id="opensource" class="px-margin-horizontal py-24 relative overflow-hidden w-full">
             <div class="max-w-7xl mx-auto glass-card rounded-xl p-12 md:p-20 relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
                 <div class="max-w-xl text-center md:text-left">
                     <span class="inline-block px-4 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm mb-6">COMMUNITY DRIVEN</span>
@@ -1052,7 +1053,7 @@
         </section>
 
         <!-- ─── SCREENSHOTS (ACORDION - COLAPSADO POR DEFECTO) ─── -->
-        <section id="screenshots" class="px-margin-horizontal py-24 bg-surface">
+        <section id="screenshots" class="px-margin-horizontal py-24 bg-surface w-full">
             <div class="max-w-7xl mx-auto">
                 <!-- Header con botón colapsable -->
                 <div class="mb-16">
@@ -1171,7 +1172,7 @@
         </section>
 
         <!-- ─── SUPPORT ─── -->
-        <section class="px-margin-horizontal py-20">
+        <section class="px-margin-horizontal py-20 w-full">
             <div class="max-w-3xl mx-auto">
                 <div class="glass-card rounded-xl p-10 text-center border border-white/5">
                     <div class="w-14 h-14 rounded-full bg-secondary-container flex items-center justify-center mx-auto mb-6">
@@ -1181,7 +1182,7 @@
                     <p class="text-on-surface-variant font-body-lg mb-8 max-w-md mx-auto" data-i18n="support_desc">
                         Envía una solicitud o reporta un problema directamente al equipo de desarrollo en GitHub.
                     </p>
-                    <a class="inline-flex items-center gap-2 bg-secondary-container text-on-secondary-container px-8 py-3 rounded-full font-label-lg active:scale-95 transition-all hover:brightness-110 no-underline" href="https://github.com/d0x-dev/AirBeats/issues" target="_blank">
+                    <a class="inline-flex items-center gap-2 bg-secondary-container text-on-secondary-container px-8 py-3 rounded-full font-label-lg active:scale-95 transition-all hover:brightness-110 no-underline" href="form.html">
                         <span class="material-symbols-outlined" style="font-size:18px">send</span>
                         <span data-i18n="support_btn">Solicitar ayuda</span>
                     </a>
@@ -1190,7 +1191,7 @@
         </section>
 
         <!-- ─── DOWNLOADS ─── -->
-        <section id="downloads" class="px-margin-horizontal py-24 bg-gradient-to-b from-surface to-slate-950">
+        <section id="downloads" class="px-margin-horizontal py-24 bg-gradient-to-b from-surface to-slate-950 w-full">
             <div class="max-w-7xl mx-auto">
                 <div class="text-center mb-16">
                     <h2 class="font-headline-lg text-headline-lg text-on-surface mb-4" data-i18n="downloads_title">Descargas</h2>
@@ -1314,9 +1315,9 @@
                         <span class="material-symbols-outlined" style="font-size:16px">translate</span>
                         Crowdin
                     </a>
-                    <a href="https://github.com/d0x-dev/AirBeats/issues" target="_blank" class="footer-chip">
+                    <a href="form.html" class="footer-chip">
                         <span class="material-symbols-outlined" style="font-size:16px">support</span>
-                        Soporte
+                        Support
                     </a>
                 </div>
             </div>
