@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
             nav_features: "Características",
             nav_screenshots: "Capturas",
             nav_downloads: "Descargas",
+            nav_support: "Support",
             nav_download_btn: "Descargar",
             hero_subtitle: "Un cliente de YouTube Music con Material Design 3, para Android y Windows.",
             hero_download_apk: "Descargar APK",
@@ -43,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
             nav_features: "Features",
             nav_screenshots: "Screenshots",
             nav_downloads: "Downloads",
+            nav_support: "Support",
             nav_download_btn: "Download",
             hero_subtitle: "An advanced YouTube Music client built with Material Design 3 for Android & Windows.",
             hero_download_apk: "Download APK",
@@ -81,6 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
             nav_features: "Recursos",
             nav_screenshots: "Capturas",
             nav_downloads: "Downloads",
+            nav_support: "Suporte",
             nav_download_btn: "Baixar",
             hero_subtitle: "Um cliente do YouTube Music com Material Design 3 para Android e Windows.",
             hero_download_apk: "Baixar APK",
@@ -119,6 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
             nav_features: "विशेषताएं",
             nav_screenshots: "स्क्रीनशॉट",
             nav_downloads: "डाउनलोड",
+            nav_support: "सपोर्ट",
             nav_download_btn: "डाउनलोड",
             hero_subtitle: "एंड्रॉइड और विंडोज के लिए मैटेरियल डिजाइन 3 के साथ एक उन्नत यूट्यूब म्यूजिक क्लाइंट।",
             hero_download_apk: "APK डाउनलोड करें",
@@ -2046,4 +2050,38 @@ class AirBeatsApp {
 
 document.addEventListener('DOMContentLoaded', () => {
   window.airBeats = new AirBeatsApp();
+
+  // Web3Forms Support Form Handler
+  const form = document.getElementById('form');
+  if (form) {
+    const submitBtn = form.querySelector('button[type="submit"]');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      formData.append("access_key", "359251f7-72a8-4d76-8b5e-b9b43bebb3a3");
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = "Sending...";
+      submitBtn.disabled = true;
+      try {
+        const response = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          body: formData
+        });
+        const data = await response.json();
+        if (response.ok) {
+          alert("Success! Your message has been sent.");
+          form.reset();
+          const dialog = document.getElementById('support-dialog');
+          if (dialog) dialog.close();
+        } else {
+          alert("Error: " + data.message);
+        }
+      } catch (error) {
+        alert("Something went wrong. Please try again.");
+      } finally {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      }
+    });
+  }
 });
