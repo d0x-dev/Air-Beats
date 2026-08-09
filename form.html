@@ -368,11 +368,9 @@
                 else submitBtn.textContent = "Sending...";
                 submitBtn.disabled = true;
 
-                // Submit to Cloudflare Worker API route (/api/submit)
-                const SUBMIT_ENDPOINT = "/api/submit";
-
+                let response;
                 try {
-                    const response = await fetch(SUBMIT_ENDPOINT, {
+                    response = await fetch("/api/submit", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -380,6 +378,30 @@
                         },
                         body: json
                     });
+
+                    // Fallback to Web3Forms API if /api/submit Worker route is 404
+                    if (response.status === 404) {
+                        response = await fetch("https://api.web3forms.com/submit", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json"
+                            },
+                            body: json
+                        });
+                    }
+                } catch (err) {
+                    response = await fetch("https://api.web3forms.com/submit", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Accept": "application/json"
+                        },
+                        body: json
+                    });
+                }
+
+                try {
                     const data = await response.json();
                     if (response.ok && data.success) {
                         incrementRateLimit();
