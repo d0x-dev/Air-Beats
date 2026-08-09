@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    let currentLang = localStorage.getItem('airbeats_lang') || 'es';
+    let currentLang = localStorage.getItem('airbeats_lang') || 'en';
 
     function isMobileDevice() {
         const ua = navigator.userAgent || navigator.vendor || window.opera || '';
@@ -197,7 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', updatePlatformDownloadButtons);
 
     function setLanguage(lang) {
-        if (!translations[lang]) lang = 'es';
+        if (!translations[lang]) lang = 'en';
         currentLang = lang;
         localStorage.setItem('airbeats_lang', lang);
 
