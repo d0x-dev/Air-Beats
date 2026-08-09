@@ -958,7 +958,7 @@ button, .btn, .dialog-icon-btn, .dialog-text-btn, .dialog-filled-btn, .screensho
 }
 
 body {
-  background-color: #070907;
+  background-color: var(--bg);
   color: var(--text-main);
   font-family: var(--font-main);
   min-height: 100vh;
@@ -2567,3 +2567,88 @@ body {
 }
 
 .text-muted { color: var(--text-muted); }
+
+/* Form Submit Button Premium Style */
+.form-submit-btn {
+  background: #d0bcff !important;
+  color: #37265e !important;
+  font-family: 'Epilogue', sans-serif !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  padding: 16px 40px !important;
+  border-radius: 9999px !important;
+  border: none !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 12px !important;
+  box-shadow: 0 0 25px rgba(208, 188, 255, 0.4) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.form-submit-btn:hover {
+  background: #e9ddff !important;
+  box-shadow: 0 0 35px rgba(208, 188, 255, 0.65) !important;
+  transform: translateY(-2px) scale(1.02) !important;
+}
+
+.form-submit-btn:active {
+  transform: scale(0.96) !important;
+}
+
+.form-submit-btn:disabled {
+  opacity: 0.6 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+}
+
+/* Custom Toast Notification */
+.toast-notification {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: rgba(28, 27, 31, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #e5e1e7;
+  padding: 16px 24px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5), 0 0 20px rgba(208, 188, 255, 0.2);
+  z-index: 99999;
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+  pointer-events: none;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.toast-notification.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.toast-notification.toast-success {
+  border-color: rgba(30, 215, 96, 0.4);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5), 0 0 25px rgba(30, 215, 96, 0.3);
+}
+
+.toast-notification.toast-success #toastIcon {
+  color: #1ed760;
+}
+
+.toast-notification.toast-error {
+  border-color: rgba(255, 180, 171, 0.4);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5), 0 0 25px rgba(255, 180, 171, 0.3);
+}
+
+.toast-notification.toast-error #toastIcon {
+  color: #ffb4ab;
+}
