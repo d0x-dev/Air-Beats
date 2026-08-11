@@ -102,8 +102,8 @@ export default {
           );
         }
 
-        // Attach Web3Forms Access Key
-        payload.access_key = "359251f7-72a8-4d76-8b5e-b9b43bebb3a3";
+        // Attach Web3Forms Access Key (from Cloudflare Worker environment secret or default key)
+        payload.access_key = (env && env.WEB3FORMS_ACCESS_KEY) || "359251f7-72a8-4d76-8b5e-b9b43bebb3a3";
 
         // Proxy payload to Web3Forms API
         const web3Response = await fetch("https://api.web3forms.com/submit", {

@@ -161,7 +161,6 @@
             <div class="absolute -top-24 -right-24 w-64 h-64 bg-primary/10 blur-[100px] rounded-full"></div>
             
             <form id="form" class="space-y-10 relative z-10">
-                <input type="hidden" name="access_key" value="359251f7-72a8-4d76-8b5e-b9b43bebb3a3">
                 <input type="hidden" name="from_name" value="AirBeats Support Form">
                 <input type="hidden" name="subject" value="New Support Message - AirBeats">
 
@@ -359,7 +358,6 @@
 
                 const formData = new FormData(form);
                 const object = Object.fromEntries(formData);
-                object.access_key = "359251f7-72a8-4d76-8b5e-b9b43bebb3a3";
                 const json = JSON.stringify(object);
 
                 const btnSpan = submitBtn.querySelector('span');
@@ -378,27 +376,12 @@
                         },
                         body: json
                     });
-
-                    // Fallback to Web3Forms API if /api/submit Worker route is 404
-                    if (response.status === 404) {
-                        response = await fetch("https://api.web3forms.com/submit", {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Accept": "application/json"
-                            },
-                            body: json
-                        });
-                    }
                 } catch (err) {
-                    response = await fetch("https://api.web3forms.com/submit", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json"
-                        },
-                        body: json
-                    });
+                    showToast('error', 'Network error. Could not connect to server.');
+                    if (btnSpan) btnSpan.textContent = originalText;
+                    else submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                    return;
                 }
 
                 try {

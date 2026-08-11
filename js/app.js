@@ -1,166 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // ═══════════════════════ MULTI-LANGUAGE TRANSLATION DICTIONARY ═══════════════════════
-    const translations = {
-        es: {
-            nav_features: "Features",
-            nav_screenshots: "Screenshots",
-            nav_downloads: "Downloads",
-            nav_support: "Support",
-            nav_download_btn: "Download",
-            hero_subtitle: "An advanced YouTube Music client built with Material Design 3 for Android & Windows.",
-            hero_download_apk: "Download APK",
-            hero_download_exe: "Download Windows (.exe)",
-            hero_demo_btn: "View Demo",
-            features_title: "Features",
-            features_subtitle: "Discover all the powerful capabilities that make AirBeats the ultimate music client.",
-            oss_title: "Open Source at its Heart",
-            oss_desc: "AirBeats is built by music lovers for music lovers. Contribute, customize, and help us build the best open-source music player for Android & Windows.",
-            oss_star: "Star on GitHub",
-            oss_version_title: "Latest Stable Version",
-            shots_title: "The Interface",
-            shots_subtitle: "A glimpse into the Material Design 3 experience of AirBeats.",
-            shots_active: "Active View",
-            shots_hint: "Swipe or click controls to switch views.",
-            support_title: "Need Help?",
-            support_desc: "Submit a request or report an issue directly to the development team on GitHub.",
-            support_btn: "Request Help",
-            downloads_title: "Downloads",
-            downloads_subtitle: "Download the latest official release of AirBeats for your operating system.",
-            android_card_sub: "Download the latest stable Android build.",
-            android_stable_chip: "Stable Build",
-            windows_card_sub: "Download the Windows executable installer.",
-            windows_chip: "Windows Build",
-            view_changelog: "View Changelog",
-            previous_versions: "Previous Versions",
-            android_download_text: "Download APK",
-            windows_download_text: "Download Windows (.exe)",
-            footer_rights: "All Rights Reserved.",
-            footer_license: "Licensed under GNU General Public License v3.0 Open Source License.",
-            android_req: "Requires Android 6.0+",
-            windows_req: "Requires Windows 10/11",
-            lang_dialog_title: "Select Language"
-        },
-        en: {
-            nav_features: "Features",
-            nav_screenshots: "Screenshots",
-            nav_downloads: "Downloads",
-            nav_support: "Support",
-            nav_download_btn: "Download",
-            hero_subtitle: "An advanced YouTube Music client built with Material Design 3 for Android & Windows.",
-            hero_download_apk: "Download APK",
-            hero_download_exe: "Download Windows (.exe)",
-            hero_demo_btn: "View Demo",
-            features_title: "Features",
-            features_subtitle: "Discover all the powerful capabilities that make AirBeats the ultimate music client.",
-            oss_title: "Open Source at its Heart",
-            oss_desc: "AirBeats is built by music lovers for music lovers. Contribute, customize, and help us build the best open-source music player for Android & Windows.",
-            oss_star: "Star on GitHub",
-            oss_version_title: "Latest Stable Version",
-            shots_title: "The Interface",
-            shots_subtitle: "A glimpse into the Material Design 3 experience of AirBeats.",
-            shots_active: "Active View",
-            shots_hint: "Swipe or click controls to switch views.",
-            support_title: "Need Help?",
-            support_desc: "Submit a request or report an issue directly to the development team on GitHub.",
-            support_btn: "Request Help",
-            downloads_title: "Downloads",
-            downloads_subtitle: "Download the latest official release of AirBeats for your operating system.",
-            android_card_sub: "Download the latest stable Android build.",
-            android_stable_chip: "Stable Build",
-            windows_card_sub: "Download the Windows executable installer.",
-            windows_chip: "Windows Build",
-            view_changelog: "View Changelog",
-            previous_versions: "Previous Versions",
-            android_download_text: "Download APK",
-            windows_download_text: "Download Windows (.exe)",
-            footer_rights: "All Rights Reserved.",
-            footer_license: "Licensed under GNU General Public License v3.0 Open Source License.",
-            android_req: "Requires Android 6.0+",
-            windows_req: "Requires Windows 10/11",
-            lang_dialog_title: "Select Language"
-        },
-        pt: {
-            nav_features: "Recursos",
-            nav_screenshots: "Capturas",
-            nav_downloads: "Downloads",
-            nav_support: "Suporte",
-            nav_download_btn: "Baixar",
-            hero_subtitle: "Um cliente do YouTube Music com Material Design 3 para Android e Windows.",
-            hero_download_apk: "Baixar APK",
-            hero_download_exe: "Baixar Windows (.exe)",
-            hero_demo_btn: "Testar Demo",
-            features_title: "Recursos",
-            features_subtitle: "Descubra todos os recursos que tornam o AirBeats o melhor cliente para sua música.",
-            oss_title: "Código Aberto no Coração",
-            oss_desc: "O AirBeats é construído por amantes da música para amantes da música. Contribua, personalize e ajude-nos a criar o melhor reprodutor para Android e Windows.",
-            oss_star: "Star no GitHub",
-            oss_version_title: "Última versão estável",
-            shots_title: "A Interface",
-            shots_subtitle: "Um relance da experiência Material Design 3 do AirBeats.",
-            shots_active: "Visão ativa",
-            shots_hint: "Deslize ou use os controles para alternar as exibições.",
-            support_title: "Precisa de ajuda?",
-            support_desc: "Envie uma solicitação ou informe um problema diretamente para a equipe no GitHub.",
-            support_btn: "Pedir ajuda",
-            downloads_title: "Downloads",
-            downloads_subtitle: "Baixe a versão mais recente do AirBeats para sua plataforma.",
-            android_card_sub: "Baixe a versão estável mais recente para Android.",
-            android_stable_chip: "Versão Estável",
-            windows_card_sub: "Baixe o instalador executável para Windows.",
-            windows_chip: "Versão Windows",
-            view_changelog: "Ver alterações",
-            previous_versions: "Versões anteriores",
-            android_download_text: "Baixar APK",
-            windows_download_text: "Baixar Windows (.exe)",
-            footer_rights: "Todos os direitos reservados.",
-            footer_license: "Licenciado sob a Licença de Código Aberto GPL-3.0.",
-            android_req: "Requer Android 6.0+",
-            windows_req: "Requer Windows 10/11",
-            lang_dialog_title: "Selecionar idioma"
-        },
-        hi: {
-            nav_features: "विशेषताएं",
-            nav_screenshots: "स्क्रीनशॉट",
-            nav_downloads: "डाउनलोड",
-            nav_support: "सपोर्ट",
-            nav_download_btn: "डाउनलोड",
-            hero_subtitle: "एंड्रॉइड और विंडोज के लिए मैटेरियल डिजाइन 3 के साथ एक उन्नत यूट्यूब म्यूजिक क्लाइंट।",
-            hero_download_apk: "APK डाउनलोड करें",
-            hero_download_exe: "विंडोज (.exe) डाउनलोड करें",
-            hero_demo_btn: "डेमो देखें",
-            features_title: "विशेषताएं",
-            features_subtitle: "उन सभी विशेषताओं की खोज करें जो AirBeats को आपके संगीत के लिए सर्वश्रेष्ठ बनाती हैं।",
-            oss_title: "ओपन सोर्स संगीत प्लेयर",
-            oss_desc: "AirBeats संगीत प्रेमियों द्वारा संगीत प्रेमियों के लिए बनाया गया है। योगदान दें, अनुकूलित करें और सर्वश्रेष्ठ ओपन-सोर्स प्लेयर बनाने में हमारी मदद करें।",
-            oss_star: "GitHub पर स्टार दें",
-            oss_version_title: "नवीनतम स्थिर संस्करण",
-            shots_title: "इंटरफ़ेस",
-            shots_subtitle: "AirBeats अनुभव की एक झलक।",
-            shots_active: "सक्रिय दृश्य",
-            shots_hint: "दृश्य बदलने के लिए स्वाइप या नियंत्रण का उपयोग करें।",
-            support_title: "क्या आपको मदद चाहिए?",
-            support_desc: "GitHub पर सीधे विकास टीम को अनुरोध भेजें या समस्या की रिपोर्ट करें।",
-            support_btn: "मदद लें",
-            downloads_title: "डाउनलोड",
-            downloads_subtitle: "अपने ऑपरेटिंग सिस्टम के लिए AirBeats का नवीनतम आधिकारिक संस्करण डाउनलोड करें।",
-            android_card_sub: "नवीनतम स्थिर एंड्रॉइड बिल्ड डाउनलोड करें।",
-            android_stable_chip: "स्थिर बिल्ड",
-            windows_card_sub: "विंडोज निष्पादन योग्य इंस्टॉलर डाउनलोड करें।",
-            windows_chip: "विंडोज बिल्ड",
-            view_changelog: "बदलाव देखें",
-            previous_versions: "पिछले संस्करण",
-            android_download_text: "APK डाउनलोड करें",
-            windows_download_text: "विंडोज डाउनलोड (.exe)",
-            footer_rights: "सर्वाधिकार सुरक्षित।",
-            footer_license: "GPL-3.0 ओपन सोर्स लाइसेंस के तहत लाइसेंस प्राप्त।",
-            android_req: "एंड्रॉइड 6.0+ आवश्यक",
-            windows_req: "विंडोज 10/11 आवश्यक",
-            lang_dialog_title: "भाषा चुनें"
-        }
-    };
-
-    let currentLang = localStorage.getItem('airbeats_lang') || 'en';
-
     function isMobileDevice() {
         const ua = navigator.userAgent || navigator.vendor || window.opera || '';
         const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS|FxiOS|Tablet|Touch/i.test(ua);
@@ -180,56 +18,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const isMobile = isMobileDevice();
 
         if (isMobile) {
-            heroText.setAttribute('data-i18n', 'hero_download_apk');
+            heroText.textContent = 'Download APK';
             if (heroIcon) heroIcon.textContent = 'android';
         } else {
-            heroText.setAttribute('data-i18n', 'hero_download_exe');
+            heroText.textContent = 'Download Windows (.exe)';
             if (heroIcon) heroIcon.textContent = 'laptop_windows';
-        }
-
-        const dict = translations[currentLang] || translations.en;
-        const key = heroText.getAttribute('data-i18n');
-        if (dict && dict[key]) {
-            heroText.textContent = dict[key];
         }
     }
 
     window.addEventListener('resize', updatePlatformDownloadButtons);
-
-    function setLanguage(lang) {
-        if (!translations[lang]) lang = 'en';
-        currentLang = lang;
-        localStorage.setItem('airbeats_lang', lang);
-
-        const langText = document.getElementById('languageText');
-        if (langText) langText.textContent = lang.toUpperCase();
-
-        const dict = translations[lang];
-
-        // Update elements with data-i18n
-        document.querySelectorAll('[data-i18n]').forEach(el => {
-            const key = el.getAttribute('data-i18n');
-            if (dict[key]) {
-                el.textContent = dict[key];
-            }
-        });
-
-        updatePlatformDownloadButtons();
-
-        // Close language dialog if open
-        const langDialog = document.getElementById('language-dialog');
-        if (langDialog && langDialog.open) langDialog.close();
-    }
-
-    // Attach listener to language selection buttons in modal
-    document.querySelectorAll('[data-lang]').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const lang = btn.getAttribute('data-lang');
-            setLanguage(lang);
-            showToast(`🌐 Language changed to ${lang.toUpperCase()}`);
-        });
-    });
 
     // ═══════════════════════ DOM ELEMENTS & RELEASES ═══════════════════════
     const logo = document.getElementById('logo');
@@ -303,23 +100,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 audioPlayer.play().then(() => {
                     isPlayingAudio = true;
                     logo.classList.add('playing');
-                    showToast('🎵 Reproduciendo sample AirBeats Rhythm...');
+                    showToast('🎵 Playing AirBeats Rhythm sample...');
                 }).catch(err => {
                     console.warn('Audio playback error:', err);
-                    showToast('Error al reproducir rhythm.mp3');
+                    showToast('Error playing rhythm.mp3');
                 });
             } else {
                 audioPlayer.pause();
                 isPlayingAudio = false;
                 logo.classList.remove('playing');
-                showToast('⏸️ Audio pausado');
+                showToast('⏸️ Audio paused');
             }
         });
 
         audioPlayer.addEventListener('ended', () => {
             isPlayingAudio = false;
             logo.classList.remove('playing');
-            showToast('🎵 Fin de la reproducción');
+            showToast('🎵 Playback finished');
         });
     }
 
@@ -358,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!latestRelease) return;
         const tag = formatVersionTag(latestRelease.tag_name);
 
-        if (ossVersionBadge) ossVersionBadge.textContent = `${tag} (${translations[currentLang].oss_version_title || 'Última versión'})`;
+        if (ossVersionBadge) ossVersionBadge.textContent = `${tag} (Latest Stable Version)`;
         if (androidVersionBadge) androidVersionBadge.textContent = tag;
 
         // Find latest Windows release
@@ -547,7 +344,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const rel = targetRel || latestRelease;
         if (!rel) return;
 
-        let bodyMarkdown = `### ${rel.name || formatVersionTag(rel.tag_name)} Registro de Cambios\n\n${rel.body || 'Sin detalles de versión.'}`;
+        let bodyMarkdown = `### ${rel.name || formatVersionTag(rel.tag_name)} Release Notes\n\n${rel.body || 'No release details.'}`;
         if (window.marked) {
             changelogContent.innerHTML = `<div class="prose prose-invert max-w-none text-on-surface-variant">${window.marked.parse(bodyMarkdown)}</div>`;
         } else {
@@ -577,11 +374,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const dialogTitle = versionsDialog.querySelector('.dialog-header h3');
         if (dialogTitle) {
             if (filterPlatform === 'windows') {
-                dialogTitle.innerHTML = `<span class="flex items-center gap-2"><span class="material-symbols-outlined text-primary">laptop_windows</span> Versiones Anteriores para Windows (.exe)</span>`;
+                dialogTitle.innerHTML = `<span class="flex items-center gap-2"><span class="material-symbols-outlined text-primary">laptop_windows</span> Previous Windows Versions (.exe)</span>`;
             } else if (filterPlatform === 'android') {
-                dialogTitle.innerHTML = `<span class="flex items-center gap-2"><span class="material-symbols-outlined text-tertiary">android</span> Versiones Anteriores para Android (.apk)</span>`;
+                dialogTitle.innerHTML = `<span class="flex items-center gap-2"><span class="material-symbols-outlined text-tertiary">android</span> Previous Android Versions (.apk)</span>`;
             } else {
-                dialogTitle.innerHTML = `<span class="flex items-center gap-2"><span class="material-symbols-outlined text-primary">history</span> Versiones Anteriores</span>`;
+                dialogTitle.innerHTML = `<span class="flex items-center gap-2"><span class="material-symbols-outlined text-primary">history</span> Previous Versions</span>`;
             }
         }
 
@@ -593,7 +390,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (!filteredReleases || filteredReleases.length === 0) {
-            versionsList.innerHTML = `<p class="text-on-surface-variant text-center py-6">No se encontraron versiones anteriores para ${filterPlatform}.</p>`;
+            versionsList.innerHTML = `<p class="text-on-surface-variant text-center py-6">No previous versions found for ${filterPlatform}.</p>`;
             versionsDialog.showModal();
             return;
         }
@@ -601,8 +398,8 @@ document.addEventListener('DOMContentLoaded', () => {
         let html = '';
         filteredReleases.forEach(rel => {
             const tag = formatVersionTag(rel.tag_name);
-            const pubDate = rel.published_at ? new Date(rel.published_at).toLocaleDateString('es-ES', { year: 'numeric', month: 'short', day: 'numeric' }) : 'Reciente';
-            const rawNotes = rel.body ? rel.body.split('\n').filter(l => l.trim())[0] || 'Lanzamiento oficial' : 'Lanzamiento oficial';
+            const pubDate = rel.published_at ? new Date(rel.published_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : 'Recent';
+            const rawNotes = rel.body ? rel.body.split('\n').filter(l => l.trim())[0] || 'Official release' : 'Official release';
             const cleanNotes = rawNotes.replace(/[#*`]/g, '').substring(0, 110);
 
             let downloadableAssets = [];
@@ -621,7 +418,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const isPortable = /portable|potable/i.test(asset.name);
                 const isExe = /\.exe$/i.test(asset.name);
 
-                const label = isExe ? (isSetup ? 'Instalador (.exe)' : isPortable ? 'Portable (.exe)' : 'Ejecutable (.exe)') : 'Descargar APK';
+                const label = isExe ? (isSetup ? 'Installer (.exe)' : isPortable ? 'Portable (.exe)' : 'Executable (.exe)') : 'Download APK';
                 const icon = isExe ? (isSetup ? 'laptop_windows' : 'inventory_2') : 'android';
                 const btnClass = isExe ? 'bg-primary-container text-on-primary-container hover:brightness-110' : 'bg-tertiary-container text-on-tertiary-container hover:brightness-110';
 
@@ -640,7 +437,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <span class="px-3 py-1 rounded-full bg-primary/20 text-primary font-bold text-xs">${tag}</span>
                             <span class="text-xs text-on-surface-variant">${pubDate}</span>
                         </div>
-                        <span class="text-xs text-on-surface-variant font-medium">${downloadableAssets.length} archivo(s)</span>
+                        <span class="text-xs text-on-surface-variant font-medium">${downloadableAssets.length} file(s)</span>
                     </div>
                     <p class="text-xs text-on-surface-variant leading-relaxed">✨ ${cleanNotes}</p>
                     <div class="flex flex-wrap gap-2 pt-3 border-t border-white/5">
@@ -660,9 +457,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (windowsVersionsTrigger) {
         windowsVersionsTrigger.addEventListener('click', () => renderVersionsModal('windows'));
     }
-
-    // Apply stored language on initial load
-    setLanguage(currentLang);
 
     fetchReleases();
 });
@@ -684,7 +478,7 @@ function initAirBeatsDemoController() {
 
   function setButtonState(active) {
     if (heroDemoBtnText) {
-      heroDemoBtnText.textContent = active ? 'Cerrar Demo' : 'Probar Demo';
+      heroDemoBtnText.textContent = active ? 'Close Demo' : 'Try Demo';
     }
     if (heroDemoBtnIcon) {
       heroDemoBtnIcon.textContent = active ? 'cancel' : 'play_circle';
@@ -2051,37 +1845,44 @@ class AirBeatsApp {
 document.addEventListener('DOMContentLoaded', () => {
   window.airBeats = new AirBeatsApp();
 
-  // Web3Forms Support Form Handler
+  // Support Form Handler (proxied via Worker backend at /api/submit)
   const form = document.getElementById('form');
-  if (form) {
+  if (form && !form.dataset.boundWorker) {
+    form.dataset.boundWorker = "true";
     const submitBtn = form.querySelector('button[type="submit"]');
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const formData = new FormData(form);
-      formData.append("access_key", "359251f7-72a8-4d76-8b5e-b9b43bebb3a3");
-      const originalText = submitBtn.textContent;
-      submitBtn.textContent = "Sending...";
-      submitBtn.disabled = true;
-      try {
-        const response = await fetch("https://api.web3forms.com/submit", {
-          method: "POST",
-          body: formData
-        });
-        const data = await response.json();
-        if (response.ok) {
-          alert("Success! Your message has been sent.");
-          form.reset();
-          const dialog = document.getElementById('support-dialog');
-          if (dialog) dialog.close();
-        } else {
-          alert("Error: " + data.message);
+    if (submitBtn) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(form);
+        const payload = Object.fromEntries(formData.entries());
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = "Sending...";
+        submitBtn.disabled = true;
+        try {
+          const response = await fetch("/api/submit", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json"
+            },
+            body: JSON.stringify(payload)
+          });
+          const data = await response.json();
+          if (response.ok && data.success) {
+            alert("Success! Your message has been sent.");
+            form.reset();
+            const dialog = document.getElementById('support-dialog');
+            if (dialog) dialog.close();
+          } else {
+            alert("Error: " + (data.message || "Failed to send message."));
+          }
+        } catch (error) {
+          alert("Something went wrong connecting to server.");
+        } finally {
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
         }
-      } catch (error) {
-        alert("Something went wrong. Please try again.");
-      } finally {
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
-      }
-    });
+      });
+    }
   }
 });
