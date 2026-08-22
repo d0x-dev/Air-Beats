@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #141317;
+  --color-on-background: #e5e1e7;
+  --color-surface: #141317;
+  --color-surface-dim: #141317;
+  --color-surface-bright: #3a383d;
+  --color-surface-container-lowest: #0e0e11;
+  --color-surface-container-low: #1c1b1f;
+  --color-surface-container: #201f23;
+  --color-surface-container-high: #2b292d;
+  --color-surface-container-highest: #353438;
+  --color-surface-variant: #353438;
+  --color-on-surface: #e5e1e7;
+  --color-on-surface-variant: #cac4d0;
+  
+  --color-primary: #e9ddff;
+  --color-on-primary: #37265e;
+  --color-primary-container: #d0bcff;
+  --color-on-primary-container: #594983;
+  
+  --color-secondary: #ccc2dc;
+  --color-on-secondary: #332d41;
+  --color-secondary-container: #4a4359;
+  --color-on-secondary-container: #bab1ca;
+  
+  --color-tertiary: #ffd9e3;
+  --color-on-tertiary: #492532;
+  --color-tertiary-container: #efb8c8;
+  --color-on-tertiary-container: #704654;
+  
+  --color-outline: #948f9a;
+  --color-outline-variant: #49454f;
+  --color-error: #ffb4ab;
+  --color-on-error: #690005;
+  --color-error-container: #93000a;
+  --color-on-error-container: #ffdad6;
+
+  --spacing-player-padding: 32px;
+  --spacing-base: 8px;
+  --spacing-margin-horizontal: 24px;
+  --spacing-list-item-gap: 12px;
+  --spacing-gutter-grid: 16px;
+
+  --font-body-md: 'Be Vietnam Pro', sans-serif;
+  --font-body-lg: 'Be Vietnam Pro', sans-serif;
+  --font-title-md: 'Be Vietnam Pro', sans-serif;
+  --font-title-lg: 'Be Vietnam Pro', sans-serif;
+  --font-label-sm: 'Be Vietnam Pro', sans-serif;
+  --font-label-lg: 'Be Vietnam Pro', sans-serif;
+  --font-display-lg: 'Epilogue', sans-serif;
+  --font-headline-lg: 'Epilogue', sans-serif;
+  --font-headline-md: 'Epilogue', sans-serif;
+}
