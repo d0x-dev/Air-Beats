@@ -38,12 +38,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let allReleases = [
         {
+            tag_name: "6.0.0",
+            name: "AirBeats v6.0.0",
+            published_at: "2026-08-21T14:25:10Z",
+            body: "### ✨ AirBeats v6.0.0 Release Notes\n- 📊 **Brand-New Insights & Stats Screens**\n- 🔐 **Secure Email & Password Login / Sign-up**\n- 💾 **Download Entire Albums & Playlists to Storage**\n- 🎧 **External Audio Player Support**\n- 🛡️ **Complete Fix for YouTube Playback 403 Errors & 30-Second Playback Stall**\n- ⚡ **Massive APK Size Reduction & Performance Improvements**",
+            assets: [
+                { name: "AirBeats_v6.0.0_signed.apk", size: 11589842, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/6.0.0/AirBeats_v6.0.0_signed.apk" }
+            ]
+        },
+        {
             tag_name: "5.9.0",
             name: "AirBeats v5.9.0",
             published_at: "2026-07-20T08:00:00Z",
-            body: "### ✨ AirBeats v5.9.0 Release Notes\n- 🎵 **Enhanced YouTube Music Integration**\n- ⚡ Optimización de rendimiento y menor consumo de RAM\n- 🎨 Material Design 3 UI polish and dynamic color updates",
+            body: "### ✨ AirBeats v5.9.0 Release Notes\n- 🎵 **Enhanced YouTube Music Integration**\n- ⚡ Performance optimizations and lower RAM consumption\n- 🎨 Material Design 3 UI polish and dynamic color updates",
             assets: [
-                { name: "AirBeats_v5.9.0_signed.apk", size: 35000000, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/5.9.0/AirBeats_v5.9.0_signed.apk" }
+                { name: "AirBeats_v5.9.0_signed.apk", size: 11229043, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/5.9.0/AirBeats_v5.9.0_signed.apk" }
             ]
         },
         {
@@ -52,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
             published_at: "2026-07-10T08:00:00Z",
             body: "### ✨ AirBeats V5.8.0\n- Android Signed APK release v5.8.0",
             assets: [
-                { name: "AirBeats_v5.8.0_signed.apk", size: 34800000, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/V5.8.0/AirBeats_v5.8.0_signed.apk" }
+                { name: "AirBeats_v5.8.0_signed.apk", size: 10990638, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/V5.8.0/AirBeats_v5.8.0_signed.apk" }
             ]
         },
         {
@@ -61,9 +70,9 @@ document.addEventListener('DOMContentLoaded', () => {
             published_at: "2026-06-15T08:00:00Z",
             body: "### ✨ AirBeats v5.7.0 Dual Release\n- 💻 **Windows Desktop Setup & Portable Builds**\n- 📱 **Android Signed APK**",
             assets: [
-                { name: "Airbeats-v5.7.0-setup.exe", size: 45000000, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/5.7.0/Airbeats-v5.7.0-setup.exe" },
-                { name: "Airbeats-v5.7.0-potable.exe", size: 42000000, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/5.7.0/Airbeats-v5.7.0-potable.exe" },
-                { name: "AirBeats_v5.7.0_signed.apk", size: 34000000, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/5.7.0/AirBeats_v5.7.0_signed.apk" }
+                { name: "Airbeats-v5.7.0-setup.exe", size: 121626440, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/5.7.0/Airbeats-v5.7.0-setup.exe" },
+                { name: "Airbeats-v5.7.0-potable.exe", size: 121349740, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/5.7.0/Airbeats-v5.7.0-potable.exe" },
+                { name: "AirBeats_v5.7.0_signed.apk", size: 9903696, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/5.7.0/AirBeats_v5.7.0_signed.apk" }
             ]
         },
         {
@@ -72,9 +81,9 @@ document.addEventListener('DOMContentLoaded', () => {
             published_at: "2026-06-01T08:00:00Z",
             body: "### ✨ AirBeats v5.6.0 Dual Release\n- 💻 **Windows Desktop Executables (.exe)**\n- 📱 **Android Signed APK**",
             assets: [
-                { name: "Airbeats-v5.6.0-setup.exe", size: 44000000, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/5.6.0/Airbeats-v5.6.0-setup.exe" },
-                { name: "Airbeats-v5.6.0-Potable.exe", size: 41000000, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/5.6.0/Airbeats-v5.6.0-Potable.exe" },
-                { name: "AirBeats_v5.6.0_signed.apk", size: 33500000, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/5.6.0/AirBeats_v5.6.0_signed.apk" }
+                { name: "Airbeats-v5.6.0-setup.exe", size: 105052617, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/5.6.0/Airbeats-v5.6.0-setup.exe" },
+                { name: "Airbeats-v5.6.0-Potable.exe", size: 104758378, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/5.6.0/Airbeats-v5.6.0-Potable.exe" },
+                { name: "AirBeats_v5.6.0_signed.apk", size: 9838820, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/5.6.0/AirBeats_v5.6.0_signed.apk" }
             ]
         }
     ];
@@ -122,18 +131,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 3. GitHub Releases API Fetching
     async function fetchReleases() {
-        const repos = [
+        const endpoints = [
+            "/api/releases",
             "https://api.github.com/repos/d0x-dev/AirBeats/releases",
             "https://api.github.com/repos/drkvenom786/Airbeats/releases"
         ];
         
-        for (const url of repos) {
+        for (const url of endpoints) {
             try {
-                const res = await fetch(url);
+                const res = await fetch(url, { headers: { 'Accept': 'application/vnd.github.v3+json' } });
                 if (res.ok) {
                     const data = await res.json();
-                    if (Array.isArray(data) && data.length > 0) {
-                        allReleases = data.sort((a, b) => new Date(b.published_at) - new Date(a.published_at));
+                    const releaseList = Array.isArray(data) ? data : (Array.isArray(data.releases) ? data.releases : (Array.isArray(data.value) ? data.value : null));
+                    if (releaseList && releaseList.length > 0) {
+                        allReleases = releaseList.sort((a, b) => new Date(b.published_at) - new Date(a.published_at));
                         latestRelease = allReleases[0];
                         updateVersionBadges();
                         return;
@@ -147,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function formatVersionTag(tag) {
-        if (!tag) return 'v5.9.0';
+        if (!tag) return 'v6.0.0';
         return tag.startsWith('v') || tag.startsWith('V') ? tag : `v${tag}`;
     }
 
@@ -156,17 +167,37 @@ document.addEventListener('DOMContentLoaded', () => {
         const tag = formatVersionTag(latestRelease.tag_name);
 
         if (ossVersionBadge) ossVersionBadge.textContent = `${tag} (Latest Stable Version)`;
-        if (androidVersionBadge) androidVersionBadge.textContent = tag;
+
+        // Find latest Android APK release
+        const apkRelease = allReleases.find(r => r.assets && r.assets.some(a => /\.apk$/i.test(a.name))) || latestRelease;
+        if (apkRelease) {
+            const apkTag = formatVersionTag(apkRelease.tag_name);
+            if (androidVersionBadge) androidVersionBadge.textContent = apkTag;
+            const androidDownloadBtn = document.getElementById('android-download-btn');
+            const apkAsset = apkRelease.assets && apkRelease.assets.find(a => /\.apk$/i.test(a.name));
+            if (androidDownloadBtn && apkAsset && apkAsset.browser_download_url) {
+                androidDownloadBtn.href = apkAsset.browser_download_url;
+            }
+            const genericDownloadBtn = document.getElementById('downloadBtn');
+            if (genericDownloadBtn && apkAsset && apkAsset.browser_download_url) {
+                genericDownloadBtn.href = apkAsset.browser_download_url;
+            }
+        }
 
         // Find latest Windows release
         const winRelease = allReleases.find(r => r.assets && r.assets.some(a => /\.exe$/i.test(a.name)));
         if (windowsVersionBadge && winRelease) {
             windowsVersionBadge.textContent = formatVersionTag(winRelease.tag_name);
             const winDownloadBtn = document.getElementById('windows-download-btn');
-            const winExeAsset = winRelease.assets.find(a => /\.exe$/i.test(a.name));
-            if (winDownloadBtn && winExeAsset) {
+            const winExeAsset = winRelease.assets && (winRelease.assets.find(a => /setup.*\.exe$/i.test(a.name)) || winRelease.assets.find(a => /\.exe$/i.test(a.name)));
+            if (winDownloadBtn && winExeAsset && winExeAsset.browser_download_url) {
                 winDownloadBtn.href = winExeAsset.browser_download_url;
             }
+        }
+
+        const versionNote = document.getElementById('versionNote');
+        if (versionNote && apkRelease) {
+            versionNote.innerHTML = `Latest Release: <strong>${formatVersionTag(apkRelease.tag_name)}</strong>`;
         }
 
         updatePlatformDownloadButtons();

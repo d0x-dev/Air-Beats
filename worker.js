@@ -15,6 +15,50 @@ export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
 
+    // ─── 0. GITHUB RELEASES PROXY (/api/releases) ───
+    if (url.pathname === "/api/releases") {
+      if (request.method === "OPTIONS") {
+        return new Response(null, {
+          status: 204,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, OPTIONS",
+            "Access-Control-Allow-Headers": "Content-Type, Accept",
+          },
+        });
+      }
+
+      try {
+        const ghRes = await fetch("https://api.github.com/repos/d0x-dev/AirBeats/releases", {
+          headers: {
+            "User-Agent": "AirBeats-Worker/1.0",
+            "Accept": "application/vnd.github.v3+json",
+          },
+          cf: {
+            cacheTtl: 300,
+            cacheEverything: true,
+          }
+        });
+        const data = await ghRes.text();
+        return new Response(data, {
+          status: ghRes.status,
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "Cache-Control": "public, max-age=300",
+          },
+        });
+      } catch (err) {
+        return new Response(JSON.stringify({ error: "Failed to fetch releases" }), {
+          status: 500,
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+        });
+      }
+    }
+
     // ─── 1. SUPPORT FORM SUBMISSION ROUTE (/api/submit) ───
     if (url.pathname === "/api/submit" || (request.method === "POST" && url.pathname.endsWith("/submit"))) {
       // Handle CORS Preflight OPTIONS Request
