@@ -613,7 +613,7 @@ button, .btn, .dialog-icon-btn, .dialog-text-btn, .dialog-filled-btn, .screensho
     }
 
     .preview-card-sub {
-        display: none; /* Hide long subtitle on mobile/tablet to keep cards ultra clean & sharp */
+        display: none !important; /* Hide description in mobile view - only show screen name */
     }
 
     .preview-index-badge {
