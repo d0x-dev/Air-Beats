@@ -329,6 +329,77 @@ document.addEventListener('DOMContentLoaded', () => {
         updatePlatformDownloadButtons();
     }
 
+    // Windows Download Selection Dialog Logic (Setup vs Portable)
+    const windowsDownloadDialog = document.getElementById('windows-download-dialog');
+    const winOptSetupBtn = document.getElementById('win-opt-setup-btn');
+    const winOptPortableBtn = document.getElementById('win-opt-portable-btn');
+    const winSetupSizeBadge = document.getElementById('win-setup-size-badge');
+    const winPortableSizeBadge = document.getElementById('win-portable-size-badge');
+    const winDialogVersion = document.getElementById('windows-dialog-version');
+
+    function openWindowsDownloadDialog() {
+        if (!windowsDownloadDialog) {
+            const href = winDownloadBtn ? (winDownloadBtn.getAttribute('href') || winDownloadBtn.href) : '';
+            triggerDownload(href, 'Airbeats-setup.exe');
+            return;
+        }
+
+        const winRel = latestDesktopRelease || (desktopReleases && desktopReleases.find(r => r.assets && r.assets.some(a => /\.exe$/i.test(a.name)))) || allReleases.find(r => r.assets && r.assets.some(a => /\.exe$/i.test(a.name)));
+
+        if (winRel) {
+            const tag = formatVersionTag(winRel.tag_name);
+            if (winDialogVersion) winDialogVersion.textContent = `${tag} (Latest Release)`;
+
+            const assets = winRel.assets || [];
+            const setupAsset = assets.find(a => /setup.*\.exe$/i.test(a.name)) || assets.find(a => /\.exe$/i.test(a.name));
+            const portableAsset = assets.find(a => /portable|potable.*\.exe$/i.test(a.name));
+
+            if (setupAsset && winOptSetupBtn) {
+                winOptSetupBtn.dataset.url = setupAsset.browser_download_url;
+                winOptSetupBtn.dataset.filename = setupAsset.name;
+                const filenameEl = document.getElementById('win-setup-filename');
+                if (filenameEl) {
+                    filenameEl.innerHTML = `<span class="material-symbols-outlined" style="font-size:13px">description</span><span>${setupAsset.name}</span>`;
+                }
+                if (winSetupSizeBadge && setupAsset.size) {
+                    winSetupSizeBadge.textContent = `${(setupAsset.size / (1024 * 1024)).toFixed(1)} MB`;
+                }
+            }
+
+            if (portableAsset && winOptPortableBtn) {
+                winOptPortableBtn.dataset.url = portableAsset.browser_download_url;
+                winOptPortableBtn.dataset.filename = portableAsset.name;
+                const filenameEl = document.getElementById('win-portable-filename');
+                if (filenameEl) {
+                    filenameEl.innerHTML = `<span class="material-symbols-outlined" style="font-size:13px">description</span><span>${portableAsset.name}</span>`;
+                }
+                if (winPortableSizeBadge && portableAsset.size) {
+                    winPortableSizeBadge.textContent = `${(portableAsset.size / (1024 * 1024)).toFixed(1)} MB`;
+                }
+            }
+        }
+
+        windowsDownloadDialog.showModal();
+    }
+
+    if (winOptSetupBtn) {
+        winOptSetupBtn.addEventListener('click', () => {
+            const url = winOptSetupBtn.dataset.url || 'https://github.com/d0x-dev/Airbeats-Desktop/releases/download/6.0.0/Airbeats-v6.0.0-setup.exe';
+            const filename = winOptSetupBtn.dataset.filename || 'Airbeats-v6.0.0-setup.exe';
+            if (windowsDownloadDialog) windowsDownloadDialog.close();
+            triggerDownload(url, filename);
+        });
+    }
+
+    if (winOptPortableBtn) {
+        winOptPortableBtn.addEventListener('click', () => {
+            const url = winOptPortableBtn.dataset.url || 'https://github.com/d0x-dev/Airbeats-Desktop/releases/download/6.0.0/Airbeats-v6.0.0-Portable.exe';
+            const filename = winOptPortableBtn.dataset.filename || 'Airbeats-v6.0.0-Portable.exe';
+            if (windowsDownloadDialog) windowsDownloadDialog.close();
+            triggerDownload(url, filename);
+        });
+    }
+
     // Direct Download Click Handlers
     const androidDownloadBtn = document.getElementById('android-download-btn');
     const winDownloadBtn = document.getElementById('windows-download-btn');
@@ -345,8 +416,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (winDownloadBtn) {
         winDownloadBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            const href = winDownloadBtn.getAttribute('href') || winDownloadBtn.href;
-            triggerDownload(href, 'Airbeats-setup.exe');
+            openWindowsDownloadDialog();
         });
     }
 
@@ -361,15 +431,15 @@ document.addEventListener('DOMContentLoaded', () => {
     updatePlatformDownloadButtons();
 
     // 4. Screenshots Section Accordion & Carousel
-    const screenshotsHeader = document.getElementById('screenshots-header');
+    const screenshotsToggle = document.getElementById('screenshots-toggle');
     const screenshotsContent = document.getElementById('screenshots-content');
     const screenshotsIcon = document.getElementById('screenshots-icon');
 
-    if (screenshotsHeader && screenshotsContent) {
-        screenshotsHeader.addEventListener('click', () => {
+    if (screenshotsToggle && screenshotsContent) {
+        screenshotsToggle.addEventListener('click', () => {
             const isCollapsed = screenshotsContent.style.maxHeight === '0px';
             if (isCollapsed) {
-                screenshotsContent.style.maxHeight = '2000px';
+                screenshotsContent.style.maxHeight = '2500px';
                 if (screenshotsIcon) screenshotsIcon.classList.add('rotated');
             } else {
                 screenshotsContent.style.maxHeight = '0px';
@@ -378,99 +448,260 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Screenshots Carousel Logic
-    const track = document.getElementById('screenshots-track');
-    const slides = document.querySelectorAll('.screenshots-slide');
-    const prevBtn = document.getElementById('screenshots-prev');
-    const nextBtn = document.getElementById('screenshots-next');
-    const titleEl = document.getElementById('screenshots-title');
-    const descEl = document.getElementById('screenshots-description');
-    const indexEl = document.getElementById('screenshots-current-index');
-    const indicatorsEl = document.getElementById('screenshots-indicators');
-    const previewCards = document.querySelectorAll('.screenshots-preview-card');
+    // Interface Platform Switcher (App Interface vs Desktop Interface)
+    const tabApp = document.getElementById('interface-tab-app');
+    const tabDesktop = document.getElementById('interface-tab-desktop');
+    const viewApp = document.getElementById('interface-view-app');
+    const viewDesktop = document.getElementById('interface-view-desktop');
+    const desktopPreviewDownloadBtn = document.getElementById('desktop-preview-download-btn');
 
-    let currentSlide = 0;
-    const totalSlides = slides.length;
-
-    function buildIndicators() {
-        if (!indicatorsEl) return;
-        indicatorsEl.innerHTML = '';
-        for (let i = 0; i < totalSlides; i++) {
-            const dot = document.createElement('div');
-            dot.className = `screenshots-indicator ${i === currentSlide ? 'is-active' : ''}`;
-            dot.addEventListener('click', () => goToSlide(i));
-            indicatorsEl.appendChild(dot);
+    function switchInterfaceView(view) {
+        if (view === 'desktop') {
+            if (tabApp) {
+                tabApp.classList.remove('bg-primary', 'text-on-primary', 'shadow-sm');
+                tabApp.classList.add('text-on-surface-variant', 'hover:text-on-surface');
+            }
+            if (tabDesktop) {
+                tabDesktop.classList.add('bg-primary', 'text-on-primary', 'shadow-sm');
+                tabDesktop.classList.remove('text-on-surface-variant', 'hover:text-on-surface');
+            }
+            if (viewApp) viewApp.classList.add('hidden');
+            if (viewDesktop) viewDesktop.classList.remove('hidden');
+        } else {
+            if (tabDesktop) {
+                tabDesktop.classList.remove('bg-primary', 'text-on-primary', 'shadow-sm');
+                tabDesktop.classList.add('text-on-surface-variant', 'hover:text-on-surface');
+            }
+            if (tabApp) {
+                tabApp.classList.add('bg-primary', 'text-on-primary', 'shadow-sm');
+                tabApp.classList.remove('text-on-surface-variant', 'hover:text-on-surface');
+            }
+            if (viewDesktop) viewDesktop.classList.add('hidden');
+            if (viewApp) viewApp.classList.remove('hidden');
         }
     }
 
-    function goToSlide(index) {
-        if (index < 0) index = totalSlides - 1;
-        if (index >= totalSlides) index = 0;
-        currentSlide = index;
-
-        if (track) {
-            track.style.transform = `translateX(-${currentSlide * 100}%)`;
-        }
-
-        const activeSlide = slides[currentSlide];
-        if (activeSlide) {
-            if (titleEl) titleEl.textContent = activeSlide.dataset.title || 'Vista previa';
-            if (descEl) descEl.textContent = activeSlide.dataset.description || '';
-        }
-
-        if (indexEl) {
-            indexEl.textContent = String(currentSlide + 1).padStart(2, '0');
-        }
-
-        if (indicatorsEl) {
-            const dots = indicatorsEl.querySelectorAll('.screenshots-indicator');
-            dots.forEach((dot, idx) => {
-                dot.classList.toggle('is-active', idx === currentSlide);
-            });
-        }
-
-        previewCards.forEach((card, idx) => {
-            card.classList.toggle('is-active', idx === currentSlide);
+    if (tabApp) {
+        tabApp.addEventListener('click', (e) => {
+            e.stopPropagation();
+            switchInterfaceView('app');
         });
     }
 
-    if (prevBtn) prevBtn.addEventListener('click', () => goToSlide(currentSlide - 1));
-    if (nextBtn) nextBtn.addEventListener('click', () => goToSlide(currentSlide + 1));
+    if (tabDesktop) {
+        tabDesktop.addEventListener('click', (e) => {
+            e.stopPropagation();
+            switchInterfaceView('desktop');
+        });
+    }
 
-    previewCards.forEach((card, idx) => {
-        card.addEventListener('click', () => goToSlide(idx));
+    if (desktopPreviewDownloadBtn) {
+        desktopPreviewDownloadBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openWindowsDownloadDialog();
+        });
+    }
+
+    window.addEventListener('resize', () => {
+        if (window.innerWidth < 768 && viewDesktop && !viewDesktop.classList.contains('hidden')) {
+            switchInterfaceView('app');
+        }
     });
 
-    buildIndicators();
+    // 1. Mobile App Screenshots Carousel Logic
+    const appTrack = document.getElementById('screenshots-track');
+    const appSlides = document.querySelectorAll('#interface-view-app .screenshots-slide');
+    const appPrevBtn = document.getElementById('screenshots-prev');
+    const appNextBtn = document.getElementById('screenshots-next');
+    const appTitleEl = document.getElementById('screenshots-title');
+    const appDescEl = document.getElementById('screenshots-description');
+    const appIndexEl = document.getElementById('screenshots-current-index');
+    const appIndicatorsEl = document.getElementById('screenshots-indicators');
+    const appPreviewCards = document.querySelectorAll('#interface-view-app .screenshots-preview-card');
 
-    // Touch Swipe Support for Screenshots Carousel
-    if (track) {
+    let currentAppSlide = 0;
+    const totalAppSlides = appSlides.length;
+
+    function buildAppIndicators() {
+        if (!appIndicatorsEl) return;
+        appIndicatorsEl.innerHTML = '';
+        for (let i = 0; i < totalAppSlides; i++) {
+            const dot = document.createElement('div');
+            dot.className = `screenshots-indicator ${i === currentAppSlide ? 'is-active' : ''}`;
+            dot.addEventListener('click', () => goToAppSlide(i));
+            appIndicatorsEl.appendChild(dot);
+        }
+    }
+
+    function goToAppSlide(index) {
+        if (index < 0) index = totalAppSlides - 1;
+        if (index >= totalAppSlides) index = 0;
+        currentAppSlide = index;
+
+        if (appTrack) {
+            appTrack.style.transform = `translateX(-${currentAppSlide * 100}%)`;
+        }
+
+        const activeSlide = appSlides[currentAppSlide];
+        if (activeSlide) {
+            if (appTitleEl) appTitleEl.textContent = activeSlide.dataset.title || 'Vista previa';
+            if (appDescEl) appDescEl.textContent = activeSlide.dataset.description || '';
+        }
+
+        if (appIndexEl) {
+            appIndexEl.textContent = String(currentAppSlide + 1).padStart(2, '0');
+        }
+
+        if (appIndicatorsEl) {
+            const dots = appIndicatorsEl.querySelectorAll('.screenshots-indicator');
+            dots.forEach((dot, idx) => {
+                dot.classList.toggle('is-active', idx === currentAppSlide);
+            });
+        }
+
+        appPreviewCards.forEach((card, idx) => {
+            card.classList.toggle('is-active', idx === currentAppSlide);
+        });
+    }
+
+    if (appPrevBtn) appPrevBtn.addEventListener('click', () => goToAppSlide(currentAppSlide - 1));
+    if (appNextBtn) appNextBtn.addEventListener('click', () => goToAppSlide(currentAppSlide + 1));
+
+    appPreviewCards.forEach((card, idx) => {
+        card.addEventListener('click', () => goToAppSlide(idx));
+    });
+
+    buildAppIndicators();
+
+    // Touch Swipe for App Carousel
+    if (appTrack) {
         let touchStartX = 0;
         let touchEndX = 0;
         let isSwiping = false;
 
-        track.addEventListener('touchstart', (e) => {
+        appTrack.addEventListener('touchstart', (e) => {
             if (e.touches.length === 1) {
                 touchStartX = e.touches[0].clientX;
                 isSwiping = true;
             }
         }, { passive: true });
 
-        track.addEventListener('touchmove', (e) => {
+        appTrack.addEventListener('touchmove', (e) => {
             if (isSwiping && e.touches.length === 1) {
                 touchEndX = e.touches[0].clientX;
             }
         }, { passive: true });
 
-        track.addEventListener('touchend', () => {
+        appTrack.addEventListener('touchend', () => {
             if (!isSwiping) return;
             const swipeThreshold = 35;
             const diff = touchEndX - touchStartX;
             if (touchEndX !== 0 && Math.abs(diff) > swipeThreshold) {
                 if (diff < 0) {
-                    goToSlide(currentSlide + 1);
+                    goToAppSlide(currentAppSlide + 1);
                 } else {
-                    goToSlide(currentSlide - 1);
+                    goToAppSlide(currentAppSlide - 1);
+                }
+            }
+            touchStartX = 0;
+            touchEndX = 0;
+            isSwiping = false;
+        }, { passive: true });
+    }
+
+    // 2. Desktop Screenshots Carousel Logic
+    const desktopTrack = document.getElementById('desktop-screenshots-track');
+    const desktopSlides = document.querySelectorAll('#interface-view-desktop .screenshots-slide');
+    const desktopPrevBtn = document.getElementById('desktop-screenshots-prev');
+    const desktopNextBtn = document.getElementById('desktop-screenshots-next');
+    const desktopTitleEl = document.getElementById('desktop-screenshots-title');
+    const desktopDescEl = document.getElementById('desktop-screenshots-description');
+    const desktopIndexEl = document.getElementById('desktop-screenshots-current-index');
+    const desktopIndicatorsEl = document.getElementById('desktop-screenshots-indicators');
+    const desktopPreviewCards = document.querySelectorAll('.desktop-preview-card');
+
+    let currentDesktopSlide = 0;
+    const totalDesktopSlides = desktopSlides.length;
+
+    function buildDesktopIndicators() {
+        if (!desktopIndicatorsEl) return;
+        desktopIndicatorsEl.innerHTML = '';
+        for (let i = 0; i < totalDesktopSlides; i++) {
+            const dot = document.createElement('div');
+            dot.className = `screenshots-indicator ${i === currentDesktopSlide ? 'is-active' : ''}`;
+            dot.addEventListener('click', () => goToDesktopSlide(i));
+            desktopIndicatorsEl.appendChild(dot);
+        }
+    }
+
+    function goToDesktopSlide(index) {
+        if (index < 0) index = totalDesktopSlides - 1;
+        if (index >= totalDesktopSlides) index = 0;
+        currentDesktopSlide = index;
+
+        if (desktopTrack) {
+            desktopTrack.style.transform = `translateX(-${currentDesktopSlide * 100}%)`;
+        }
+
+        const activeSlide = desktopSlides[currentDesktopSlide];
+        if (activeSlide) {
+            if (desktopTitleEl) desktopTitleEl.textContent = activeSlide.dataset.title || 'Desktop View';
+            if (desktopDescEl) desktopDescEl.textContent = activeSlide.dataset.description || '';
+        }
+
+        if (desktopIndexEl) {
+            desktopIndexEl.textContent = String(currentDesktopSlide + 1).padStart(2, '0');
+        }
+
+        if (desktopIndicatorsEl) {
+            const dots = desktopIndicatorsEl.querySelectorAll('.screenshots-indicator');
+            dots.forEach((dot, idx) => {
+                dot.classList.toggle('is-active', idx === currentDesktopSlide);
+            });
+        }
+
+        desktopPreviewCards.forEach((card, idx) => {
+            card.classList.toggle('is-active', idx === currentDesktopSlide);
+        });
+    }
+
+    if (desktopPrevBtn) desktopPrevBtn.addEventListener('click', () => goToDesktopSlide(currentDesktopSlide - 1));
+    if (desktopNextBtn) desktopNextBtn.addEventListener('click', () => goToDesktopSlide(currentDesktopSlide + 1));
+
+    desktopPreviewCards.forEach((card, idx) => {
+        card.addEventListener('click', () => goToDesktopSlide(idx));
+    });
+
+    buildDesktopIndicators();
+
+    // Touch Swipe for Desktop Carousel
+    if (desktopTrack) {
+        let touchStartX = 0;
+        let touchEndX = 0;
+        let isSwiping = false;
+
+        desktopTrack.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 1) {
+                touchStartX = e.touches[0].clientX;
+                isSwiping = true;
+            }
+        }, { passive: true });
+
+        desktopTrack.addEventListener('touchmove', (e) => {
+            if (isSwiping && e.touches.length === 1) {
+                touchEndX = e.touches[0].clientX;
+            }
+        }, { passive: true });
+
+        desktopTrack.addEventListener('touchend', () => {
+            if (!isSwiping) return;
+            const swipeThreshold = 35;
+            const diff = touchEndX - touchStartX;
+            if (touchEndX !== 0 && Math.abs(diff) > swipeThreshold) {
+                if (diff < 0) {
+                    goToDesktopSlide(currentDesktopSlide + 1);
+                } else {
+                    goToDesktopSlide(currentDesktopSlide - 1);
                 }
             }
             touchStartX = 0;

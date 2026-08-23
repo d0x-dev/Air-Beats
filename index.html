@@ -997,7 +997,7 @@
                         <div>
                             <div class="flex items-center gap-2">
                                 <span class="material-symbols-outlined text-secondary text-[20px] leading-none">verified</span>
-                                <a href="https://drkvenom786.github.io/webpage/" target="_blank" rel="noopener noreferrer" class="text-on-surface font-title-md hover:text-primary no-underline">VENOM</a>
+                                <a href="https://venomxhub.netlify.app" target="_blank" rel="noopener noreferrer" class="text-on-surface font-title-md hover:text-primary no-underline">VENOM</a>
                             </div>
                             <p class="text-on-surface-variant text-sm">UI/UX Specialist</p>
                         </div>
@@ -1019,13 +1019,26 @@
         <!-- ─── SCREENSHOTS (ACORDION - COLAPSADO POR DEFECTO) ─── -->
         <section id="screenshots" class="px-margin-horizontal py-24 bg-surface w-full">
             <div class="max-w-7xl mx-auto">
-                <!-- Header con botón colapsable -->
-                <div class="mb-16">
-                    <div class="flex items-center justify-between cursor-pointer group" id="screenshots-header">
-                        <div>
-                            <h2 class="font-headline-lg text-headline-lg text-on-surface">The Interface</h2>
-                            <p class="text-on-surface-variant mt-2">A glimpse into the Material Design 3 experience of AirBeats.</p>
+                <!-- Header con selector de plataforma y botón colapsable -->
+                <div class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
+                    <div>
+                        <h2 class="font-headline-lg text-headline-lg text-on-surface">The Interface</h2>
+                        <p class="text-on-surface-variant mt-2">A glimpse into the Material Design 3 experience of AirBeats across platforms.</p>
+                    </div>
+
+                    <div class="flex items-center gap-3 self-start md:self-auto">
+                        <!-- Platform Switcher (App Interface vs Desktop Interface - Desktop only) -->
+                        <div class="hidden md:inline-flex p-1.5 rounded-full bg-surface-container-high border border-white/10 shadow-inner">
+                            <button type="button" id="interface-tab-app" class="px-5 py-2 rounded-full font-label-md text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 bg-primary text-on-primary shadow-sm active:scale-95 cursor-pointer" data-target="app">
+                                <span class="material-symbols-outlined" style="font-size:18px">smartphone</span>
+                                <span>App Interface</span>
+                            </button>
+                            <button type="button" id="interface-tab-desktop" class="px-5 py-2 rounded-full font-label-md text-xs sm:text-sm font-semibold text-on-surface-variant hover:text-on-surface transition-all flex items-center gap-2 active:scale-95 cursor-pointer" data-target="desktop">
+                                <span class="material-symbols-outlined" style="font-size:18px">laptop_windows</span>
+                                <span>Desktop Interface</span>
+                            </button>
                         </div>
+
                         <button id="screenshots-toggle" class="p-3 rounded-full hover:bg-white/10 transition-colors" aria-label="Expand/Collapse">
                             <span id="screenshots-icon" class="material-symbols-outlined text-on-surface-variant rotated">
                                 expand_more
@@ -1035,8 +1048,9 @@
                 </div>
 
                 <!-- Contenido colapsable -->
-                <div id="screenshots-content" class="transition-all duration-300 ease-in-out overflow-hidden max-h-[2000px]">
-                    <div class="screenshots-shell glass-card rounded-xl border border-white/5 p-5 md:p-8 lg:p-10">
+                <div id="screenshots-content" class="transition-all duration-300 ease-in-out overflow-hidden max-h-[2500px]">
+                    <!-- 1. Vista App Interface (Mobile) -->
+                    <div id="interface-view-app" class="screenshots-shell glass-card rounded-xl border border-white/5 p-5 md:p-8 lg:p-10 transition-all duration-300">
                         <div class="screenshots-carousel-layout">
                             <div class="screenshots-hero-panel">
                                 <div class="flex flex-wrap items-start justify-between gap-4 mb-8">
@@ -1126,6 +1140,110 @@
                                     <div>
                                         <p class="font-title-md text-on-surface">Advanced Settings</p>
                                         <p class="text-on-surface-variant text-sm mt-1">Deep customization with improved readability.</p>
+                                    </div>
+                                </button>
+                            </aside>
+                        </div>
+                    </div>
+
+                    <!-- 2. Vista Desktop Interface (Windows Carousel) -->
+                    <div id="interface-view-desktop" class="screenshots-shell glass-card rounded-xl border border-white/5 p-5 md:p-8 lg:p-10 transition-all duration-300 hidden">
+                        <div class="screenshots-carousel-layout">
+                            <div class="screenshots-hero-panel">
+                                <div class="flex flex-wrap items-start justify-between gap-4 mb-8">
+                                    <div class="max-w-2xl">
+                                        <span class="screenshots-chip inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium">
+                                            <span class="material-symbols-outlined text-[18px]">desktop_windows</span>
+                                            Material 3 Desktop Expressive
+                                        </span>
+                                        <h3 id="desktop-screenshots-title" class="font-headline-md text-headline-md text-on-surface mt-5">
+                                            Home Screen
+                                        </h3>
+                                        <p id="desktop-screenshots-description" class="text-on-surface-variant font-body-lg mt-3 max-w-xl">
+                                            Personalized recommendations, quick picks, recently played songs, and custom mixes tailored to your taste.
+                                        </p>
+                                    </div>
+                                    <div class="screenshots-counter">
+                                        <span class="text-on-surface-variant text-sm">Active View</span>
+                                        <p id="desktop-screenshots-current-index" class="font-headline-md text-headline-md text-secondary mt-1">
+                                            01
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="screenshots-stage">
+                                    <button id="desktop-screenshots-prev" type="button" class="screenshots-nav-button" aria-label="Previous screenshot">
+                                        <span class="material-symbols-outlined">chevron_left</span>
+                                    </button>
+
+                                    <div class="screenshots-desktop-viewport">
+                                        <div id="desktop-screenshots-track" class="screenshots-track">
+                                            <!-- Slide 1: Home Screen -->
+                                            <article class="screenshots-slide ambient-glow" data-title="Home Screen" data-description="Personalized recommendations, quick picks, recently played songs, and custom mixes tailored to your taste.">
+                                                <div class="screenshots-desktop-frame">
+                                                    <img alt="Desktop Home Screen" src="img/desktop_home.png" onerror="this.src='https://raw.githubusercontent.com/d0x-dev/Airbeats-Desktop/main/uploads/home.png'">
+                                                </div>
+                                            </article>
+
+                                            <!-- Slide 2: Artist Screen -->
+                                            <article class="screenshots-slide ambient-glow" data-title="Artist Screen" data-description="Explore artist discographies, top music tracks, albums, singles, and related artists in high fidelity.">
+                                                <div class="screenshots-desktop-frame">
+                                                    <img alt="Desktop Artist Screen" src="img/desktop_artist.png" onerror="this.src='https://raw.githubusercontent.com/d0x-dev/Airbeats-Desktop/refs/heads/main/uploads/artist.png'">
+                                                </div>
+                                            </article>
+
+                                            <!-- Slide 3: Lyrics Screen -->
+                                            <article class="screenshots-slide ambient-glow" data-title="Lyrics Screen" data-description="Real-time synchronized karaoke-style lyrics with animated backdrop visualizer and time sync.">
+                                                <div class="screenshots-desktop-frame">
+                                                    <img alt="Desktop Lyrics Screen" src="img/desktop_lyrics.png" onerror="this.src='https://raw.githubusercontent.com/d0x-dev/Airbeats-Desktop/refs/heads/main/uploads/lyrics.png'">
+                                                </div>
+                                            </article>
+                                        </div>
+                                    </div>
+
+                                    <button id="desktop-screenshots-next" type="button" class="screenshots-nav-button" aria-label="Next screenshot">
+                                        <span class="material-symbols-outlined">chevron_right</span>
+                                    </button>
+                                </div>
+
+                                <div class="screenshots-footer">
+                                    <div id="desktop-screenshots-indicators" class="screenshots-indicators" aria-label="Select desktop screenshot"></div>
+                                    <p class="text-on-surface-variant text-sm">Swipe or click controls to switch desktop views.</p>
+                                </div>
+                            </div>
+
+                            <!-- Desktop Preview Rail -->
+                            <aside class="screenshots-preview-rail" aria-label="Desktop screenshots quick view">
+                                <button type="button" class="screenshots-preview-card desktop-preview-card is-active" data-desktop-index="0">
+                                    <div class="desktop-preview-thumb">
+                                        <img alt="Home preview" src="img/desktop_home.png" onerror="this.src='https://raw.githubusercontent.com/d0x-dev/Airbeats-Desktop/main/uploads/home.png'">
+                                    </div>
+                                    <div class="screenshots-preview-info">
+                                        <span class="preview-index-badge">VIEW 01</span>
+                                        <p class="preview-card-title">Home Screen</p>
+                                        <p class="preview-card-sub">Curated music &amp; personal mixes.</p>
+                                    </div>
+                                </button>
+
+                                <button type="button" class="screenshots-preview-card desktop-preview-card" data-desktop-index="1">
+                                    <div class="desktop-preview-thumb">
+                                        <img alt="Artist preview" src="img/desktop_artist.png" onerror="this.src='https://raw.githubusercontent.com/d0x-dev/Airbeats-Desktop/refs/heads/main/uploads/artist.png'">
+                                    </div>
+                                    <div class="screenshots-preview-info">
+                                        <span class="preview-index-badge">VIEW 02</span>
+                                        <p class="preview-card-title">Artist Screen</p>
+                                        <p class="preview-card-sub">Discographies, albums &amp; top tracks.</p>
+                                    </div>
+                                </button>
+
+                                <button type="button" class="screenshots-preview-card desktop-preview-card" data-desktop-index="2">
+                                    <div class="desktop-preview-thumb">
+                                        <img alt="Lyrics preview" src="img/desktop_lyrics.png" onerror="this.src='https://raw.githubusercontent.com/d0x-dev/Airbeats-Desktop/refs/heads/main/uploads/lyrics.png'">
+                                    </div>
+                                    <div class="screenshots-preview-info">
+                                        <span class="preview-index-badge">VIEW 03</span>
+                                        <p class="preview-card-title">Lyrics Screen</p>
+                                        <p class="preview-card-sub">Synchronized real-time lyrics &amp; visualizer.</p>
                                     </div>
                                 </button>
                             </aside>
@@ -1255,7 +1373,7 @@
             <div class="flex flex-col lg:flex-row justify-between items-center gap-8 mb-10">
                 <div class="text-center lg:text-left">
                     <span class="text-xl font-black text-slate-100 font-['Epilogue']">AirBeats</span>
-                    <p class="text-slate-500 font-['Epilogue'] text-sm mt-1">&copy; 2026 <a href="https://darkboy.pro" target="_blank" class="text-violet-300 hover:text-violet-200 no-underline transition-colors">DarkBoy</a> &amp; <a href="https://drkvenom786.github.io/webpage/" target="_blank" class="text-violet-300 hover:text-violet-200 no-underline transition-colors">VENOM</a>. <span>All rights reserved.</span></p>
+                    <p class="text-slate-500 font-['Epilogue'] text-sm mt-1">&copy; 2026 <a href="https://darkboy.pro" target="_blank" class="text-violet-300 hover:text-violet-200 no-underline transition-colors">DarkBoy</a> &amp; <a href="https://venomxhub.netlify.app" target="_blank" class="text-violet-300 hover:text-violet-200 no-underline transition-colors">VENOM</a>. <span>All rights reserved.</span></p>
                 </div>
 
                 <div class="flex flex-wrap gap-3 justify-center">
@@ -1321,6 +1439,84 @@
             <div class="loading-indicator">
                 <div class="circular-progress"></div>
             </div>
+        </div>
+    </dialog>
+
+    <!-- Dialog for Windows Download Edition Selection (Setup vs Portable) -->
+    <dialog id="windows-download-dialog" class="glass-dialog glass-dialog--large overflow-hidden">
+        <div class="dialog-header">
+            <div class="flex items-center gap-3 min-w-0">
+                <div class="w-10 h-10 rounded-full bg-primary-container/20 text-primary flex items-center justify-center flex-shrink-0">
+                    <span class="material-symbols-outlined" style="font-size:22px">laptop_windows</span>
+                </div>
+                <div class="min-w-0">
+                    <h3 class="text-on-surface font-title-md truncate">Download for Windows</h3>
+                    <p id="windows-dialog-version" class="text-xs text-primary font-medium truncate">v6.0.0 (Latest Release)</p>
+                </div>
+            </div>
+            <button id="close-windows-dialog-btn" class="dialog-icon-btn flex-shrink-0" onclick="document.getElementById('windows-download-dialog').close()" aria-label="Close">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <div class="dialog-content flex flex-col gap-3 overflow-x-hidden">
+            <p class="text-on-surface-variant text-sm mb-1">Select your preferred Windows download package:</p>
+
+            <!-- Option 1: Setup File (Installer) -->
+            <button type="button" id="win-opt-setup-btn" class="w-full text-left p-4 rounded-2xl bg-surface-container-high hover:bg-surface-container-highest border border-white/10 hover:border-primary/50 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 group cursor-pointer overflow-hidden">
+                <div class="flex items-center gap-3.5 min-w-0 flex-1">
+                    <div class="w-10 h-10 rounded-xl bg-primary-container/30 text-primary flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+                        <span class="material-symbols-outlined" style="font-size:22px">install_desktop</span>
+                    </div>
+                    <div class="min-w-0 flex-1">
+                        <div class="flex items-center gap-2 flex-wrap">
+                            <span class="font-bold text-on-surface text-sm sm:text-base">Setup File (.exe)</span>
+                            <span class="px-2 py-0.5 rounded-full bg-primary/20 text-primary text-[10px] font-bold tracking-wide uppercase">Recommended</span>
+                        </div>
+                        <p class="text-xs text-on-surface-variant mt-0.5 truncate">Full Windows installer &bull; Desktop shortcut &amp; auto-updates</p>
+                        <p id="win-setup-filename" class="text-[11px] text-primary/80 font-mono mt-1 flex items-center gap-1 truncate">
+                            <span class="material-symbols-outlined flex-shrink-0" style="font-size:13px">description</span>
+                            <span class="truncate">Airbeats-v6.0.0-setup.exe</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between sm:justify-end gap-3 flex-shrink-0 pt-2.5 sm:pt-0 border-t sm:border-t-0 border-white/5 w-full sm:w-auto">
+                    <span id="win-setup-size-badge" class="text-xs text-slate-400 font-mono font-medium whitespace-nowrap">117.2 MB</span>
+                    <span class="bg-primary text-on-primary px-4 py-2 rounded-full text-xs font-semibold ambient-glow group-hover:brightness-110 active:scale-95 transition-all inline-flex items-center gap-1.5 shadow-md flex-shrink-0 whitespace-nowrap">
+                        <span class="material-symbols-outlined" style="font-size:16px">download</span>
+                        <span>Download</span>
+                    </span>
+                </div>
+            </button>
+
+            <!-- Option 2: Portable File (Standalone) -->
+            <button type="button" id="win-opt-portable-btn" class="w-full text-left p-4 rounded-2xl bg-surface-container-high hover:bg-surface-container-highest border border-white/10 hover:border-secondary/50 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 group cursor-pointer overflow-hidden">
+                <div class="flex items-center gap-3.5 min-w-0 flex-1">
+                    <div class="w-10 h-10 rounded-xl bg-secondary-container/30 text-secondary flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+                        <span class="material-symbols-outlined" style="font-size:22px">inventory_2</span>
+                    </div>
+                    <div class="min-w-0 flex-1">
+                        <div class="flex items-center gap-2 flex-wrap">
+                            <span class="font-bold text-on-surface text-sm sm:text-base">Portable File (.exe)</span>
+                            <span class="px-2 py-0.5 rounded-full bg-secondary/20 text-secondary text-[10px] font-bold tracking-wide uppercase">No Install</span>
+                        </div>
+                        <p class="text-xs text-on-surface-variant mt-0.5 truncate">Standalone executable &bull; Run directly without installation</p>
+                        <p id="win-portable-filename" class="text-[11px] text-secondary/80 font-mono mt-1 flex items-center gap-1 truncate">
+                            <span class="material-symbols-outlined flex-shrink-0" style="font-size:13px">description</span>
+                            <span class="truncate">Airbeats-v6.0.0-Portable.exe</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between sm:justify-end gap-3 flex-shrink-0 pt-2.5 sm:pt-0 border-t sm:border-t-0 border-white/5 w-full sm:w-auto">
+                    <span id="win-portable-size-badge" class="text-xs text-slate-400 font-mono font-medium whitespace-nowrap">116.9 MB</span>
+                    <span class="bg-primary text-on-primary px-4 py-2 rounded-full text-xs font-semibold ambient-glow group-hover:brightness-110 active:scale-95 transition-all inline-flex items-center gap-1.5 shadow-md flex-shrink-0 whitespace-nowrap">
+                        <span class="material-symbols-outlined" style="font-size:16px">download</span>
+                        <span>Download</span>
+                    </span>
+                </div>
+            </button>
+        </div>
+        <div class="dialog-actions pt-0">
+            <button type="button" class="dialog-text-btn" onclick="document.getElementById('windows-download-dialog').close()">Cancel</button>
         </div>
     </dialog>
 
