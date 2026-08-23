@@ -6,6 +6,16 @@ document.addEventListener('DOMContentLoaded', () => {
         return isMobileUA || isSmallScreen;
     }
 
+    function detectUserPlatform() {
+        const ua = navigator.userAgent || navigator.vendor || window.opera || '';
+        if (/Android/i.test(ua)) return 'android';
+        if (/iPhone|iPad|iPod/i.test(ua)) return 'ios';
+        if (/Macintosh|Mac OS X/i.test(ua)) return 'macos';
+        if (/Linux/i.test(ua) && !/Android/i.test(ua)) return 'linux';
+        if (/Windows/i.test(ua)) return 'windows';
+        return 'desktop';
+    }
+
     function updatePlatformDownloadButtons() {
         const heroBtn = document.getElementById('hero-download-btn');
         const heroText = document.getElementById('hero-download-text');
@@ -21,8 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
             heroText.textContent = 'Download APK';
             if (heroIcon) heroIcon.textContent = 'android';
         } else {
-            heroText.textContent = 'Download Windows (.exe)';
-            if (heroIcon) heroIcon.textContent = 'laptop_windows';
+            heroText.textContent = 'Download Desktop';
+            if (heroIcon) heroIcon.textContent = 'desktop_windows';
         }
     }
 
@@ -36,91 +46,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const androidVersionBadge = document.getElementById('android-version-badge');
     const windowsVersionBadge = document.getElementById('windows-version-badge');
 
-    let allReleases = [
-        {
-            tag_name: "6.0.0",
-            name: "AirBeats v6.0.0",
-            published_at: "2026-08-21T14:25:10Z",
-            body: "### ✨ AirBeats v6.0.0 Release Notes\n- 📊 **Brand-New Insights & Stats Screens**\n- 🔐 **Secure Email & Password Login / Sign-up**\n- 💾 **Download Entire Albums & Playlists to Storage**\n- 🎧 **External Audio Player Support**\n- 🛡️ **Complete Fix for YouTube Playback 403 Errors & 30-Second Playback Stall**\n- ⚡ **Massive APK Size Reduction & Performance Improvements**",
-            assets: [
-                { name: "AirBeats_v6.0.0_signed.apk", size: 11589842, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/6.0.0/AirBeats_v6.0.0_signed.apk" }
-            ]
-        },
-        {
-            tag_name: "5.9.0",
-            name: "AirBeats v5.9.0",
-            published_at: "2026-07-20T08:00:00Z",
-            body: "### ✨ AirBeats v5.9.0 Release Notes\n- 🎵 **Enhanced YouTube Music Integration**\n- ⚡ Performance optimizations and lower RAM consumption\n- 🎨 Material Design 3 UI polish and dynamic color updates",
-            assets: [
-                { name: "AirBeats_v5.9.0_signed.apk", size: 11229043, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/5.9.0/AirBeats_v5.9.0_signed.apk" }
-            ]
-        },
-        {
-            tag_name: "V5.8.0",
-            name: "AirBeats V5.8.0",
-            published_at: "2026-07-10T08:00:00Z",
-            body: "### ✨ AirBeats V5.8.0\n- Android Signed APK release v5.8.0",
-            assets: [
-                { name: "AirBeats_v5.8.0_signed.apk", size: 10990638, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/V5.8.0/AirBeats_v5.8.0_signed.apk" }
-            ]
-        },
-        {
-            tag_name: "5.7.0",
-            name: "AirBeats v5.7.0",
-            published_at: "2026-06-15T08:00:00Z",
-            body: "### ✨ AirBeats v5.7.0 Dual Release\n- 📱 **Android Signed APK**",
-            assets: [
-                { name: "AirBeats_v5.7.0_signed.apk", size: 9903696, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/5.7.0/AirBeats_v5.7.0_signed.apk" }
-            ]
-        },
-        {
-            tag_name: "5.6.0",
-            name: "AirBeats v5.6.0",
-            published_at: "2026-06-01T08:00:00Z",
-            body: "### ✨ AirBeats v5.6.0 Dual Release\n- 📱 **Android Signed APK**",
-            assets: [
-                { name: "AirBeats_v5.6.0_signed.apk", size: 9838820, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/5.6.0/AirBeats_v5.6.0_signed.apk" }
-            ]
-        }
-    ];
-
-    let latestRelease = allReleases[0];
-
-    // Desktop Releases (from d0x-dev/airbeats-desktop)
-    let desktopReleases = [
-        {
-            tag_name: "6.0.0",
-            name: "Airbeats Desktop v6.0.0",
-            published_at: "2026-08-23T08:21:27Z",
-            body: "# 🚀 Airbeats Desktop v6.0.0 - The Ultimate Refresh\n\nWe are thrilled to announce **Airbeats Desktop v6.0.0**! This massive update focuses on bringing blazing-fast performance, rock-solid stability, stunning UI improvements, and seamless new ways to interact with your music.\n\n## ✨ What's New\n\n### 🎨 Stunning UI & UX Overhaul\n- **Custom Context Menus:** Right-clicking any song, artist, or queue item brings up a frosted-glass animated context menu.\n- **Advanced Queue Control:** Instantly remove songs from your queue or force play.\n- **Smart Text Formatting:** Long artist names beautifully truncated.\n\n### ⚡ Performance & Engine Upgrades\n- **Instant Launch:** Zero loading delay on startup.\n- **Better Search Engine:** Native `ytmusicapi` search with fast autocomplete.\n\n### 🛠 Bug Fixes & Stability\n- **Download Fixes:** Re-wired right-click download and stream.\n- **Standalone .exe Stability:** PyInstaller optimizations and crash protection.",
-            assets: [
-                { name: "Airbeats-v6.0.0-setup.exe", size: 122916651, browser_download_url: "https://github.com/d0x-dev/Airbeats-Desktop/releases/download/6.0.0/Airbeats-v6.0.0-setup.exe" },
-                { name: "Airbeats-v6.0.0-Portable.exe", size: 122639949, browser_download_url: "https://github.com/d0x-dev/Airbeats-Desktop/releases/download/6.0.0/Airbeats-v6.0.0-Portable.exe" }
-            ]
-        },
-        {
-            tag_name: "5.7.0",
-            name: "AirBeats v5.7.0",
-            published_at: "2026-08-23T07:51:58Z",
-            body: "### ✨ AirBeats v5.7.0 Dual Release\n- 💻 **Windows Desktop Setup & Portable Builds**",
-            assets: [
-                { name: "Airbeats-v5.7.0-setup.exe", size: 121626440, browser_download_url: "https://github.com/d0x-dev/Airbeats-Desktop/releases/download/5.7.0/Airbeats-v5.7.0-setup.exe" },
-                { name: "Airbeats-v5.7.0-potable.exe", size: 121349740, browser_download_url: "https://github.com/d0x-dev/Airbeats-Desktop/releases/download/5.7.0/Airbeats-v5.7.0-potable.exe" }
-            ]
-        },
-        {
-            tag_name: "5.6.0",
-            name: "AirBeats v5.6.0",
-            published_at: "2026-08-23T07:48:53Z",
-            body: "### ✨ AirBeats v5.6.0 Dual Release\n- 💻 **Windows Desktop Executables (.exe)**",
-            assets: [
-                { name: "Airbeats-v5.6.0-setup.exe", size: 105052617, browser_download_url: "https://github.com/d0x-dev/Airbeats-Desktop/releases/download/5.6.0/Airbeats-v5.6.0-setup.exe" },
-                { name: "Airbeats-v5.6.0-Potable.exe", size: 104758378, browser_download_url: "https://github.com/d0x-dev/Airbeats-Desktop/releases/download/5.6.0/Airbeats-v5.6.0-Potable.exe" }
-            ]
-        }
-    ];
-
-    let latestDesktopRelease = desktopReleases[0];
+    // Dynamic releases fetched directly from GitHub API
+    let allReleases = [];
+    let latestRelease = null;
+    let desktopReleases = [];
+    let latestDesktopRelease = null;
 
     // 1. Toast Notification Helper & Direct Download Handler
     let toastTimeout = null;
@@ -288,128 +218,302 @@ document.addEventListener('DOMContentLoaded', () => {
         return tag.startsWith('v') || tag.startsWith('V') ? tag : `v${tag}`;
     }
 
-    function updateVersionBadges() {
-        if (latestRelease) {
-            const tag = formatVersionTag(latestRelease.tag_name);
-            if (ossVersionBadge) ossVersionBadge.textContent = `${tag} (Latest Stable Version)`;
+    // Asset Platform Checkers (Exact extensions from API)
+    function isAndroidAsset(asset) {
+        if (!asset || !asset.name) return false;
+        return /\.(apk|aab)$/i.test(asset.name);
+    }
 
-            // Find latest Android APK release
-            const apkRelease = allReleases.find(r => r.assets && r.assets.some(a => /\.apk$/i.test(a.name))) || latestRelease;
-            if (apkRelease) {
-                const apkTag = formatVersionTag(apkRelease.tag_name);
-                if (androidVersionBadge) androidVersionBadge.textContent = apkTag;
-                const androidDownloadBtn = document.getElementById('android-download-btn');
-                const apkAsset = apkRelease.assets && apkRelease.assets.find(a => /\.apk$/i.test(a.name));
-                if (androidDownloadBtn && apkAsset && apkAsset.browser_download_url) {
-                    androidDownloadBtn.href = apkAsset.browser_download_url;
-                }
-                const genericDownloadBtn = document.getElementById('downloadBtn');
-                if (genericDownloadBtn && apkAsset && apkAsset.browser_download_url) {
-                    genericDownloadBtn.href = apkAsset.browser_download_url;
-                }
+    function isWindowsAsset(asset) {
+        if (!asset || !asset.name) return false;
+        return /\.(exe|msi)$/i.test(asset.name) || /-(win|windows)/i.test(asset.name);
+    }
+
+    function isLinuxAsset(asset) {
+        if (!asset || !asset.name) return false;
+        return /\.(appimage|deb|snap|rpm|tar\.gz|tar\.xz|pkg\.tar\.zst)$/i.test(asset.name) || /-linux/i.test(asset.name);
+    }
+
+    function isMacAsset(asset) {
+        if (!asset || !asset.name) return false;
+        return /\.(dmg|pkg|app\.zip)$/i.test(asset.name) || /-(mac|macos|darwin|osx)/i.test(asset.name);
+    }
+
+    function getAssetMeta(asset) {
+        const name = asset.name || '';
+        const sizeMb = asset.size ? (asset.size / (1024 * 1024)).toFixed(1) + ' MB' : '';
+
+        let typeTitle = name;
+        let badgeText = 'Binary';
+        let desc = 'Official release binary';
+        let icon = 'download';
+        let btnColor = 'primary';
+
+        if (/\.appimage$/i.test(name)) {
+            typeTitle = 'AppImage Package (.AppImage)';
+            badgeText = 'Universal';
+            desc = 'Runs on all Linux distributions • Ubuntu, Fedora, Arch, Debian';
+            icon = 'package_2';
+            btnColor = 'secondary';
+        } else if (/\.deb$/i.test(name)) {
+            typeTitle = 'Debian / Ubuntu Package (.deb)';
+            badgeText = 'Debian';
+            desc = 'Native package for Ubuntu, Debian, Linux Mint & Pop!_OS';
+            icon = 'folder_zip';
+            btnColor = 'primary';
+        } else if (/\.snap$/i.test(name)) {
+            typeTitle = 'Snap Package (.snap)';
+            badgeText = 'Snapcraft';
+            desc = 'Universal sandboxed package with snapd support';
+            icon = 'deployed_code';
+            btnColor = 'tertiary';
+        } else if (/\.rpm$/i.test(name)) {
+            typeTitle = 'RPM Package (.rpm)';
+            badgeText = 'Fedora / RHEL';
+            desc = 'Package for Fedora, Red Hat & openSUSE';
+            icon = 'folder_zip';
+            btnColor = 'primary';
+        } else if (/\.dmg$/i.test(name)) {
+            typeTitle = 'macOS Disk Image (.dmg)';
+            badgeText = /arm64|apple/i.test(name) ? 'Apple Silicon' : (/x64|intel/i.test(name) ? 'Intel Mac' : 'Universal Mac');
+            desc = 'Direct DMG installer for macOS';
+            icon = 'laptop_mac';
+            btnColor = 'tertiary';
+        } else if (/\.pkg$/i.test(name)) {
+            typeTitle = 'macOS Installer Package (.pkg)';
+            badgeText = 'macOS';
+            desc = 'Native macOS installer package';
+            icon = 'inventory_2';
+            btnColor = 'tertiary';
+        } else if (/\.exe$/i.test(name)) {
+            if (/setup/i.test(name)) {
+                typeTitle = 'Setup File (.exe)';
+                badgeText = 'Recommended';
+                desc = 'Full Windows installer • Desktop shortcut & auto-updates';
+                icon = 'install_desktop';
+                btnColor = 'primary';
+            } else if (/portable|potable/i.test(name)) {
+                typeTitle = 'Portable File (.exe)';
+                badgeText = 'No Install';
+                desc = 'Standalone executable • Run directly without installation';
+                icon = 'inventory_2';
+                btnColor = 'secondary';
+            } else {
+                typeTitle = 'Windows Executable (.exe)';
+                badgeText = 'Windows';
+                desc = 'Executable binary for PC';
+                icon = 'laptop_windows';
+                btnColor = 'primary';
             }
+        } else if (/\.apk$/i.test(name)) {
+            typeTitle = 'Android Package (.apk)';
+            badgeText = 'Signed APK';
+            desc = 'Official signed package for Android';
+            icon = 'android';
+            btnColor = 'tertiary';
+        }
 
+        return { typeTitle, badgeText, desc, icon, btnColor, sizeMb };
+    }
+
+    function renderPlatformDialog(dialogId, platformTitle, platformIcon, rel, assetFilter) {
+        const dialog = document.getElementById(dialogId);
+        if (!dialog) return;
+
+        const tag = rel ? formatVersionTag(rel.tag_name) : '';
+        const versionEl = dialog.querySelector('.dialog-header p');
+        if (versionEl) {
+            versionEl.textContent = tag ? `${tag} (Latest Release)` : 'Release details';
+        }
+
+        const container = dialog.querySelector('.dialog-content');
+        if (!container) return;
+
+        const assets = (rel && rel.assets) ? rel.assets.filter(assetFilter) : [];
+
+        if (assets.length === 0) {
+            container.innerHTML = `
+                <div class="text-center py-8">
+                    <span class="material-symbols-outlined text-4xl text-on-surface-variant mb-2">${platformIcon}</span>
+                    <p class="text-on-surface font-semibold text-base">No builds available for this version</p>
+                    <p class="text-xs text-on-surface-variant mt-1">There are no downloadable assets uploaded for this operating system yet.</p>
+                </div>
+            `;
+            dialog.showModal();
+            return;
+        }
+
+        let buttonsHtml = `<p class="text-on-surface-variant text-sm mb-1">Select your preferred download package from release <strong>${tag}</strong>:</p>`;
+
+        assets.forEach(asset => {
+            const meta = getAssetMeta(asset);
+            const colorClass = meta.btnColor === 'secondary' ? 'bg-secondary-container/30 text-secondary' : (meta.btnColor === 'tertiary' ? 'bg-tertiary-container/30 text-tertiary' : 'bg-primary-container/30 text-primary');
+            const badgeColor = meta.btnColor === 'secondary' ? 'bg-secondary/20 text-secondary' : (meta.btnColor === 'tertiary' ? 'bg-tertiary/20 text-tertiary' : 'bg-primary/20 text-primary');
+
+            buttonsHtml += `
+                <button type="button" class="dialog-asset-download-btn w-full text-left p-4 rounded-2xl bg-surface-container-high hover:bg-surface-container-highest border border-white/10 hover:border-${meta.btnColor}/50 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 group cursor-pointer overflow-hidden" data-url="${asset.browser_download_url}" data-filename="${asset.name}">
+                    <div class="flex items-center gap-3.5 min-w-0 flex-1">
+                        <div class="w-11 h-11 rounded-xl ${colorClass} flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+                            <span class="material-symbols-outlined" style="font-size:22px">${meta.icon}</span>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <span class="font-bold text-on-surface text-sm sm:text-base">${meta.typeTitle}</span>
+                                <span class="px-2 py-0.5 rounded-full ${badgeColor} text-[10px] font-bold tracking-wide uppercase">${meta.badgeText}</span>
+                            </div>
+                            <p class="text-xs text-on-surface-variant mt-0.5 truncate">${meta.desc}</p>
+                            <p class="text-[11px] text-on-surface-variant font-mono mt-1 flex items-center gap-1 truncate">
+                                <span class="material-symbols-outlined flex-shrink-0" style="font-size:13px">description</span>
+                                <span class="truncate">${asset.name}</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between sm:justify-end gap-3 flex-shrink-0 pt-2.5 sm:pt-0 border-t sm:border-t-0 border-white/5 w-full sm:w-auto">
+                        <span class="text-xs text-slate-400 font-mono font-medium whitespace-nowrap">${meta.sizeMb}</span>
+                        <span class="bg-primary text-on-primary px-4 py-2 rounded-full text-xs font-semibold ambient-glow group-hover:brightness-110 active:scale-95 transition-all inline-flex items-center gap-1.5 shadow-md flex-shrink-0 whitespace-nowrap">
+                            <span class="material-symbols-outlined" style="font-size:16px">download</span>
+                            <span>Download</span>
+                        </span>
+                    </div>
+                </button>
+            `;
+        });
+
+        container.innerHTML = buttonsHtml;
+
+        container.querySelectorAll('.dialog-asset-download-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const url = btn.dataset.url;
+                const filename = btn.dataset.filename;
+                dialog.close();
+                triggerDownload(url, filename);
+            });
+        });
+
+        dialog.showModal();
+    }
+
+    function updateVersionBadges() {
+        // Overall header badge
+        const latestOverall = desktopReleases[0] || allReleases[0];
+        if (latestOverall && ossVersionBadge) {
+            ossVersionBadge.textContent = `${formatVersionTag(latestOverall.tag_name)} (Latest Stable Version)`;
+        }
+
+        // 1. Android: find latest release with .apk
+        const apkRelease = allReleases.find(r => r.assets && r.assets.some(isAndroidAsset)) || latestRelease;
+        const androidDownloadBtn = document.getElementById('android-download-btn');
+        if (apkRelease) {
+            const apkTag = formatVersionTag(apkRelease.tag_name);
+            if (androidVersionBadge) androidVersionBadge.textContent = apkTag;
+            const apkAsset = apkRelease.assets && apkRelease.assets.find(isAndroidAsset);
+            if (androidDownloadBtn && apkAsset && apkAsset.browser_download_url) {
+                androidDownloadBtn.href = apkAsset.browser_download_url;
+                androidDownloadBtn.dataset.filename = apkAsset.name;
+                androidDownloadBtn.classList.remove('opacity-50', 'pointer-events-none');
+            }
+            const genericDownloadBtn = document.getElementById('downloadBtn');
+            if (genericDownloadBtn && apkAsset && apkAsset.browser_download_url) {
+                genericDownloadBtn.href = apkAsset.browser_download_url;
+            }
             const versionNote = document.getElementById('versionNote');
-            if (versionNote && apkRelease) {
-                versionNote.innerHTML = `Latest Release: <strong>${formatVersionTag(apkRelease.tag_name)}</strong>`;
+            if (versionNote) {
+                versionNote.innerHTML = `Latest Release: <strong>${apkTag}</strong>`;
+            }
+        } else if (allReleases.length > 0) {
+            if (androidVersionBadge) androidVersionBadge.textContent = 'Coming Soon';
+            if (androidDownloadBtn) androidDownloadBtn.classList.add('opacity-50', 'pointer-events-none');
+        }
+
+        // 2. Windows: find latest release with Windows .exe
+        const winRelease = desktopReleases.find(r => r.assets && r.assets.some(isWindowsAsset)) || allReleases.find(r => r.assets && r.assets.some(isWindowsAsset));
+        const winDownloadBtn = document.getElementById('windows-download-btn');
+        if (winRelease) {
+            const winTag = formatVersionTag(winRelease.tag_name);
+            if (windowsVersionBadge) windowsVersionBadge.textContent = winTag;
+            if (winDownloadBtn) {
+                winDownloadBtn.classList.remove('opacity-50', 'pointer-events-none');
+            }
+        } else if (desktopReleases.length > 0) {
+            if (windowsVersionBadge) windowsVersionBadge.textContent = 'Coming Soon';
+            if (winDownloadBtn) {
+                winDownloadBtn.classList.add('opacity-50', 'pointer-events-none');
             }
         }
 
-        // Find latest Windows Desktop release
-        const winRelease = latestDesktopRelease || (desktopReleases && desktopReleases.find(r => r.assets && r.assets.some(a => /\.exe$/i.test(a.name)))) || allReleases.find(r => r.assets && r.assets.some(a => /\.exe$/i.test(a.name)));
-        if (windowsVersionBadge && winRelease) {
-            windowsVersionBadge.textContent = formatVersionTag(winRelease.tag_name);
-            const winDownloadBtn = document.getElementById('windows-download-btn');
-            const winExeAsset = winRelease.assets && (winRelease.assets.find(a => /setup.*\.exe$/i.test(a.name)) || winRelease.assets.find(a => /\.exe$/i.test(a.name)));
-            if (winDownloadBtn && winExeAsset && winExeAsset.browser_download_url) {
-                winDownloadBtn.href = winExeAsset.browser_download_url;
+        // 3. Linux: find latest release with Linux assets (.AppImage, .deb, .snap)
+        const linuxRelease = desktopReleases.find(r => r.assets && r.assets.some(isLinuxAsset));
+        const linuxVersionBadge = document.getElementById('linux-version-badge');
+        const linuxDownloadBtn = document.getElementById('linux-download-btn');
+        if (linuxRelease) {
+            const linuxTag = formatVersionTag(linuxRelease.tag_name);
+            if (linuxVersionBadge) linuxVersionBadge.textContent = linuxTag;
+            if (linuxDownloadBtn) {
+                linuxDownloadBtn.classList.remove('opacity-50', 'pointer-events-none');
+                const btnText = document.getElementById('linux-download-text');
+                if (btnText) btnText.textContent = 'Download for Linux';
+            }
+        } else if (desktopReleases.length > 0) {
+            if (linuxVersionBadge) linuxVersionBadge.textContent = 'Coming Soon';
+            if (linuxDownloadBtn) {
+                linuxDownloadBtn.classList.add('opacity-50', 'pointer-events-none');
+                const btnText = document.getElementById('linux-download-text');
+                if (btnText) btnText.textContent = 'Coming Soon';
+            }
+        }
+
+        // 4. macOS: find latest release with macOS assets (.dmg, .pkg)
+        const macosRelease = desktopReleases.find(r => r.assets && r.assets.some(isMacAsset));
+        const macosVersionBadge = document.getElementById('macos-version-badge');
+        const macosDownloadBtn = document.getElementById('macos-download-btn');
+        if (macosRelease) {
+            const macTag = formatVersionTag(macosRelease.tag_name);
+            if (macosVersionBadge) macosVersionBadge.textContent = macTag;
+            if (macosDownloadBtn) {
+                macosDownloadBtn.classList.remove('opacity-50', 'pointer-events-none');
+                const btnText = document.getElementById('macos-download-text');
+                if (btnText) btnText.textContent = 'Download for macOS (.dmg)';
+            }
+        } else if (desktopReleases.length > 0) {
+            if (macosVersionBadge) macosVersionBadge.textContent = 'Coming Soon';
+            if (macosDownloadBtn) {
+                macosDownloadBtn.classList.add('opacity-50', 'pointer-events-none');
+                const btnText = document.getElementById('macos-download-text');
+                if (btnText) btnText.textContent = 'Coming Soon';
             }
         }
 
         updatePlatformDownloadButtons();
     }
 
-    // Windows Download Selection Dialog Logic (Setup vs Portable)
-    const windowsDownloadDialog = document.getElementById('windows-download-dialog');
-    const winOptSetupBtn = document.getElementById('win-opt-setup-btn');
-    const winOptPortableBtn = document.getElementById('win-opt-portable-btn');
-    const winSetupSizeBadge = document.getElementById('win-setup-size-badge');
-    const winPortableSizeBadge = document.getElementById('win-portable-size-badge');
-    const winDialogVersion = document.getElementById('windows-dialog-version');
-
     function openWindowsDownloadDialog() {
-        if (!windowsDownloadDialog) {
-            const href = winDownloadBtn ? (winDownloadBtn.getAttribute('href') || winDownloadBtn.href) : '';
-            triggerDownload(href, 'Airbeats-setup.exe');
-            return;
-        }
-
-        const winRel = latestDesktopRelease || (desktopReleases && desktopReleases.find(r => r.assets && r.assets.some(a => /\.exe$/i.test(a.name)))) || allReleases.find(r => r.assets && r.assets.some(a => /\.exe$/i.test(a.name)));
-
-        if (winRel) {
-            const tag = formatVersionTag(winRel.tag_name);
-            if (winDialogVersion) winDialogVersion.textContent = `${tag} (Latest Release)`;
-
-            const assets = winRel.assets || [];
-            const setupAsset = assets.find(a => /setup.*\.exe$/i.test(a.name)) || assets.find(a => /\.exe$/i.test(a.name));
-            const portableAsset = assets.find(a => /portable|potable.*\.exe$/i.test(a.name));
-
-            if (setupAsset && winOptSetupBtn) {
-                winOptSetupBtn.dataset.url = setupAsset.browser_download_url;
-                winOptSetupBtn.dataset.filename = setupAsset.name;
-                const filenameEl = document.getElementById('win-setup-filename');
-                if (filenameEl) {
-                    filenameEl.innerHTML = `<span class="material-symbols-outlined" style="font-size:13px">description</span><span>${setupAsset.name}</span>`;
-                }
-                if (winSetupSizeBadge && setupAsset.size) {
-                    winSetupSizeBadge.textContent = `${(setupAsset.size / (1024 * 1024)).toFixed(1)} MB`;
-                }
-            }
-
-            if (portableAsset && winOptPortableBtn) {
-                winOptPortableBtn.dataset.url = portableAsset.browser_download_url;
-                winOptPortableBtn.dataset.filename = portableAsset.name;
-                const filenameEl = document.getElementById('win-portable-filename');
-                if (filenameEl) {
-                    filenameEl.innerHTML = `<span class="material-symbols-outlined" style="font-size:13px">description</span><span>${portableAsset.name}</span>`;
-                }
-                if (winPortableSizeBadge && portableAsset.size) {
-                    winPortableSizeBadge.textContent = `${(portableAsset.size / (1024 * 1024)).toFixed(1)} MB`;
-                }
-            }
-        }
-
-        windowsDownloadDialog.showModal();
+        const winRel = desktopReleases.find(r => r.assets && r.assets.some(isWindowsAsset)) || allReleases.find(r => r.assets && r.assets.some(isWindowsAsset));
+        renderPlatformDialog('windows-download-dialog', 'Download for Windows', 'laptop_windows', winRel, isWindowsAsset);
     }
 
-    if (winOptSetupBtn) {
-        winOptSetupBtn.addEventListener('click', () => {
-            const url = winOptSetupBtn.dataset.url || 'https://github.com/d0x-dev/Airbeats-Desktop/releases/download/6.0.0/Airbeats-v6.0.0-setup.exe';
-            const filename = winOptSetupBtn.dataset.filename || 'Airbeats-v6.0.0-setup.exe';
-            if (windowsDownloadDialog) windowsDownloadDialog.close();
-            triggerDownload(url, filename);
-        });
+    function openLinuxDownloadDialog() {
+        const linuxRel = desktopReleases.find(r => r.assets && r.assets.some(isLinuxAsset));
+        renderPlatformDialog('linux-download-dialog', 'Download for Linux', 'terminal', linuxRel, isLinuxAsset);
     }
 
-    if (winOptPortableBtn) {
-        winOptPortableBtn.addEventListener('click', () => {
-            const url = winOptPortableBtn.dataset.url || 'https://github.com/d0x-dev/Airbeats-Desktop/releases/download/6.0.0/Airbeats-v6.0.0-Portable.exe';
-            const filename = winOptPortableBtn.dataset.filename || 'Airbeats-v6.0.0-Portable.exe';
-            if (windowsDownloadDialog) windowsDownloadDialog.close();
-            triggerDownload(url, filename);
-        });
+    function openMacOSDownloadDialog() {
+        const macosRel = desktopReleases.find(r => r.assets && r.assets.some(isMacAsset));
+        renderPlatformDialog('macos-download-dialog', 'Download for macOS', 'laptop_mac', macosRel, isMacAsset);
     }
 
     // Direct Download Click Handlers
     const androidDownloadBtn = document.getElementById('android-download-btn');
     const winDownloadBtn = document.getElementById('windows-download-btn');
+    const linuxDownloadBtn = document.getElementById('linux-download-btn');
+    const macosDownloadBtn = document.getElementById('macos-download-btn');
     const genericDownloadBtn = document.getElementById('downloadBtn');
 
     if (androidDownloadBtn) {
         androidDownloadBtn.addEventListener('click', (e) => {
             e.preventDefault();
             const href = androidDownloadBtn.getAttribute('href') || androidDownloadBtn.href;
-            triggerDownload(href, 'AirBeats_signed.apk');
+            const filename = androidDownloadBtn.dataset.filename || 'AirBeats_signed.apk';
+            triggerDownload(href, filename);
         });
     }
 
@@ -417,6 +521,20 @@ document.addEventListener('DOMContentLoaded', () => {
         winDownloadBtn.addEventListener('click', (e) => {
             e.preventDefault();
             openWindowsDownloadDialog();
+        });
+    }
+
+    if (linuxDownloadBtn) {
+        linuxDownloadBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openLinuxDownloadDialog();
+        });
+    }
+
+    if (macosDownloadBtn) {
+        macosDownloadBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openMacOSDownloadDialog();
         });
     }
 
@@ -752,6 +870,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // 5. Changelog Modal Triggers
     const changelogTrigger = document.getElementById('changelog-trigger');
     const windowsChangelogTrigger = document.getElementById('windows-changelog-trigger');
+    const linuxChangelogTrigger = document.getElementById('linux-changelog-trigger');
+    const macosChangelogTrigger = document.getElementById('macos-changelog-trigger');
     const changelogDialog = document.getElementById('changelog-dialog');
     const changelogContent = document.getElementById('changelog-content');
 
@@ -770,18 +890,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (changelogTrigger) {
-        changelogTrigger.addEventListener('click', () => openChangelogModal(latestRelease));
+        changelogTrigger.addEventListener('click', () => {
+            const rel = allReleases.find(r => r.assets && r.assets.some(isAndroidAsset)) || latestRelease;
+            openChangelogModal(rel);
+        });
     }
     if (windowsChangelogTrigger) {
         windowsChangelogTrigger.addEventListener('click', () => {
-            const winRel = latestDesktopRelease || (desktopReleases && desktopReleases.find(r => r.assets && r.assets.some(a => /\.exe$/i.test(a.name)))) || allReleases.find(r => r.assets && r.assets.some(a => /\.exe$/i.test(a.name)));
-            openChangelogModal(winRel || latestRelease);
+            const winRel = desktopReleases.find(r => r.assets && r.assets.some(isWindowsAsset)) || latestDesktopRelease;
+            openChangelogModal(winRel);
+        });
+    }
+    if (linuxChangelogTrigger) {
+        linuxChangelogTrigger.addEventListener('click', () => {
+            const linuxRel = desktopReleases.find(r => r.assets && r.assets.some(isLinuxAsset)) || latestDesktopRelease;
+            openChangelogModal(linuxRel);
+        });
+    }
+    if (macosChangelogTrigger) {
+        macosChangelogTrigger.addEventListener('click', () => {
+            const macRel = desktopReleases.find(r => r.assets && r.assets.some(isMacAsset)) || latestDesktopRelease;
+            openChangelogModal(macRel);
         });
     }
 
-    // 6. Previous Versions Modal Popup Logic (Android & Windows)
+    // 6. Previous Versions Modal Popup Logic (Android, Windows, Linux, macOS)
     const versionsTrigger = document.getElementById('versions-trigger');
     const windowsVersionsTrigger = document.getElementById('windows-versions-trigger');
+    const linuxVersionsTrigger = document.getElementById('linux-versions-trigger');
+    const macosVersionsTrigger = document.getElementById('macos-versions-trigger');
     const versionsDialog = document.getElementById('versions-dialog');
     const versionsList = document.getElementById('versions-list');
 
@@ -789,25 +926,45 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!versionsDialog || !versionsList) return;
 
         const dialogTitle = versionsDialog.querySelector('.dialog-header h3');
-        if (dialogTitle) {
-            if (filterPlatform === 'windows') {
-                dialogTitle.innerHTML = `<span class="flex items-center gap-2"><span class="material-symbols-outlined text-primary">laptop_windows</span> Previous Windows Versions (.exe)</span>`;
-            } else if (filterPlatform === 'android') {
-                dialogTitle.innerHTML = `<span class="flex items-center gap-2"><span class="material-symbols-outlined text-tertiary">android</span> Previous Android Versions (.apk)</span>`;
-            } else {
-                dialogTitle.innerHTML = `<span class="flex items-center gap-2"><span class="material-symbols-outlined text-primary">history</span> Previous Versions</span>`;
-            }
+        let assetFilter = () => true;
+        let candidateReleases = allReleases;
+        let platformName = 'Versions';
+
+        if (filterPlatform === 'windows') {
+            platformName = 'Windows';
+            assetFilter = isWindowsAsset;
+            candidateReleases = desktopReleases.length > 0 ? desktopReleases : allReleases;
+            if (dialogTitle) dialogTitle.innerHTML = `<span class="flex items-center gap-2"><span class="material-symbols-outlined text-primary">laptop_windows</span> Previous Windows Versions (.exe)</span>`;
+        } else if (filterPlatform === 'linux') {
+            platformName = 'Linux';
+            assetFilter = isLinuxAsset;
+            candidateReleases = desktopReleases;
+            if (dialogTitle) dialogTitle.innerHTML = `<span class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary">terminal</span> Previous Linux Versions</span>`;
+        } else if (filterPlatform === 'macos') {
+            platformName = 'macOS';
+            assetFilter = isMacAsset;
+            candidateReleases = desktopReleases;
+            if (dialogTitle) dialogTitle.innerHTML = `<span class="flex items-center gap-2"><span class="material-symbols-outlined text-tertiary">laptop_mac</span> Previous macOS Versions (.dmg)</span>`;
+        } else if (filterPlatform === 'android') {
+            platformName = 'Android';
+            assetFilter = isAndroidAsset;
+            candidateReleases = allReleases;
+            if (dialogTitle) dialogTitle.innerHTML = `<span class="flex items-center gap-2"><span class="material-symbols-outlined text-tertiary">android</span> Previous Android Versions (.apk)</span>`;
+        } else {
+            if (dialogTitle) dialogTitle.innerHTML = `<span class="flex items-center gap-2"><span class="material-symbols-outlined text-primary">history</span> Previous Versions</span>`;
         }
 
-        let filteredReleases = allReleases;
-        if (filterPlatform === 'windows') {
-            filteredReleases = (desktopReleases && desktopReleases.length > 0) ? desktopReleases : allReleases.filter(rel => rel.assets && rel.assets.some(a => /\.exe$/i.test(a.name)));
-        } else if (filterPlatform === 'android') {
-            filteredReleases = allReleases.filter(rel => rel.assets && rel.assets.some(a => /\.apk$/i.test(a.name)));
-        }
+        // STRICT FILTER: Only show releases that actually have assets for this OS!
+        const filteredReleases = candidateReleases.filter(rel => rel.assets && rel.assets.some(assetFilter));
 
         if (!filteredReleases || filteredReleases.length === 0) {
-            versionsList.innerHTML = `<p class="text-on-surface-variant text-center py-6">No previous versions found for ${filterPlatform}.</p>`;
+            versionsList.innerHTML = `
+                <div class="text-center py-10">
+                    <span class="material-symbols-outlined text-4xl text-on-surface-variant mb-2">info</span>
+                    <p class="text-on-surface font-semibold text-base">No previous ${platformName} versions found</p>
+                    <p class="text-xs text-on-surface-variant mt-1">There are no releases with uploaded ${platformName} assets in the repository history.</p>
+                </div>
+            `;
             versionsDialog.showModal();
             return;
         }
@@ -819,30 +976,18 @@ document.addEventListener('DOMContentLoaded', () => {
             const rawNotes = rel.body ? rel.body.split('\n').filter(l => l.trim())[0] || 'Official release' : 'Official release';
             const cleanNotes = rawNotes.replace(/[#*`]/g, '').substring(0, 110);
 
-            let downloadableAssets = [];
-            if (filterPlatform === 'windows') {
-                downloadableAssets = (rel.assets || []).filter(a => a.name && /\.exe$/i.test(a.name));
-            } else if (filterPlatform === 'android') {
-                downloadableAssets = (rel.assets || []).filter(a => a.name && /\.apk$/i.test(a.name));
-            } else {
-                downloadableAssets = rel.assets || [];
-            }
+            // Exact downloadable assets for this platform
+            const downloadableAssets = (rel.assets || []).filter(assetFilter);
 
             let assetButtons = '';
             downloadableAssets.forEach(asset => {
-                const size = (asset.size / (1024 * 1024)).toFixed(2);
-                const isSetup = /setup/i.test(asset.name);
-                const isPortable = /portable|potable/i.test(asset.name);
-                const isExe = /\.exe$/i.test(asset.name);
-
-                const label = isExe ? (isSetup ? 'Installer (.exe)' : isPortable ? 'Portable (.exe)' : 'Executable (.exe)') : 'Download APK';
-                const icon = isExe ? (isSetup ? 'laptop_windows' : 'inventory_2') : 'android';
-                const btnClass = isExe ? 'bg-primary-container text-on-primary-container hover:brightness-110' : 'bg-tertiary-container text-on-tertiary-container hover:brightness-110';
+                const meta = getAssetMeta(asset);
+                const btnClass = meta.btnColor === 'secondary' ? 'bg-secondary-container text-on-secondary-container hover:brightness-110' : (meta.btnColor === 'tertiary' ? 'bg-tertiary-container text-on-tertiary-container hover:brightness-110' : 'bg-primary-container text-on-primary-container hover:brightness-110');
 
                 assetButtons += `
                     <a href="${asset.browser_download_url}" data-filename="${asset.name}" class="version-download-link ${btnClass} px-4 py-2 rounded-full text-xs font-semibold no-underline inline-flex items-center gap-1.5 active:scale-95 transition-all cursor-pointer">
-                        <span class="material-symbols-outlined" style="font-size:16px">${icon}</span>
-                        ${label} (${size} MB)
+                        <span class="material-symbols-outlined" style="font-size:16px">${meta.icon}</span>
+                        ${asset.name} (${meta.sizeMb})
                     </a>
                 `;
             });
@@ -885,6 +1030,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (windowsVersionsTrigger) {
         windowsVersionsTrigger.addEventListener('click', () => renderVersionsModal('windows'));
+    }
+    if (linuxVersionsTrigger) {
+        linuxVersionsTrigger.addEventListener('click', () => renderVersionsModal('linux'));
+    }
+    if (macosVersionsTrigger) {
+        macosVersionsTrigger.addEventListener('click', () => renderVersionsModal('macos'));
     }
 
     fetchReleases();

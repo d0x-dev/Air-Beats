@@ -218,13 +218,13 @@
 
                     <h1 class="font-display-lg text-display-lg text-primary mb-6 leading-tight">AirBeats</h1>
                     <p class="font-headline-md text-headline-md text-on-surface-variant mb-10 max-w-xl">
-                        An advanced YouTube Music client built with Material Design 3 for Android &amp; Windows.
+                        An advanced YouTube Music client built with Material Design 3 for Android, Windows, Linux &amp; macOS.
                     </p>
 
                     <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
                         <a id="hero-download-btn" href="#downloads" class="bg-primary text-on-primary px-10 py-4 rounded-full font-label-lg text-lg flex items-center gap-2 ambient-glow hover:brightness-110 active:scale-95 transition-all no-underline">
-                            <span class="material-symbols-outlined" id="hero-download-icon">download</span>
-                            <span id="hero-download-text">Download APK</span>
+                            <span class="material-symbols-outlined" id="hero-download-icon">desktop_windows</span>
+                            <span id="hero-download-text">Download Desktop</span>
                         </a>
                     </div>
                 </div>
@@ -1282,38 +1282,40 @@
                     </p>
                 </div>
 
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-                    <!-- Android Card (Active) -->
-                    <div class="glass-card rounded-xl p-8 border border-white/5">
-                        <div class="flex items-center gap-4 mb-6">
-                            <div class="w-12 h-12 rounded-full bg-tertiary-container/20 text-tertiary flex items-center justify-center flex-shrink-0">
-                                <span class="material-symbols-outlined">android</span>
+                    <!-- 1. Android Card -->
+                    <div class="glass-card rounded-xl p-8 border border-white/5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-12 h-12 rounded-full bg-tertiary-container/20 text-tertiary flex items-center justify-center flex-shrink-0">
+                                    <span class="material-symbols-outlined">android</span>
+                                </div>
+                                <div>
+                                    <h3 class="font-title-lg text-on-surface">Android</h3>
+                                    <p class="text-on-surface-variant text-sm">Download the official Android APK.</p>
+                                </div>
                             </div>
-                            <div>
-                                <h3 class="font-title-lg text-on-surface">Android</h3>
-                                <p class="text-on-surface-variant text-sm">Download the latest stable Android build.</p>
+
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                <span class="version-chip version-chip--stable">Stable Build</span>
+                                <span id="android-version-badge" class="version-chip">Loading...</span>
                             </div>
-                        </div>
 
-                        <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="version-chip version-chip--stable">Stable Build</span>
-                            <span id="android-version-badge" class="version-chip">v6.0.0</span>
-                        </div>
-
-                        <div class="flex flex-wrap gap-6 mb-8">
-                            <button id="changelog-trigger" class="flex items-center gap-2 text-primary hover:text-on-primary-container transition-colors font-label-lg">
-                                <span class="material-symbols-outlined" style="font-size:18px">list_alt</span>
-                                <span>View Changelog</span>
-                            </button>
-                            <button id="versions-trigger" class="flex items-center gap-2 text-primary hover:text-on-primary-container transition-colors font-label-lg">
-                                <span class="material-symbols-outlined" style="font-size:18px">history</span>
-                                <span>Previous versions</span>
-                            </button>
+                            <div class="flex flex-wrap gap-6 mb-8">
+                                <button id="changelog-trigger" class="flex items-center gap-2 text-primary hover:text-on-primary-container transition-colors font-label-lg">
+                                    <span class="material-symbols-outlined" style="font-size:18px">list_alt</span>
+                                    <span>View Changelog</span>
+                                </button>
+                                <button id="versions-trigger" class="flex items-center gap-2 text-primary hover:text-on-primary-container transition-colors font-label-lg">
+                                    <span class="material-symbols-outlined" style="font-size:18px">history</span>
+                                    <span>Previous versions</span>
+                                </button>
+                            </div>
                         </div>
 
                         <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-6 border-t border-white/10">
-                            <a id="android-download-btn" href="https://github.com/d0x-dev/AirBeats/releases/download/6.0.0/AirBeats_v6.0.0_signed.apk" target="_blank" class="flex items-center gap-3 bg-primary text-on-primary px-8 py-3 rounded-full font-label-lg ambient-glow hover:brightness-110 active:scale-95 transition-all no-underline">
+                            <a id="android-download-btn" href="#" class="flex items-center gap-3 bg-primary text-on-primary px-8 py-3 rounded-full font-label-lg ambient-glow hover:brightness-110 active:scale-95 transition-all no-underline">
                                 <span class="material-symbols-outlined">download</span>
                                 <span id="android-download-text">Download APK</span>
                             </a>
@@ -1321,42 +1323,120 @@
                         </div>
                     </div>
 
-
-
-                    <!-- Windows Card (Active) -->
-                    <div class="glass-card rounded-xl p-8 border border-white/5">
-                        <div class="flex items-center gap-4 mb-6">
-                            <div class="w-12 h-12 rounded-full bg-primary-container/20 text-primary flex items-center justify-center flex-shrink-0">
-                                <span class="material-symbols-outlined">laptop_windows</span>
+                    <!-- 2. Windows Card -->
+                    <div class="glass-card rounded-xl p-8 border border-white/5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-12 h-12 rounded-full bg-primary-container/20 text-primary flex items-center justify-center flex-shrink-0">
+                                    <span class="material-symbols-outlined">laptop_windows</span>
+                                </div>
+                                <div>
+                                    <h3 class="font-title-lg text-on-surface">Windows</h3>
+                                    <p class="text-on-surface-variant text-sm">Installer (.exe) &amp; Portable build for PC.</p>
+                                </div>
                             </div>
-                            <div>
-                                <h3 class="font-title-lg text-on-surface">Windows</h3>
-                                <p class="text-on-surface-variant text-sm">Download the executable installer for PC.</p>
+
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                <span class="version-chip version-chip--stable">Windows Build</span>
+                                <span id="windows-version-badge" class="version-chip">Loading...</span>
                             </div>
-                        </div>
 
-                        <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="version-chip version-chip--stable">Windows Build</span>
-                            <span id="windows-version-badge" class="version-chip">v5.7.0</span>
-                        </div>
-
-                        <div class="flex flex-wrap gap-6 mb-8">
-                            <button id="windows-changelog-trigger" class="flex items-center gap-2 text-primary hover:text-on-primary-container transition-colors font-label-lg">
-                                <span class="material-symbols-outlined" style="font-size:18px">list_alt</span>
-                                <span>View Changelog</span>
-                            </button>
-                            <button id="windows-versions-trigger" class="flex items-center gap-2 text-primary hover:text-on-primary-container transition-colors font-label-lg">
-                                <span class="material-symbols-outlined" style="font-size:18px">history</span>
-                                <span>Previous versions</span>
-                            </button>
+                            <div class="flex flex-wrap gap-6 mb-8">
+                                <button id="windows-changelog-trigger" class="flex items-center gap-2 text-primary hover:text-on-primary-container transition-colors font-label-lg">
+                                    <span class="material-symbols-outlined" style="font-size:18px">list_alt</span>
+                                    <span>View Changelog</span>
+                                </button>
+                                <button id="windows-versions-trigger" class="flex items-center gap-2 text-primary hover:text-on-primary-container transition-colors font-label-lg">
+                                    <span class="material-symbols-outlined" style="font-size:18px">history</span>
+                                    <span>Previous versions</span>
+                                </button>
+                            </div>
                         </div>
 
                         <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-6 border-t border-white/10">
-                            <a id="windows-download-btn" href="https://github.com/d0x-dev/AirBeats/releases/download/5.7.0/Airbeats-v5.7.0-setup.exe" target="_blank" class="flex items-center gap-3 bg-primary text-on-primary px-8 py-3 rounded-full font-label-lg ambient-glow hover:brightness-110 active:scale-95 transition-all no-underline">
+                            <a id="windows-download-btn" href="#" class="flex items-center gap-3 bg-primary text-on-primary px-8 py-3 rounded-full font-label-lg ambient-glow hover:brightness-110 active:scale-95 transition-all no-underline cursor-pointer">
                                 <span class="material-symbols-outlined">download</span>
                                 <span id="windows-download-text">Download Windows (.exe)</span>
                             </a>
                             <p class="text-on-surface-variant font-label-sm">Requires Windows 10/11</p>
+                        </div>
+                    </div>
+
+                    <!-- 3. Linux Card -->
+                    <div class="glass-card rounded-xl p-8 border border-white/5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-12 h-12 rounded-full bg-secondary-container/20 text-secondary flex items-center justify-center flex-shrink-0">
+                                    <span class="material-symbols-outlined">terminal</span>
+                                </div>
+                                <div>
+                                    <h3 class="font-title-lg text-on-surface">Linux</h3>
+                                    <p class="text-on-surface-variant text-sm">Universal AppImage &amp; Debian (.deb) package.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                <span class="version-chip version-chip--stable">Linux Build</span>
+                                <span id="linux-version-badge" class="version-chip">Loading...</span>
+                            </div>
+
+                            <div class="flex flex-wrap gap-6 mb-8">
+                                <button id="linux-changelog-trigger" class="flex items-center gap-2 text-primary hover:text-on-primary-container transition-colors font-label-lg">
+                                    <span class="material-symbols-outlined" style="font-size:18px">list_alt</span>
+                                    <span>View Changelog</span>
+                                </button>
+                                <button id="linux-versions-trigger" class="flex items-center gap-2 text-primary hover:text-on-primary-container transition-colors font-label-lg">
+                                    <span class="material-symbols-outlined" style="font-size:18px">history</span>
+                                    <span>Previous versions</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-6 border-t border-white/10">
+                            <a id="linux-download-btn" href="#" class="flex items-center gap-3 bg-primary text-on-primary px-8 py-3 rounded-full font-label-lg ambient-glow hover:brightness-110 active:scale-95 transition-all no-underline cursor-pointer">
+                                <span class="material-symbols-outlined">download</span>
+                                <span id="linux-download-text">Download for Linux</span>
+                            </a>
+                            <p class="text-on-surface-variant font-label-sm">Ubuntu, Debian, Fedora, Arch</p>
+                        </div>
+                    </div>
+
+                    <!-- 4. macOS Card -->
+                    <div class="glass-card rounded-xl p-8 border border-white/5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-12 h-12 rounded-full bg-tertiary-container/20 text-tertiary flex items-center justify-center flex-shrink-0">
+                                    <span class="material-symbols-outlined">laptop_mac</span>
+                                </div>
+                                <div>
+                                    <h3 class="font-title-lg text-on-surface">macOS</h3>
+                                    <p class="text-on-surface-variant text-sm">Apple Silicon (M-series) &amp; Intel (.dmg).</p>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                <span class="version-chip version-chip--stable">macOS Build</span>
+                                <span id="macos-version-badge" class="version-chip">Loading...</span>
+                            </div>
+
+                            <div class="flex flex-wrap gap-6 mb-8">
+                                <button id="macos-changelog-trigger" class="flex items-center gap-2 text-primary hover:text-on-primary-container transition-colors font-label-lg">
+                                    <span class="material-symbols-outlined" style="font-size:18px">list_alt</span>
+                                    <span>View Changelog</span>
+                                </button>
+                                <button id="macos-versions-trigger" class="flex items-center gap-2 text-primary hover:text-on-primary-container transition-colors font-label-lg">
+                                    <span class="material-symbols-outlined" style="font-size:18px">history</span>
+                                    <span>Previous versions</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-6 border-t border-white/10">
+                            <a id="macos-download-btn" href="#" class="flex items-center gap-3 bg-primary text-on-primary px-8 py-3 rounded-full font-label-lg ambient-glow hover:brightness-110 active:scale-95 transition-all no-underline cursor-pointer">
+                                <span class="material-symbols-outlined">download</span>
+                                <span id="macos-download-text">Download for macOS (.dmg)</span>
+                            </a>
+                            <p class="text-on-surface-variant font-label-sm">macOS 11.0+ (Universal)</p>
                         </div>
                     </div>
 
@@ -1442,7 +1522,7 @@
         </div>
     </dialog>
 
-    <!-- Dialog for Windows Download Edition Selection (Setup vs Portable) -->
+    <!-- Dialog for Windows Download Selection -->
     <dialog id="windows-download-dialog" class="glass-dialog glass-dialog--large overflow-hidden">
         <div class="dialog-header">
             <div class="flex items-center gap-3 min-w-0">
@@ -1451,72 +1531,60 @@
                 </div>
                 <div class="min-w-0">
                     <h3 class="text-on-surface font-title-md truncate">Download for Windows</h3>
-                    <p id="windows-dialog-version" class="text-xs text-primary font-medium truncate">v6.0.0 (Latest Release)</p>
+                    <p id="windows-dialog-version" class="text-xs text-primary font-medium truncate">v6.1.0 (Latest Release)</p>
                 </div>
             </div>
             <button id="close-windows-dialog-btn" class="dialog-icon-btn flex-shrink-0" onclick="document.getElementById('windows-download-dialog').close()" aria-label="Close">
                 <span class="material-symbols-outlined">close</span>
             </button>
         </div>
-        <div class="dialog-content flex flex-col gap-3 overflow-x-hidden">
-            <p class="text-on-surface-variant text-sm mb-1">Select your preferred Windows download package:</p>
-
-            <!-- Option 1: Setup File (Installer) -->
-            <button type="button" id="win-opt-setup-btn" class="w-full text-left p-4 rounded-2xl bg-surface-container-high hover:bg-surface-container-highest border border-white/10 hover:border-primary/50 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 group cursor-pointer overflow-hidden">
-                <div class="flex items-center gap-3.5 min-w-0 flex-1">
-                    <div class="w-10 h-10 rounded-xl bg-primary-container/30 text-primary flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
-                        <span class="material-symbols-outlined" style="font-size:22px">install_desktop</span>
-                    </div>
-                    <div class="min-w-0 flex-1">
-                        <div class="flex items-center gap-2 flex-wrap">
-                            <span class="font-bold text-on-surface text-sm sm:text-base">Setup File (.exe)</span>
-                            <span class="px-2 py-0.5 rounded-full bg-primary/20 text-primary text-[10px] font-bold tracking-wide uppercase">Recommended</span>
-                        </div>
-                        <p class="text-xs text-on-surface-variant mt-0.5 truncate">Full Windows installer &bull; Desktop shortcut &amp; auto-updates</p>
-                        <p id="win-setup-filename" class="text-[11px] text-primary/80 font-mono mt-1 flex items-center gap-1 truncate">
-                            <span class="material-symbols-outlined flex-shrink-0" style="font-size:13px">description</span>
-                            <span class="truncate">Airbeats-v6.0.0-setup.exe</span>
-                        </p>
-                    </div>
-                </div>
-                <div class="flex items-center justify-between sm:justify-end gap-3 flex-shrink-0 pt-2.5 sm:pt-0 border-t sm:border-t-0 border-white/5 w-full sm:w-auto">
-                    <span id="win-setup-size-badge" class="text-xs text-slate-400 font-mono font-medium whitespace-nowrap">117.2 MB</span>
-                    <span class="bg-primary text-on-primary px-4 py-2 rounded-full text-xs font-semibold ambient-glow group-hover:brightness-110 active:scale-95 transition-all inline-flex items-center gap-1.5 shadow-md flex-shrink-0 whitespace-nowrap">
-                        <span class="material-symbols-outlined" style="font-size:16px">download</span>
-                        <span>Download</span>
-                    </span>
-                </div>
-            </button>
-
-            <!-- Option 2: Portable File (Standalone) -->
-            <button type="button" id="win-opt-portable-btn" class="w-full text-left p-4 rounded-2xl bg-surface-container-high hover:bg-surface-container-highest border border-white/10 hover:border-secondary/50 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 group cursor-pointer overflow-hidden">
-                <div class="flex items-center gap-3.5 min-w-0 flex-1">
-                    <div class="w-10 h-10 rounded-xl bg-secondary-container/30 text-secondary flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
-                        <span class="material-symbols-outlined" style="font-size:22px">inventory_2</span>
-                    </div>
-                    <div class="min-w-0 flex-1">
-                        <div class="flex items-center gap-2 flex-wrap">
-                            <span class="font-bold text-on-surface text-sm sm:text-base">Portable File (.exe)</span>
-                            <span class="px-2 py-0.5 rounded-full bg-secondary/20 text-secondary text-[10px] font-bold tracking-wide uppercase">No Install</span>
-                        </div>
-                        <p class="text-xs text-on-surface-variant mt-0.5 truncate">Standalone executable &bull; Run directly without installation</p>
-                        <p id="win-portable-filename" class="text-[11px] text-secondary/80 font-mono mt-1 flex items-center gap-1 truncate">
-                            <span class="material-symbols-outlined flex-shrink-0" style="font-size:13px">description</span>
-                            <span class="truncate">Airbeats-v6.0.0-Portable.exe</span>
-                        </p>
-                    </div>
-                </div>
-                <div class="flex items-center justify-between sm:justify-end gap-3 flex-shrink-0 pt-2.5 sm:pt-0 border-t sm:border-t-0 border-white/5 w-full sm:w-auto">
-                    <span id="win-portable-size-badge" class="text-xs text-slate-400 font-mono font-medium whitespace-nowrap">116.9 MB</span>
-                    <span class="bg-primary text-on-primary px-4 py-2 rounded-full text-xs font-semibold ambient-glow group-hover:brightness-110 active:scale-95 transition-all inline-flex items-center gap-1.5 shadow-md flex-shrink-0 whitespace-nowrap">
-                        <span class="material-symbols-outlined" style="font-size:16px">download</span>
-                        <span>Download</span>
-                    </span>
-                </div>
-            </button>
-        </div>
+        <div id="windows-dialog-content" class="dialog-content flex flex-col gap-3 overflow-x-hidden"></div>
         <div class="dialog-actions pt-0">
             <button type="button" class="dialog-text-btn" onclick="document.getElementById('windows-download-dialog').close()">Cancel</button>
+        </div>
+    </dialog>
+
+    <!-- Dialog for Linux Download Selection -->
+    <dialog id="linux-download-dialog" class="glass-dialog glass-dialog--large overflow-hidden">
+        <div class="dialog-header">
+            <div class="flex items-center gap-3 min-w-0">
+                <div class="w-10 h-10 rounded-full bg-secondary-container/20 text-secondary flex items-center justify-center flex-shrink-0">
+                    <span class="material-symbols-outlined" style="font-size:22px">terminal</span>
+                </div>
+                <div class="min-w-0">
+                    <h3 class="text-on-surface font-title-md truncate">Download for Linux</h3>
+                    <p id="linux-dialog-version" class="text-xs text-secondary font-medium truncate">v6.1.0 (Latest Release)</p>
+                </div>
+            </div>
+            <button id="close-linux-dialog-btn" class="dialog-icon-btn flex-shrink-0" onclick="document.getElementById('linux-download-dialog').close()" aria-label="Close">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <div id="linux-dialog-content" class="dialog-content flex flex-col gap-3 overflow-x-hidden"></div>
+        <div class="dialog-actions pt-0">
+            <button type="button" class="dialog-text-btn" onclick="document.getElementById('linux-download-dialog').close()">Cancel</button>
+        </div>
+    </dialog>
+
+    <!-- Dialog for macOS Download Selection -->
+    <dialog id="macos-download-dialog" class="glass-dialog glass-dialog--large overflow-hidden">
+        <div class="dialog-header">
+            <div class="flex items-center gap-3 min-w-0">
+                <div class="w-10 h-10 rounded-full bg-tertiary-container/20 text-tertiary flex items-center justify-center flex-shrink-0">
+                    <span class="material-symbols-outlined" style="font-size:22px">laptop_mac</span>
+                </div>
+                <div class="min-w-0">
+                    <h3 class="text-on-surface font-title-md truncate">Download for macOS</h3>
+                    <p id="macos-dialog-version" class="text-xs text-tertiary font-medium truncate">v6.1.0 (Latest Release)</p>
+                </div>
+            </div>
+            <button id="close-macos-dialog-btn" class="dialog-icon-btn flex-shrink-0" onclick="document.getElementById('macos-download-dialog').close()" aria-label="Close">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <div id="macos-dialog-content" class="dialog-content flex flex-col gap-3 overflow-x-hidden"></div>
+        <div class="dialog-actions pt-0">
+            <button type="button" class="dialog-text-btn" onclick="document.getElementById('macos-download-dialog').close()">Cancel</button>
         </div>
     </dialog>
 
