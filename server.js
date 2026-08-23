@@ -31,6 +31,8 @@ const RATE_LIMIT_MAX = 5;
 const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000;
 
 let releasesCache = { data: null, timestamp: 0 };
+let desktopReleasesCache = { data: null, timestamp: 0 };
+let desktopLatestCache = { data: null, timestamp: 0 };
 const RELEASES_CACHE_TTL = 5 * 60 * 1000; // 5 minutes cache
 
 const server = http.createServer((req, res) => {
@@ -48,7 +50,7 @@ const server = http.createServer((req, res) => {
     const parsedUrl = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
     let pathname = parsedUrl.pathname;
 
-    // Handle /api/releases route
+    // Handle /api/releases route (Android / Main repo)
     if (pathname === '/api/releases') {
         const now = Date.now();
         if (releasesCache.data && (now - releasesCache.timestamp < RELEASES_CACHE_TTL)) {
@@ -89,6 +91,98 @@ const server = http.createServer((req, res) => {
             } else {
                 res.writeHead(500, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({ error: 'Failed to fetch releases' }));
+            }
+        });
+        return;
+    }
+
+    // Handle /api/desktop-releases route
+    if (pathname === '/api/desktop-releases' || pathname === '/api/releases/desktop') {
+        const now = Date.now();
+        if (desktopReleasesCache.data && (now - desktopReleasesCache.timestamp < RELEASES_CACHE_TTL)) {
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(desktopReleasesCache.data);
+            return;
+        }
+
+        const ghReq = https.get('https://api.github.com/repos/d0x-dev/airbeats-desktop/releases', {
+            headers: {
+                'User-Agent': 'AirBeats-Server/1.0',
+                'Accept': 'application/vnd.github.v3+json'
+            }
+        }, (ghRes) => {
+            let data = '';
+            ghRes.on('data', chunk => { data += chunk; });
+            ghRes.on('end', () => {
+                if (ghRes.statusCode === 200) {
+                    desktopReleasesCache = { data, timestamp: Date.now() };
+                    res.writeHead(200, { 'Content-Type': 'application/json' });
+                    res.end(data);
+                } else {
+                    if (desktopReleasesCache.data) {
+                        res.writeHead(200, { 'Content-Type': 'application/json' });
+                        res.end(desktopReleasesCache.data);
+                    } else {
+                        res.writeHead(ghRes.statusCode, { 'Content-Type': 'application/json' });
+                        res.end(data);
+                    }
+                }
+            });
+        });
+
+        ghReq.on('error', () => {
+            if (desktopReleasesCache.data) {
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(desktopReleasesCache.data);
+            } else {
+                res.writeHead(500, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ error: 'Failed to fetch desktop releases' }));
+            }
+        });
+        return;
+    }
+
+    // Handle /api/desktop-releases/latest route
+    if (pathname === '/api/desktop-releases/latest' || pathname === '/api/releases/desktop/latest') {
+        const now = Date.now();
+        if (desktopLatestCache.data && (now - desktopLatestCache.timestamp < RELEASES_CACHE_TTL)) {
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(desktopLatestCache.data);
+            return;
+        }
+
+        const ghReq = https.get('https://api.github.com/repos/d0x-dev/airbeats-desktop/releases/latest', {
+            headers: {
+                'User-Agent': 'AirBeats-Server/1.0',
+                'Accept': 'application/vnd.github.v3+json'
+            }
+        }, (ghRes) => {
+            let data = '';
+            ghRes.on('data', chunk => { data += chunk; });
+            ghRes.on('end', () => {
+                if (ghRes.statusCode === 200) {
+                    desktopLatestCache = { data, timestamp: Date.now() };
+                    res.writeHead(200, { 'Content-Type': 'application/json' });
+                    res.end(data);
+                } else {
+                    if (desktopLatestCache.data) {
+                        res.writeHead(200, { 'Content-Type': 'application/json' });
+                        res.end(desktopLatestCache.data);
+                    } else {
+                        res.writeHead(ghRes.statusCode, { 'Content-Type': 'application/json' });
+                        res.end(data);
+                    }
+                }
+            });
+        });
+
+        ghReq.on('error', () => {
+            if (desktopLatestCache.data) {
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(desktopLatestCache.data);
+            } else {
+                res.writeHead(500, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ error: 'Failed to fetch latest desktop release' }));
             }
         });
         return;

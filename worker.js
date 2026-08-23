@@ -59,6 +59,93 @@ export default {
       }
     }
 
+    // ─── 0.1 GITHUB DESKTOP RELEASES PROXY (/api/desktop-releases) ───
+    if (url.pathname === "/api/desktop-releases" || url.pathname === "/api/releases/desktop") {
+      if (request.method === "OPTIONS") {
+        return new Response(null, {
+          status: 204,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, OPTIONS",
+            "Access-Control-Allow-Headers": "Content-Type, Accept",
+          },
+        });
+      }
+
+      try {
+        const ghRes = await fetch("https://api.github.com/repos/d0x-dev/airbeats-desktop/releases", {
+          headers: {
+            "User-Agent": "AirBeats-Worker/1.0",
+            "Accept": "application/vnd.github.v3+json",
+          },
+          cf: {
+            cacheTtl: 300,
+            cacheEverything: true,
+          }
+        });
+        const data = await ghRes.text();
+        return new Response(data, {
+          status: ghRes.status,
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "Cache-Control": "public, max-age=300",
+          },
+        });
+      } catch (err) {
+        return new Response(JSON.stringify({ error: "Failed to fetch desktop releases" }), {
+          status: 500,
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+        });
+      }
+    }
+
+    if (url.pathname === "/api/desktop-releases/latest" || url.pathname === "/api/releases/desktop/latest") {
+      if (request.method === "OPTIONS") {
+        return new Response(null, {
+          status: 204,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, OPTIONS",
+            "Access-Control-Allow-Headers": "Content-Type, Accept",
+          },
+        });
+      }
+
+      try {
+        const ghRes = await fetch("https://api.github.com/repos/d0x-dev/airbeats-desktop/releases/latest", {
+          headers: {
+            "User-Agent": "AirBeats-Worker/1.0",
+            "Accept": "application/vnd.github.v3+json",
+          },
+          cf: {
+            cacheTtl: 300,
+            cacheEverything: true,
+          }
+        });
+        const data = await ghRes.text();
+        return new Response(data, {
+          status: ghRes.status,
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "Cache-Control": "public, max-age=300",
+          },
+        });
+      } catch (err) {
+        return new Response(JSON.stringify({ error: "Failed to fetch latest desktop release" }), {
+          status: 500,
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+        });
+      }
+    }
+
     // ─── 1. SUPPORT FORM SUBMISSION ROUTE (/api/submit) ───
     if (url.pathname === "/api/submit" || (request.method === "POST" && url.pathname.endsWith("/submit"))) {
       // Handle CORS Preflight OPTIONS Request

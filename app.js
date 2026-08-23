@@ -68,10 +68,8 @@ document.addEventListener('DOMContentLoaded', () => {
             tag_name: "5.7.0",
             name: "AirBeats v5.7.0",
             published_at: "2026-06-15T08:00:00Z",
-            body: "### ✨ AirBeats v5.7.0 Dual Release\n- 💻 **Windows Desktop Setup & Portable Builds**\n- 📱 **Android Signed APK**",
+            body: "### ✨ AirBeats v5.7.0 Dual Release\n- 📱 **Android Signed APK**",
             assets: [
-                { name: "Airbeats-v5.7.0-setup.exe", size: 121626440, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/5.7.0/Airbeats-v5.7.0-setup.exe" },
-                { name: "Airbeats-v5.7.0-potable.exe", size: 121349740, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/5.7.0/Airbeats-v5.7.0-potable.exe" },
                 { name: "AirBeats_v5.7.0_signed.apk", size: 9903696, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/5.7.0/AirBeats_v5.7.0_signed.apk" }
             ]
         },
@@ -79,10 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
             tag_name: "5.6.0",
             name: "AirBeats v5.6.0",
             published_at: "2026-06-01T08:00:00Z",
-            body: "### ✨ AirBeats v5.6.0 Dual Release\n- 💻 **Windows Desktop Executables (.exe)**\n- 📱 **Android Signed APK**",
+            body: "### ✨ AirBeats v5.6.0 Dual Release\n- 📱 **Android Signed APK**",
             assets: [
-                { name: "Airbeats-v5.6.0-setup.exe", size: 105052617, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/5.6.0/Airbeats-v5.6.0-setup.exe" },
-                { name: "Airbeats-v5.6.0-Potable.exe", size: 104758378, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/5.6.0/Airbeats-v5.6.0-Potable.exe" },
                 { name: "AirBeats_v5.6.0_signed.apk", size: 9838820, browser_download_url: "https://github.com/d0x-dev/AirBeats/releases/download/5.6.0/AirBeats_v5.6.0_signed.apk" }
             ]
         }
@@ -90,13 +86,84 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let latestRelease = allReleases[0];
 
-    // 1. Toast Notification Helper
+    // Desktop Releases (from d0x-dev/airbeats-desktop)
+    let desktopReleases = [
+        {
+            tag_name: "6.0.0",
+            name: "Airbeats Desktop v6.0.0",
+            published_at: "2026-08-23T08:21:27Z",
+            body: "# 🚀 Airbeats Desktop v6.0.0 - The Ultimate Refresh\n\nWe are thrilled to announce **Airbeats Desktop v6.0.0**! This massive update focuses on bringing blazing-fast performance, rock-solid stability, stunning UI improvements, and seamless new ways to interact with your music.\n\n## ✨ What's New\n\n### 🎨 Stunning UI & UX Overhaul\n- **Custom Context Menus:** Right-clicking any song, artist, or queue item brings up a frosted-glass animated context menu.\n- **Advanced Queue Control:** Instantly remove songs from your queue or force play.\n- **Smart Text Formatting:** Long artist names beautifully truncated.\n\n### ⚡ Performance & Engine Upgrades\n- **Instant Launch:** Zero loading delay on startup.\n- **Better Search Engine:** Native `ytmusicapi` search with fast autocomplete.\n\n### 🛠 Bug Fixes & Stability\n- **Download Fixes:** Re-wired right-click download and stream.\n- **Standalone .exe Stability:** PyInstaller optimizations and crash protection.",
+            assets: [
+                { name: "Airbeats-v6.0.0-setup.exe", size: 122916651, browser_download_url: "https://github.com/d0x-dev/Airbeats-Desktop/releases/download/6.0.0/Airbeats-v6.0.0-setup.exe" },
+                { name: "Airbeats-v6.0.0-Portable.exe", size: 122639949, browser_download_url: "https://github.com/d0x-dev/Airbeats-Desktop/releases/download/6.0.0/Airbeats-v6.0.0-Portable.exe" }
+            ]
+        },
+        {
+            tag_name: "5.7.0",
+            name: "AirBeats v5.7.0",
+            published_at: "2026-08-23T07:51:58Z",
+            body: "### ✨ AirBeats v5.7.0 Dual Release\n- 💻 **Windows Desktop Setup & Portable Builds**",
+            assets: [
+                { name: "Airbeats-v5.7.0-setup.exe", size: 121626440, browser_download_url: "https://github.com/d0x-dev/Airbeats-Desktop/releases/download/5.7.0/Airbeats-v5.7.0-setup.exe" },
+                { name: "Airbeats-v5.7.0-potable.exe", size: 121349740, browser_download_url: "https://github.com/d0x-dev/Airbeats-Desktop/releases/download/5.7.0/Airbeats-v5.7.0-potable.exe" }
+            ]
+        },
+        {
+            tag_name: "5.6.0",
+            name: "AirBeats v5.6.0",
+            published_at: "2026-08-23T07:48:53Z",
+            body: "### ✨ AirBeats v5.6.0 Dual Release\n- 💻 **Windows Desktop Executables (.exe)**",
+            assets: [
+                { name: "Airbeats-v5.6.0-setup.exe", size: 105052617, browser_download_url: "https://github.com/d0x-dev/Airbeats-Desktop/releases/download/5.6.0/Airbeats-v5.6.0-setup.exe" },
+                { name: "Airbeats-v5.6.0-Potable.exe", size: 104758378, browser_download_url: "https://github.com/d0x-dev/Airbeats-Desktop/releases/download/5.6.0/Airbeats-v5.6.0-Potable.exe" }
+            ]
+        }
+    ];
+
+    let latestDesktopRelease = desktopReleases[0];
+
+    // 1. Toast Notification Helper & Direct Download Handler
+    let toastTimeout = null;
     function showToast(msg) {
         if (!downloadToast || !toastMsg) return;
         toastMsg.textContent = msg;
         downloadToast.classList.add('show');
-        setTimeout(() => downloadToast.classList.remove('show'), 3500);
+        if (toastTimeout) clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => downloadToast.classList.remove('show'), 3500);
     }
+
+    function triggerDownload(url, defaultName) {
+        if (!url || url === '#' || url.startsWith('javascript:')) return;
+        const filename = defaultName || url.split('/').pop().split('?')[0] || 'AirBeats';
+        showToast(`⬇️ Download starting: ${filename}`);
+
+        try {
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.setAttribute('aria-hidden', 'true');
+            iframe.src = url;
+            document.body.appendChild(iframe);
+            setTimeout(() => {
+                if (document.body.contains(iframe)) {
+                    document.body.removeChild(iframe);
+                }
+            }, 30000);
+        } catch (e) {
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', filename);
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            link.click();
+            setTimeout(() => {
+                if (document.body.contains(link)) {
+                    document.body.removeChild(link);
+                }
+            }, 5000);
+        }
+    }
+    window.showToast = showToast;
+    window.triggerDownload = triggerDownload;
 
     // 2. Logo Rhythm Audio Player
     let audioPlayer = new Audio('rhythm.mp3');
@@ -129,7 +196,64 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 3. GitHub Releases API Fetching
+    // 3. GitHub Desktop Releases API Fetching
+    async function fetchDesktopReleases() {
+        // Fetch latest desktop release
+        const latestEndpoints = [
+            "/api/desktop-releases/latest",
+            "https://api.github.com/repos/d0x-dev/airbeats-desktop/releases/latest"
+        ];
+
+        for (const url of latestEndpoints) {
+            try {
+                const res = await fetch(url, { headers: { 'Accept': 'application/vnd.github.v3+json' } });
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data && data.tag_name) {
+                        latestDesktopRelease = data;
+                        if (!desktopReleases.some(r => r.tag_name === data.tag_name)) {
+                            desktopReleases.unshift(data);
+                        } else {
+                            const idx = desktopReleases.findIndex(r => r.tag_name === data.tag_name);
+                            desktopReleases[idx] = data;
+                        }
+                        updateVersionBadges();
+                        break;
+                    }
+                }
+            } catch (e) {
+                console.warn("Failed to fetch latest desktop release from", url, e);
+            }
+        }
+
+        // Fetch all desktop releases
+        const allEndpoints = [
+            "/api/desktop-releases",
+            "https://api.github.com/repos/d0x-dev/airbeats-desktop/releases"
+        ];
+
+        for (const url of allEndpoints) {
+            try {
+                const res = await fetch(url, { headers: { 'Accept': 'application/vnd.github.v3+json' } });
+                if (res.ok) {
+                    const data = await res.json();
+                    const releaseList = Array.isArray(data) ? data : (Array.isArray(data.releases) ? data.releases : null);
+                    if (releaseList && releaseList.length > 0) {
+                        desktopReleases = releaseList.sort((a, b) => new Date(b.published_at) - new Date(a.published_at));
+                        latestDesktopRelease = desktopReleases[0];
+                        updateVersionBadges();
+                        break;
+                    }
+                }
+            } catch (e) {
+                console.warn("Failed to fetch all desktop releases from", url, e);
+            }
+        }
+
+        updateVersionBadges();
+    }
+
+    // 4. GitHub Android Releases API Fetching
     async function fetchReleases() {
         const endpoints = [
             "/api/releases",
@@ -147,13 +271,15 @@ document.addEventListener('DOMContentLoaded', () => {
                         allReleases = releaseList.sort((a, b) => new Date(b.published_at) - new Date(a.published_at));
                         latestRelease = allReleases[0];
                         updateVersionBadges();
-                        return;
+                        break;
                     }
                 }
             } catch (e) {
                 console.warn("Failed to fetch GitHub releases from", url, e);
             }
         }
+
+        await fetchDesktopReleases();
         updateVersionBadges();
     }
 
@@ -163,29 +289,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateVersionBadges() {
-        if (!latestRelease) return;
-        const tag = formatVersionTag(latestRelease.tag_name);
+        if (latestRelease) {
+            const tag = formatVersionTag(latestRelease.tag_name);
+            if (ossVersionBadge) ossVersionBadge.textContent = `${tag} (Latest Stable Version)`;
 
-        if (ossVersionBadge) ossVersionBadge.textContent = `${tag} (Latest Stable Version)`;
-
-        // Find latest Android APK release
-        const apkRelease = allReleases.find(r => r.assets && r.assets.some(a => /\.apk$/i.test(a.name))) || latestRelease;
-        if (apkRelease) {
-            const apkTag = formatVersionTag(apkRelease.tag_name);
-            if (androidVersionBadge) androidVersionBadge.textContent = apkTag;
-            const androidDownloadBtn = document.getElementById('android-download-btn');
-            const apkAsset = apkRelease.assets && apkRelease.assets.find(a => /\.apk$/i.test(a.name));
-            if (androidDownloadBtn && apkAsset && apkAsset.browser_download_url) {
-                androidDownloadBtn.href = apkAsset.browser_download_url;
+            // Find latest Android APK release
+            const apkRelease = allReleases.find(r => r.assets && r.assets.some(a => /\.apk$/i.test(a.name))) || latestRelease;
+            if (apkRelease) {
+                const apkTag = formatVersionTag(apkRelease.tag_name);
+                if (androidVersionBadge) androidVersionBadge.textContent = apkTag;
+                const androidDownloadBtn = document.getElementById('android-download-btn');
+                const apkAsset = apkRelease.assets && apkRelease.assets.find(a => /\.apk$/i.test(a.name));
+                if (androidDownloadBtn && apkAsset && apkAsset.browser_download_url) {
+                    androidDownloadBtn.href = apkAsset.browser_download_url;
+                }
+                const genericDownloadBtn = document.getElementById('downloadBtn');
+                if (genericDownloadBtn && apkAsset && apkAsset.browser_download_url) {
+                    genericDownloadBtn.href = apkAsset.browser_download_url;
+                }
             }
-            const genericDownloadBtn = document.getElementById('downloadBtn');
-            if (genericDownloadBtn && apkAsset && apkAsset.browser_download_url) {
-                genericDownloadBtn.href = apkAsset.browser_download_url;
+
+            const versionNote = document.getElementById('versionNote');
+            if (versionNote && apkRelease) {
+                versionNote.innerHTML = `Latest Release: <strong>${formatVersionTag(apkRelease.tag_name)}</strong>`;
             }
         }
 
-        // Find latest Windows release
-        const winRelease = allReleases.find(r => r.assets && r.assets.some(a => /\.exe$/i.test(a.name)));
+        // Find latest Windows Desktop release
+        const winRelease = latestDesktopRelease || (desktopReleases && desktopReleases.find(r => r.assets && r.assets.some(a => /\.exe$/i.test(a.name)))) || allReleases.find(r => r.assets && r.assets.some(a => /\.exe$/i.test(a.name)));
         if (windowsVersionBadge && winRelease) {
             windowsVersionBadge.textContent = formatVersionTag(winRelease.tag_name);
             const winDownloadBtn = document.getElementById('windows-download-btn');
@@ -195,12 +326,36 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        const versionNote = document.getElementById('versionNote');
-        if (versionNote && apkRelease) {
-            versionNote.innerHTML = `Latest Release: <strong>${formatVersionTag(apkRelease.tag_name)}</strong>`;
-        }
-
         updatePlatformDownloadButtons();
+    }
+
+    // Direct Download Click Handlers
+    const androidDownloadBtn = document.getElementById('android-download-btn');
+    const winDownloadBtn = document.getElementById('windows-download-btn');
+    const genericDownloadBtn = document.getElementById('downloadBtn');
+
+    if (androidDownloadBtn) {
+        androidDownloadBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const href = androidDownloadBtn.getAttribute('href') || androidDownloadBtn.href;
+            triggerDownload(href, 'AirBeats_signed.apk');
+        });
+    }
+
+    if (winDownloadBtn) {
+        winDownloadBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const href = winDownloadBtn.getAttribute('href') || winDownloadBtn.href;
+            triggerDownload(href, 'Airbeats-setup.exe');
+        });
+    }
+
+    if (genericDownloadBtn) {
+        genericDownloadBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const href = genericDownloadBtn.getAttribute('href') || genericDownloadBtn.href;
+            triggerDownload(href);
+        });
     }
 
     updatePlatformDownloadButtons();
@@ -388,7 +543,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (windowsChangelogTrigger) {
         windowsChangelogTrigger.addEventListener('click', () => {
-            const winRel = allReleases.find(r => r.assets && r.assets.some(a => /\.exe$/i.test(a.name)));
+            const winRel = latestDesktopRelease || (desktopReleases && desktopReleases.find(r => r.assets && r.assets.some(a => /\.exe$/i.test(a.name)))) || allReleases.find(r => r.assets && r.assets.some(a => /\.exe$/i.test(a.name)));
             openChangelogModal(winRel || latestRelease);
         });
     }
@@ -415,7 +570,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let filteredReleases = allReleases;
         if (filterPlatform === 'windows') {
-            filteredReleases = allReleases.filter(rel => rel.assets && rel.assets.some(a => /\.exe$/i.test(a.name)));
+            filteredReleases = (desktopReleases && desktopReleases.length > 0) ? desktopReleases : allReleases.filter(rel => rel.assets && rel.assets.some(a => /\.exe$/i.test(a.name)));
         } else if (filterPlatform === 'android') {
             filteredReleases = allReleases.filter(rel => rel.assets && rel.assets.some(a => /\.apk$/i.test(a.name)));
         }
@@ -454,7 +609,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const btnClass = isExe ? 'bg-primary-container text-on-primary-container hover:brightness-110' : 'bg-tertiary-container text-on-tertiary-container hover:brightness-110';
 
                 assetButtons += `
-                    <a href="${asset.browser_download_url}" target="_blank" rel="noopener noreferrer" class="${btnClass} px-4 py-2 rounded-full text-xs font-semibold no-underline inline-flex items-center gap-1.5 active:scale-95 transition-all">
+                    <a href="${asset.browser_download_url}" data-filename="${asset.name}" class="version-download-link ${btnClass} px-4 py-2 rounded-full text-xs font-semibold no-underline inline-flex items-center gap-1.5 active:scale-95 transition-all cursor-pointer">
                         <span class="material-symbols-outlined" style="font-size:16px">${icon}</span>
                         ${label} (${size} MB)
                     </a>
@@ -480,6 +635,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
         versionsList.innerHTML = html;
         versionsDialog.showModal();
+    }
+
+    if (versionsList) {
+        versionsList.addEventListener('click', (e) => {
+            const link = e.target.closest('.version-download-link');
+            if (link) {
+                e.preventDefault();
+                const url = link.getAttribute('href');
+                const filename = link.dataset.filename || 'AirBeats';
+                triggerDownload(url, filename);
+            }
+        });
     }
 
     if (versionsTrigger) {
@@ -1796,7 +1963,13 @@ class AirBeatsApp {
     if (btnDownload) {
       btnDownload.addEventListener('click', () => {
         const cur = this.playlist[this.currentIndex];
-        window.open(cur.audio, '_blank');
+        if (cur && cur.audio) {
+          if (window.triggerDownload) {
+            window.triggerDownload(cur.audio, `${cur.title || 'Track'}.mp3`);
+          } else {
+            window.open(cur.audio, '_blank');
+          }
+        }
       });
     }
 
