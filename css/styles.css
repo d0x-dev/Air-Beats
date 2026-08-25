@@ -730,6 +730,47 @@ button, .btn, .dialog-icon-btn, .dialog-text-btn, .dialog-filled-btn, .screensho
     color: var(--on-primary-container);
 }
 
+.version-chip--nightly {
+    background: rgba(245, 158, 11, 0.15);
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.android-build-tab,
+.modal-android-tab {
+    cursor: pointer;
+    user-select: none;
+    border: none;
+    outline: none;
+}
+
+.android-build-tab.active-stable,
+.modal-android-tab.active-stable {
+    background: var(--primary);
+    color: var(--on-primary);
+    box-shadow: 0 2px 8px rgba(187, 134, 252, 0.25);
+}
+
+.android-build-tab.active-nightly,
+.modal-android-tab.active-nightly {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: #0f172a;
+    font-weight: 800;
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+}
+
+.android-build-tab.inactive,
+.modal-android-tab.inactive {
+    background: transparent;
+    color: var(--on-surface-variant);
+}
+
+.android-build-tab.inactive:hover,
+.modal-android-tab.inactive:hover {
+    color: var(--on-surface);
+    background: rgba(255, 255, 255, 0.06);
+}
+
 .footer-chip {
     display: inline-flex;
     align-items: center;

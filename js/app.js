@@ -48,9 +48,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Dynamic releases fetched directly from GitHub API
     let allReleases = [];
+    let stableReleases = [];
+    let nightlyReleases = [];
+    let latestStableAndroidRelease = null;
+    let latestNightlyAndroidRelease = null;
     let latestRelease = null;
     let desktopReleases = [];
     let latestDesktopRelease = null;
+    let selectedAndroidBuildType = 'stable'; // 'stable' | 'nightly'
+
+    function isPrerelease(release) {
+        if (!release) return false;
+        if (release.prerelease === true) return true;
+        const tag = (release.tag_name || '').toLowerCase();
+        const name = (release.name || '').toLowerCase();
+        return tag.includes('night') || tag.includes('beta') || tag.includes('alpha') || tag.includes('rc') || tag.includes('pre') ||
+               name.includes('night') || name.includes('beta') || name.includes('alpha') || name.includes('pre-release') || name.includes('prerelease');
+    }
+
+    function deduplicateReleases(list) {
+        if (!Array.isArray(list)) return [];
+        const seen = new Set();
+        const result = [];
+        for (const rel of list) {
+            if (!rel) continue;
+            const key = rel.id ? String(rel.id) : (rel.tag_name ? String(rel.tag_name) : (rel.name || JSON.stringify(rel)));
+            if (!seen.has(key)) {
+                seen.add(key);
+                if (Array.isArray(rel.assets)) {
+                    const seenAsset = new Set();
+                    rel.assets = rel.assets.filter(asset => {
+                        if (!asset || !asset.browser_download_url) return false;
+                        const aKey = asset.id ? String(asset.id) : (asset.name || asset.browser_download_url);
+                        if (seenAsset.has(aKey)) return false;
+                        seenAsset.add(aKey);
+                        return true;
+                    });
+                }
+                result.push(rel);
+            }
+        }
+        return result;
+    }
 
     // 1. Toast Notification Helper & Direct Download Handler
     let toastTimeout = null;
@@ -141,12 +180,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     const data = await res.json();
                     if (data && data.tag_name) {
                         latestDesktopRelease = data;
-                        if (!desktopReleases.some(r => r.tag_name === data.tag_name)) {
+                        if (!desktopReleases.some(r => r.id === data.id || r.tag_name === data.tag_name)) {
                             desktopReleases.unshift(data);
                         } else {
-                            const idx = desktopReleases.findIndex(r => r.tag_name === data.tag_name);
+                            const idx = desktopReleases.findIndex(r => r.id === data.id || r.tag_name === data.tag_name);
                             desktopReleases[idx] = data;
                         }
+                        desktopReleases = deduplicateReleases(desktopReleases);
                         updateVersionBadges();
                         break;
                     }
@@ -167,10 +207,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const res = await fetch(url, { headers: { 'Accept': 'application/vnd.github.v3+json' } });
                 if (res.ok) {
                     const data = await res.json();
-                    const releaseList = Array.isArray(data) ? data : (Array.isArray(data.releases) ? data.releases : null);
-                    if (releaseList && releaseList.length > 0) {
-                        desktopReleases = releaseList.sort((a, b) => new Date(b.published_at) - new Date(a.published_at));
-                        latestDesktopRelease = desktopReleases[0];
+                    const rawList = Array.isArray(data) ? data : (Array.isArray(data.releases) ? data.releases : null);
+                    if (rawList && rawList.length > 0) {
+                        const deduped = deduplicateReleases(rawList);
+                        desktopReleases = deduped.sort((a, b) => new Date(b.published_at) - new Date(a.published_at));
+                        latestDesktopRelease = desktopReleases.find(r => !isPrerelease(r)) || desktopReleases[0];
                         updateVersionBadges();
                         break;
                     }
@@ -196,10 +237,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 const res = await fetch(url, { headers: { 'Accept': 'application/vnd.github.v3+json' } });
                 if (res.ok) {
                     const data = await res.json();
-                    const releaseList = Array.isArray(data) ? data : (Array.isArray(data.releases) ? data.releases : (Array.isArray(data.value) ? data.value : null));
-                    if (releaseList && releaseList.length > 0) {
-                        allReleases = releaseList.sort((a, b) => new Date(b.published_at) - new Date(a.published_at));
-                        latestRelease = allReleases[0];
+                    const rawList = Array.isArray(data) ? data : (Array.isArray(data.releases) ? data.releases : (Array.isArray(data.value) ? data.value : null));
+                    if (rawList && rawList.length > 0) {
+                        const deduped = deduplicateReleases(rawList);
+                        allReleases = deduped.sort((a, b) => new Date(b.published_at) - new Date(a.published_at));
+                        stableReleases = allReleases.filter(r => !isPrerelease(r) && r.assets && r.assets.some(isAndroidAsset));
+                        nightlyReleases = allReleases.filter(r => isPrerelease(r) && r.assets && r.assets.some(isAndroidAsset));
+                        latestStableAndroidRelease = stableReleases[0] || null;
+                        latestNightlyAndroidRelease = nightlyReleases[0] || null;
+                        latestRelease = latestStableAndroidRelease || allReleases.find(r => !isPrerelease(r)) || allReleases[0] || null;
                         updateVersionBadges();
                         break;
                     }
@@ -214,7 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function formatVersionTag(tag) {
-        if (!tag) return 'v6.0.0';
+        if (!tag) return '';
         return tag.startsWith('v') || tag.startsWith('V') ? tag : `v${tag}`;
     }
 
@@ -393,40 +439,129 @@ document.addEventListener('DOMContentLoaded', () => {
         dialog.showModal();
     }
 
+    function updateAndroidCard() {
+        const androidDownloadBtn = document.getElementById('android-download-btn');
+        const androidDownloadText = document.getElementById('android-download-text');
+        const androidDownloadIcon = document.getElementById('android-download-icon');
+        const androidVersionBadge = document.getElementById('android-version-badge');
+        const androidBuildChip = document.getElementById('android-build-chip');
+        const androidAssetSize = document.getElementById('android-asset-size');
+        const tabStable = document.getElementById('android-tab-stable');
+        const tabNightly = document.getElementById('android-tab-nightly');
+
+        // Update tab appearance
+        if (tabStable && tabNightly) {
+            if (selectedAndroidBuildType === 'stable') {
+                tabStable.className = 'android-build-tab active-stable px-4 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 transition-all';
+                tabStable.setAttribute('aria-selected', 'true');
+                tabNightly.className = 'android-build-tab inactive px-4 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 transition-all';
+                tabNightly.setAttribute('aria-selected', 'false');
+            } else {
+                tabNightly.className = 'android-build-tab active-nightly px-4 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 transition-all';
+                tabNightly.setAttribute('aria-selected', 'true');
+                tabStable.className = 'android-build-tab inactive px-4 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 transition-all';
+                tabStable.setAttribute('aria-selected', 'false');
+            }
+        }
+
+        const isNightly = selectedAndroidBuildType === 'nightly';
+        const activeRelease = isNightly ? latestNightlyAndroidRelease : latestStableAndroidRelease;
+
+        if (activeRelease) {
+            const tag = formatVersionTag(activeRelease.tag_name) || activeRelease.name || 'Release';
+            const apkAsset = activeRelease.assets && activeRelease.assets.find(isAndroidAsset);
+
+            if (androidBuildChip) {
+                if (isNightly) {
+                    androidBuildChip.className = 'version-chip version-chip--nightly';
+                    androidBuildChip.textContent = '⚡ Nightly Build';
+                } else {
+                    androidBuildChip.className = 'version-chip version-chip--stable';
+                    androidBuildChip.textContent = 'Stable Build';
+                }
+            }
+
+            if (androidVersionBadge) {
+                androidVersionBadge.textContent = isNightly ? (activeRelease.name || tag) : tag;
+            }
+
+            if (androidAssetSize) {
+                if (apkAsset && apkAsset.size) {
+                    const sizeMb = (apkAsset.size / (1024 * 1024)).toFixed(1) + ' MB';
+                    androidAssetSize.textContent = `• ${sizeMb}`;
+                } else {
+                    androidAssetSize.textContent = '';
+                }
+            }
+
+            if (androidDownloadBtn) {
+                if (apkAsset && apkAsset.browser_download_url) {
+                    androidDownloadBtn.href = apkAsset.browser_download_url;
+                    androidDownloadBtn.dataset.filename = apkAsset.name || '';
+                    androidDownloadBtn.classList.remove('opacity-50', 'pointer-events-none', 'cursor-not-allowed');
+                } else {
+                    androidDownloadBtn.href = '#';
+                    delete androidDownloadBtn.dataset.filename;
+                    androidDownloadBtn.classList.add('opacity-50', 'pointer-events-none', 'cursor-not-allowed');
+                }
+            }
+
+            if (androidDownloadIcon) {
+                androidDownloadIcon.textContent = isNightly ? 'bolt' : 'download';
+            }
+
+            if (androidDownloadText) {
+                if (apkAsset && apkAsset.browser_download_url) {
+                    androidDownloadText.textContent = isNightly ? 'Download Nightly APK' : `Download APK (${tag})`;
+                } else {
+                    androidDownloadText.textContent = 'No APK in build';
+                }
+            }
+
+            const versionNote = document.getElementById('versionNote');
+            if (versionNote) {
+                const stableTag = latestStableAndroidRelease ? formatVersionTag(latestStableAndroidRelease.tag_name) : tag;
+                versionNote.innerHTML = `Latest Stable Release: <strong>${stableTag}</strong>`;
+            }
+        } else {
+            // No releases for this build type in GitHub API
+            if (androidBuildChip) {
+                androidBuildChip.className = isNightly ? 'version-chip version-chip--nightly' : 'version-chip version-chip--stable';
+                androidBuildChip.textContent = isNightly ? '⚡ Nightly Build' : 'Stable Build';
+            }
+            if (androidVersionBadge) {
+                androidVersionBadge.textContent = isNightly ? 'None Available' : 'Coming Soon';
+            }
+            if (androidAssetSize) {
+                androidAssetSize.textContent = '';
+            }
+            if (androidDownloadBtn) {
+                androidDownloadBtn.href = '#';
+                delete androidDownloadBtn.dataset.filename;
+                androidDownloadBtn.classList.add('opacity-50', 'pointer-events-none', 'cursor-not-allowed');
+            }
+            if (androidDownloadIcon) {
+                androidDownloadIcon.textContent = isNightly ? 'bolt' : 'download';
+            }
+            if (androidDownloadText) {
+                androidDownloadText.textContent = isNightly ? 'No Nightly Builds' : 'Coming Soon';
+            }
+        }
+    }
+
     function updateVersionBadges() {
-        // Overall header badge
-        const latestOverall = desktopReleases[0] || allReleases[0];
+        // Overall header badge: show latest stable version
+        const latestStableDesktop = desktopReleases.find(r => !isPrerelease(r)) || desktopReleases[0];
+        const latestOverall = latestStableDesktop || latestStableAndroidRelease || allReleases.find(r => !isPrerelease(r)) || allReleases[0];
         if (latestOverall && ossVersionBadge) {
             ossVersionBadge.textContent = `${formatVersionTag(latestOverall.tag_name)} (Latest Stable Version)`;
         }
 
-        // 1. Android: find latest release with .apk
-        const apkRelease = allReleases.find(r => r.assets && r.assets.some(isAndroidAsset)) || latestRelease;
-        const androidDownloadBtn = document.getElementById('android-download-btn');
-        if (apkRelease) {
-            const apkTag = formatVersionTag(apkRelease.tag_name);
-            if (androidVersionBadge) androidVersionBadge.textContent = apkTag;
-            const apkAsset = apkRelease.assets && apkRelease.assets.find(isAndroidAsset);
-            if (androidDownloadBtn && apkAsset && apkAsset.browser_download_url) {
-                androidDownloadBtn.href = apkAsset.browser_download_url;
-                androidDownloadBtn.dataset.filename = apkAsset.name;
-                androidDownloadBtn.classList.remove('opacity-50', 'pointer-events-none');
-            }
-            const genericDownloadBtn = document.getElementById('downloadBtn');
-            if (genericDownloadBtn && apkAsset && apkAsset.browser_download_url) {
-                genericDownloadBtn.href = apkAsset.browser_download_url;
-            }
-            const versionNote = document.getElementById('versionNote');
-            if (versionNote) {
-                versionNote.innerHTML = `Latest Release: <strong>${apkTag}</strong>`;
-            }
-        } else if (allReleases.length > 0) {
-            if (androidVersionBadge) androidVersionBadge.textContent = 'Coming Soon';
-            if (androidDownloadBtn) androidDownloadBtn.classList.add('opacity-50', 'pointer-events-none');
-        }
+        // 1. Android: update based on selected build type
+        updateAndroidCard();
 
         // 2. Windows: find latest release with Windows .exe
-        const winRelease = desktopReleases.find(r => r.assets && r.assets.some(isWindowsAsset)) || allReleases.find(r => r.assets && r.assets.some(isWindowsAsset));
+        const winRelease = desktopReleases.find(r => !isPrerelease(r) && r.assets && r.assets.some(isWindowsAsset)) || allReleases.find(r => !isPrerelease(r) && r.assets && r.assets.some(isWindowsAsset)) || desktopReleases.find(r => r.assets && r.assets.some(isWindowsAsset));
         const winDownloadBtn = document.getElementById('windows-download-btn');
         if (winRelease) {
             const winTag = formatVersionTag(winRelease.tag_name);
@@ -442,7 +577,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // 3. Linux: find latest release with Linux assets (.AppImage, .deb, .snap)
-        const linuxRelease = desktopReleases.find(r => r.assets && r.assets.some(isLinuxAsset));
+        const linuxRelease = desktopReleases.find(r => !isPrerelease(r) && r.assets && r.assets.some(isLinuxAsset)) || desktopReleases.find(r => r.assets && r.assets.some(isLinuxAsset));
         const linuxVersionBadge = document.getElementById('linux-version-badge');
         const linuxDownloadBtn = document.getElementById('linux-download-btn');
         if (linuxRelease) {
@@ -463,7 +598,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // 4. macOS: find latest release with macOS assets (.dmg, .pkg)
-        const macosRelease = desktopReleases.find(r => r.assets && r.assets.some(isMacAsset));
+        const macosRelease = desktopReleases.find(r => !isPrerelease(r) && r.assets && r.assets.some(isMacAsset)) || desktopReleases.find(r => r.assets && r.assets.some(isMacAsset));
         const macosVersionBadge = document.getElementById('macos-version-badge');
         const macosDownloadBtn = document.getElementById('macos-download-btn');
         if (macosRelease) {
@@ -486,18 +621,36 @@ document.addEventListener('DOMContentLoaded', () => {
         updatePlatformDownloadButtons();
     }
 
+    // Android Build Selection Tabs Event Listeners
+    const tabAndroidStable = document.getElementById('android-tab-stable');
+    const tabAndroidNightly = document.getElementById('android-tab-nightly');
+
+    if (tabAndroidStable) {
+        tabAndroidStable.addEventListener('click', () => {
+            selectedAndroidBuildType = 'stable';
+            updateAndroidCard();
+        });
+    }
+
+    if (tabAndroidNightly) {
+        tabAndroidNightly.addEventListener('click', () => {
+            selectedAndroidBuildType = 'nightly';
+            updateAndroidCard();
+        });
+    }
+
     function openWindowsDownloadDialog() {
-        const winRel = desktopReleases.find(r => r.assets && r.assets.some(isWindowsAsset)) || allReleases.find(r => r.assets && r.assets.some(isWindowsAsset));
+        const winRel = desktopReleases.find(r => !isPrerelease(r) && r.assets && r.assets.some(isWindowsAsset)) || allReleases.find(r => !isPrerelease(r) && r.assets && r.assets.some(isWindowsAsset)) || desktopReleases.find(r => r.assets && r.assets.some(isWindowsAsset));
         renderPlatformDialog('windows-download-dialog', 'Download for Windows', 'laptop_windows', winRel, isWindowsAsset);
     }
 
     function openLinuxDownloadDialog() {
-        const linuxRel = desktopReleases.find(r => r.assets && r.assets.some(isLinuxAsset));
+        const linuxRel = desktopReleases.find(r => !isPrerelease(r) && r.assets && r.assets.some(isLinuxAsset)) || desktopReleases.find(r => r.assets && r.assets.some(isLinuxAsset));
         renderPlatformDialog('linux-download-dialog', 'Download for Linux', 'terminal', linuxRel, isLinuxAsset);
     }
 
     function openMacOSDownloadDialog() {
-        const macosRel = desktopReleases.find(r => r.assets && r.assets.some(isMacAsset));
+        const macosRel = desktopReleases.find(r => !isPrerelease(r) && r.assets && r.assets.some(isMacAsset)) || desktopReleases.find(r => r.assets && r.assets.some(isMacAsset));
         renderPlatformDialog('macos-download-dialog', 'Download for macOS', 'laptop_mac', macosRel, isMacAsset);
     }
 
@@ -511,8 +664,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (androidDownloadBtn) {
         androidDownloadBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            const href = androidDownloadBtn.getAttribute('href') || androidDownloadBtn.href;
-            const filename = androidDownloadBtn.dataset.filename || 'AirBeats_signed.apk';
+            const href = androidDownloadBtn.getAttribute('href');
+            if (!href || href === '#' || href.startsWith('javascript:')) return;
+            const filename = androidDownloadBtn.dataset.filename || '';
             triggerDownload(href, filename);
         });
     }
@@ -877,11 +1031,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function openChangelogModal(targetRel) {
         if (!changelogDialog || !changelogContent) return;
-        changelogDialog.showModal();
         const rel = targetRel || latestRelease;
-        if (!rel) return;
-
-        let bodyMarkdown = `### ${rel.name || formatVersionTag(rel.tag_name)} Release Notes\n\n${rel.body || 'No release details.'}`;
+        if (!rel) {
+            showToast('No release notes available.');
+            return;
+        }
+        changelogDialog.showModal();
+        let bodyMarkdown = `### ${rel.name || formatVersionTag(rel.tag_name) || 'AirBeats'} Release Notes\n\n${rel.body || 'No release details.'}`;
         if (window.marked) {
             changelogContent.innerHTML = `<div class="prose prose-invert max-w-none text-on-surface-variant">${window.marked.parse(bodyMarkdown)}</div>`;
         } else {
@@ -891,25 +1047,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (changelogTrigger) {
         changelogTrigger.addEventListener('click', () => {
-            const rel = allReleases.find(r => r.assets && r.assets.some(isAndroidAsset)) || latestRelease;
+            const rel = selectedAndroidBuildType === 'nightly'
+                ? (latestNightlyAndroidRelease || allReleases.find(r => isPrerelease(r) && r.assets && r.assets.some(isAndroidAsset)))
+                : (latestStableAndroidRelease || allReleases.find(r => !isPrerelease(r) && r.assets && r.assets.some(isAndroidAsset)));
             openChangelogModal(rel);
         });
     }
     if (windowsChangelogTrigger) {
         windowsChangelogTrigger.addEventListener('click', () => {
-            const winRel = desktopReleases.find(r => r.assets && r.assets.some(isWindowsAsset)) || latestDesktopRelease;
+            const winRel = desktopReleases.find(r => !isPrerelease(r) && r.assets && r.assets.some(isWindowsAsset)) || latestDesktopRelease;
             openChangelogModal(winRel);
         });
     }
     if (linuxChangelogTrigger) {
         linuxChangelogTrigger.addEventListener('click', () => {
-            const linuxRel = desktopReleases.find(r => r.assets && r.assets.some(isLinuxAsset)) || latestDesktopRelease;
+            const linuxRel = desktopReleases.find(r => !isPrerelease(r) && r.assets && r.assets.some(isLinuxAsset)) || latestDesktopRelease;
             openChangelogModal(linuxRel);
         });
     }
     if (macosChangelogTrigger) {
         macosChangelogTrigger.addEventListener('click', () => {
-            const macRel = desktopReleases.find(r => r.assets && r.assets.some(isMacAsset)) || latestDesktopRelease;
+            const macRel = desktopReleases.find(r => !isPrerelease(r) && r.assets && r.assets.some(isMacAsset)) || latestDesktopRelease;
             openChangelogModal(macRel);
         });
     }
@@ -922,58 +1080,112 @@ document.addEventListener('DOMContentLoaded', () => {
     const versionsDialog = document.getElementById('versions-dialog');
     const versionsList = document.getElementById('versions-list');
 
-    function renderVersionsModal(filterPlatform = 'all') {
+    function renderVersionsModal(filterPlatform = 'all', buildType = null) {
         if (!versionsDialog || !versionsList) return;
 
         const dialogTitle = versionsDialog.querySelector('.dialog-header h3');
         let assetFilter = () => true;
         let candidateReleases = allReleases;
         let platformName = 'Versions';
+        let filterBuild = buildType;
+        let activeRelease = null;
 
         if (filterPlatform === 'windows') {
             platformName = 'Windows';
             assetFilter = isWindowsAsset;
             candidateReleases = desktopReleases.length > 0 ? desktopReleases : allReleases;
+            candidateReleases = candidateReleases.filter(r => !isPrerelease(r));
+            activeRelease = candidateReleases.find(r => r.assets && r.assets.some(isWindowsAsset));
             if (dialogTitle) dialogTitle.innerHTML = `<span class="flex items-center gap-2"><span class="material-symbols-outlined text-primary">laptop_windows</span> Previous Windows Versions (.exe)</span>`;
         } else if (filterPlatform === 'linux') {
             platformName = 'Linux';
             assetFilter = isLinuxAsset;
-            candidateReleases = desktopReleases;
+            candidateReleases = desktopReleases.filter(r => !isPrerelease(r));
+            activeRelease = candidateReleases.find(r => r.assets && r.assets.some(isLinuxAsset));
             if (dialogTitle) dialogTitle.innerHTML = `<span class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary">terminal</span> Previous Linux Versions</span>`;
         } else if (filterPlatform === 'macos') {
             platformName = 'macOS';
             assetFilter = isMacAsset;
-            candidateReleases = desktopReleases;
+            candidateReleases = desktopReleases.filter(r => !isPrerelease(r));
+            activeRelease = candidateReleases.find(r => r.assets && r.assets.some(isMacAsset));
             if (dialogTitle) dialogTitle.innerHTML = `<span class="flex items-center gap-2"><span class="material-symbols-outlined text-tertiary">laptop_mac</span> Previous macOS Versions (.dmg)</span>`;
         } else if (filterPlatform === 'android') {
             platformName = 'Android';
             assetFilter = isAndroidAsset;
-            candidateReleases = allReleases;
-            if (dialogTitle) dialogTitle.innerHTML = `<span class="flex items-center gap-2"><span class="material-symbols-outlined text-tertiary">android</span> Previous Android Versions (.apk)</span>`;
+            if (!filterBuild) {
+                filterBuild = selectedAndroidBuildType;
+            }
+            if (filterBuild === 'nightly') {
+                // Strictly ONLY Nightly / Pre-releases, NO stable builds
+                candidateReleases = allReleases.filter(r => isPrerelease(r));
+                activeRelease = latestNightlyAndroidRelease || candidateReleases.find(r => r.assets && r.assets.some(isAndroidAsset));
+                if (dialogTitle) dialogTitle.innerHTML = `<span class="flex items-center gap-2"><span class="material-symbols-outlined text-amber-400">bolt</span> Previous Android Nightly Builds (.apk)</span>`;
+            } else {
+                // Strictly ONLY Stable releases, NO nightly builds
+                candidateReleases = allReleases.filter(r => !isPrerelease(r));
+                activeRelease = latestStableAndroidRelease || candidateReleases.find(r => r.assets && r.assets.some(isAndroidAsset));
+                if (dialogTitle) dialogTitle.innerHTML = `<span class="flex items-center gap-2"><span class="material-symbols-outlined text-tertiary">android</span> Previous Android Stable Versions (.apk)</span>`;
+            }
         } else {
             if (dialogTitle) dialogTitle.innerHTML = `<span class="flex items-center gap-2"><span class="material-symbols-outlined text-primary">history</span> Previous Versions</span>`;
         }
 
-        // STRICT FILTER: Only show releases that actually have assets for this OS!
-        const filteredReleases = candidateReleases.filter(rel => rel.assets && rel.assets.some(assetFilter));
+        // Deduplicate candidate releases
+        candidateReleases = deduplicateReleases(candidateReleases);
 
-        if (!filteredReleases || filteredReleases.length === 0) {
-            versionsList.innerHTML = `
-                <div class="text-center py-10">
-                    <span class="material-symbols-outlined text-4xl text-on-surface-variant mb-2">info</span>
-                    <p class="text-on-surface font-semibold text-base">No previous ${platformName} versions found</p>
-                    <p class="text-xs text-on-surface-variant mt-1">There are no releases with uploaded ${platformName} assets in the repository history.</p>
+        // Filter releases having assets for this platform
+        const releasesWithAssets = candidateReleases.filter(rel => rel && rel.assets && rel.assets.some(assetFilter));
+
+        // Previous versions means versions prior to the currently active/latest version
+        const previousReleases = activeRelease
+            ? releasesWithAssets.filter(rel => (rel.id ? rel.id !== activeRelease.id : true) && (rel.tag_name ? rel.tag_name !== activeRelease.tag_name : true))
+            : releasesWithAssets;
+
+        // Subheader navigation for Android inside the modal to switch between Stable and Nightly easily
+        let topBarHtml = '';
+        if (filterPlatform === 'android') {
+            topBarHtml = `
+                <div class="flex items-center justify-between gap-3 mb-4 pb-3 border-b border-white/10 flex-wrap">
+                    <div class="inline-flex items-center p-1 bg-surface-container rounded-full border border-white/10 shadow-inner">
+                        <button type="button" class="modal-android-tab ${filterBuild === 'stable' ? 'active-stable' : 'inactive'} px-4 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer" data-build="stable">
+                            <span class="material-symbols-outlined" style="font-size:15px">verified</span>
+                            <span>Stable Versions</span>
+                        </button>
+                        <button type="button" class="modal-android-tab ${filterBuild === 'nightly' ? 'active-nightly' : 'inactive'} px-4 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer" data-build="nightly">
+                            <span class="material-symbols-outlined" style="font-size:15px">bolt</span>
+                            <span>Nightly Builds</span>
+                        </button>
+                    </div>
+                    <span class="text-xs text-on-surface-variant font-medium">${previousReleases.length} previous build(s) found</span>
                 </div>
             `;
+        }
+
+        if (!previousReleases || previousReleases.length === 0) {
+            versionsList.innerHTML = `
+                ${topBarHtml}
+                <div class="text-center py-10">
+                    <span class="material-symbols-outlined text-4xl text-on-surface-variant mb-2">info</span>
+                    <p class="text-on-surface font-semibold text-base">No previous ${filterBuild ? filterBuild + ' ' : ''}${platformName} versions found</p>
+                    <p class="text-xs text-on-surface-variant mt-1">There are no older releases available in the repository history.</p>
+                </div>
+            `;
+            versionsList.querySelectorAll('.modal-android-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const targetBuild = tab.dataset.build;
+                    renderVersionsModal('android', targetBuild);
+                });
+            });
             versionsDialog.showModal();
             return;
         }
 
-        let html = '';
-        filteredReleases.forEach(rel => {
-            const tag = formatVersionTag(rel.tag_name);
+        let html = topBarHtml;
+        previousReleases.forEach(rel => {
+            const isNightly = isPrerelease(rel);
+            const tag = isNightly ? (rel.name || rel.tag_name || 'Nightly') : (formatVersionTag(rel.tag_name) || rel.name || 'Release');
             const pubDate = rel.published_at ? new Date(rel.published_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : 'Recent';
-            const rawNotes = rel.body ? rel.body.split('\n').filter(l => l.trim())[0] || 'Official release' : 'Official release';
+            const rawNotes = rel.body ? rel.body.split('\n').filter(l => l.trim())[0] || (isNightly ? 'Nightly experimental pre-release build' : 'Official stable release') : (isNightly ? 'Nightly experimental pre-release build' : 'Official stable release');
             const cleanNotes = rawNotes.replace(/[#*`]/g, '').substring(0, 110);
 
             // Exact downloadable assets for this platform
@@ -982,21 +1194,27 @@ document.addEventListener('DOMContentLoaded', () => {
             let assetButtons = '';
             downloadableAssets.forEach(asset => {
                 const meta = getAssetMeta(asset);
-                const btnClass = meta.btnColor === 'secondary' ? 'bg-secondary-container text-on-secondary-container hover:brightness-110' : (meta.btnColor === 'tertiary' ? 'bg-tertiary-container text-on-tertiary-container hover:brightness-110' : 'bg-primary-container text-on-primary-container hover:brightness-110');
+                const btnClass = isNightly
+                    ? 'bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 border border-amber-500/30'
+                    : (meta.btnColor === 'secondary' ? 'bg-secondary-container text-on-secondary-container hover:brightness-110' : (meta.btnColor === 'tertiary' ? 'bg-tertiary-container text-on-tertiary-container hover:brightness-110' : 'bg-primary-container text-on-primary-container hover:brightness-110'));
 
                 assetButtons += `
                     <a href="${asset.browser_download_url}" data-filename="${asset.name}" class="version-download-link ${btnClass} px-4 py-2 rounded-full text-xs font-semibold no-underline inline-flex items-center gap-1.5 active:scale-95 transition-all cursor-pointer">
-                        <span class="material-symbols-outlined" style="font-size:16px">${meta.icon}</span>
+                        <span class="material-symbols-outlined" style="font-size:16px">${isNightly ? 'bolt' : meta.icon}</span>
                         ${asset.name} (${meta.sizeMb})
                     </a>
                 `;
             });
 
+            const badgeMarkup = isNightly
+                ? `<span class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold text-xs flex items-center gap-1"><span class="material-symbols-outlined" style="font-size:14px">bolt</span>${tag}</span>`
+                : `<span class="px-3 py-1 rounded-full bg-primary/20 text-primary font-bold text-xs">${tag}</span>`;
+
             html += `
                 <div class="bg-surface-container-high p-5 rounded-2xl mb-4 border border-white/5 shadow-md flex flex-col gap-3">
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-2">
-                            <span class="px-3 py-1 rounded-full bg-primary/20 text-primary font-bold text-xs">${tag}</span>
+                            ${badgeMarkup}
                             <span class="text-xs text-on-surface-variant">${pubDate}</span>
                         </div>
                         <span class="text-xs text-on-surface-variant font-medium">${downloadableAssets.length} file(s)</span>
@@ -1010,6 +1228,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         versionsList.innerHTML = html;
+
+        // Add event listeners for modal Android build toggle tabs
+        versionsList.querySelectorAll('.modal-android-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetBuild = tab.dataset.build;
+                renderVersionsModal('android', targetBuild);
+            });
+        });
+
         versionsDialog.showModal();
     }
 

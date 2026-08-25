@@ -17,7 +17,7 @@
     <meta name="description" content="An advanced YouTube Music client built with Material Design 3 for Android & Windows.">
     <title>AirBeats</title>
 
-    <link rel="stylesheet" href="css/styles.css?v=6.1.0">
+    <link rel="stylesheet" href="css/styles.css?v=6.2.0">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -1285,7 +1285,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                     <!-- 1. Android Card -->
-                    <div class="glass-card rounded-xl p-8 border border-white/5 flex flex-col justify-between">
+                    <div class="glass-card rounded-xl p-8 border border-white/5 flex flex-col justify-between" id="android-card">
                         <div>
                             <div class="flex items-center gap-4 mb-6">
                                 <div class="w-12 h-12 rounded-full bg-tertiary-container/20 text-tertiary flex items-center justify-center flex-shrink-0">
@@ -1297,17 +1297,32 @@
                                 </div>
                             </div>
 
-                            <div class="flex flex-wrap gap-2 mb-6">
-                                <span class="version-chip version-chip--stable">Stable Build</span>
+                            <!-- Build Type Selector (Stable vs Nightly) -->
+                            <div class="mb-4">
+                                <div class="inline-flex items-center p-1 bg-surface-container-high/90 rounded-full border border-white/10 shadow-inner" id="android-build-selector" role="tablist" aria-label="Select Android Build Type">
+                                    <button type="button" id="android-tab-stable" class="android-build-tab active-stable px-4 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 transition-all" data-build="stable" role="tab" aria-selected="true">
+                                        <span class="material-symbols-outlined" style="font-size:15px">verified</span>
+                                        <span>Stable Build</span>
+                                    </button>
+                                    <button type="button" id="android-tab-nightly" class="android-build-tab inactive px-4 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 transition-all" data-build="nightly" role="tab" aria-selected="false">
+                                        <span class="material-symbols-outlined" style="font-size:15px">bolt</span>
+                                        <span>Nightly Build</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-wrap items-center gap-2 mb-6">
+                                <span id="android-build-chip" class="version-chip version-chip--stable">Stable Build</span>
                                 <span id="android-version-badge" class="version-chip">Loading...</span>
+                                <span id="android-asset-size" class="text-xs text-on-surface-variant font-mono"></span>
                             </div>
 
                             <div class="flex flex-wrap gap-6 mb-8">
-                                <button id="changelog-trigger" class="flex items-center gap-2 text-primary hover:text-on-primary-container transition-colors font-label-lg">
+                                <button id="changelog-trigger" class="flex items-center gap-2 text-primary hover:text-on-primary-container transition-colors font-label-lg cursor-pointer">
                                     <span class="material-symbols-outlined" style="font-size:18px">list_alt</span>
                                     <span>View Changelog</span>
                                 </button>
-                                <button id="versions-trigger" class="flex items-center gap-2 text-primary hover:text-on-primary-container transition-colors font-label-lg">
+                                <button id="versions-trigger" class="flex items-center gap-2 text-primary hover:text-on-primary-container transition-colors font-label-lg cursor-pointer">
                                     <span class="material-symbols-outlined" style="font-size:18px">history</span>
                                     <span>Previous versions</span>
                                 </button>
@@ -1315,7 +1330,7 @@
                         </div>
 
                         <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-6 border-t border-white/10">
-                            <a id="android-download-btn" href="#" class="flex items-center gap-3 bg-primary text-on-primary px-8 py-3 rounded-full font-label-lg ambient-glow hover:brightness-110 active:scale-95 transition-all no-underline">
+                            <a id="android-download-btn" href="#" class="flex items-center gap-3 bg-primary text-on-primary px-8 py-3 rounded-full font-label-lg ambient-glow hover:brightness-110 active:scale-95 transition-all no-underline cursor-pointer">
                                 <span class="material-symbols-outlined">download</span>
                                 <span id="android-download-text">Download APK</span>
                             </a>
@@ -1603,7 +1618,7 @@
     </div>
 
     <!-- Script -->
-    <script src="js/app.js?v=6.1.0"></script>
+    <script src="js/app.js?v=6.2.0"></script>
 
     <!-- Full-Screen Mobile Emulator Modal (Mobile View <= 768px) -->
     <div class="mobile-fullscreen-modal" id="mobileFullscreenModal">
