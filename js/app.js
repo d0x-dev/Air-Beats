@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const logo = document.getElementById('logo');
     const downloadToast = document.getElementById('downloadToast');
     const toastMsg = document.getElementById('downloadToastMessage');
+    const toastIcon = document.getElementById('downloadToastIcon');
     const ossVersionBadge = document.getElementById('oss-version-badge');
     const androidVersionBadge = document.getElementById('android-version-badge');
     const windowsVersionBadge = document.getElementById('windows-version-badge');
@@ -93,34 +94,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 1. Toast Notification Helper & Direct Download Handler
     let toastTimeout = null;
-    function showToast(msg) {
+    function showToast(msg, iconName = 'cloud_download') {
         if (!downloadToast || !toastMsg) return;
         toastMsg.textContent = msg;
+        if (toastIcon) {
+            toastIcon.textContent = iconName;
+        }
         downloadToast.classList.add('show');
         if (toastTimeout) clearTimeout(toastTimeout);
-        toastTimeout = setTimeout(() => downloadToast.classList.remove('show'), 3500);
+        toastTimeout = setTimeout(() => downloadToast.classList.remove('show'), 3000);
     }
 
     function triggerDownload(url, defaultName) {
         if (!url || url === '#' || url.startsWith('javascript:')) return;
         const filename = defaultName || url.split('/').pop().split('?')[0] || 'AirBeats';
-        showToast(`⬇️ Download starting: ${filename}`);
+        showToast('Download started', 'cloud_download');
 
         try {
-            const iframe = document.createElement('iframe');
-            iframe.style.display = 'none';
-            iframe.setAttribute('aria-hidden', 'true');
-            iframe.src = url;
-            document.body.appendChild(iframe);
-            setTimeout(() => {
-                if (document.body.contains(iframe)) {
-                    document.body.removeChild(iframe);
-                }
-            }, 30000);
-        } catch (e) {
             const link = document.createElement('a');
             link.href = url;
             link.setAttribute('download', filename);
+            link.setAttribute('rel', 'noopener noreferrer');
             link.style.display = 'none';
             document.body.appendChild(link);
             link.click();
@@ -128,7 +122,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (document.body.contains(link)) {
                     document.body.removeChild(link);
                 }
-            }, 5000);
+            }, 2000);
+        } catch (e) {
+            window.location.href = url;
         }
     }
     window.showToast = showToast;
@@ -145,23 +141,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 audioPlayer.play().then(() => {
                     isPlayingAudio = true;
                     logo.classList.add('playing');
-                    showToast('🎵 Playing AirBeats Rhythm sample...');
+                    showToast('Playing rhythm sample', 'music_note');
                 }).catch(err => {
                     console.warn('Audio playback error:', err);
-                    showToast('Error playing rhythm.mp3');
+                    showToast('Error playing audio', 'error');
                 });
             } else {
                 audioPlayer.pause();
                 isPlayingAudio = false;
                 logo.classList.remove('playing');
-                showToast('⏸️ Audio paused');
+                showToast('Audio paused', 'pause');
             }
         });
 
         audioPlayer.addEventListener('ended', () => {
             isPlayingAudio = false;
             logo.classList.remove('playing');
-            showToast('🎵 Playback finished');
+            showToast('Playback finished', 'check_circle');
         });
     }
 

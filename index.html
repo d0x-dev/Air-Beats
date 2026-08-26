@@ -1331,7 +1331,7 @@
 
                         <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-6 border-t border-white/10">
                             <a id="android-download-btn" href="#" class="flex items-center gap-3 bg-primary text-on-primary px-8 py-3 rounded-full font-label-lg ambient-glow hover:brightness-110 active:scale-95 transition-all no-underline cursor-pointer">
-                                <span class="material-symbols-outlined">download</span>
+                                <span class="material-symbols-outlined" id="android-download-icon">download</span>
                                 <span id="android-download-text">Download APK</span>
                             </a>
                             <p class="text-on-surface-variant font-label-sm">Requires Android 6.0+</p>
@@ -1612,9 +1612,9 @@
     </dialog>
 
     <!-- Toast Notification -->
-    <div id="downloadToast" class="download-toast">
-        <span class="material-symbols-outlined">cloud_download</span>
-        <span id="downloadToastMessage"></span>
+    <div id="downloadToast" class="download-toast" role="status" aria-live="polite">
+        <span class="material-symbols-outlined" id="downloadToastIcon">cloud_download</span>
+        <span id="downloadToastMessage">Download started</span>
     </div>
 
     <!-- Script -->

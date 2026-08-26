@@ -827,26 +827,41 @@ button, .btn, .dialog-icon-btn, .dialog-text-btn, .dialog-filled-btn, .screensho
 /* Toast Notification */
 .download-toast {
     position: fixed;
-    bottom: 30px;
+    bottom: 28px;
     left: 50%;
-    transform: translateX(-50%) translateY(100px);
-    background: var(--surface-container-high);
-    border: 1px solid var(--primary-container);
-    color: var(--on-surface);
-    padding: 0.8rem 1.6rem;
-    border-radius: 30px;
-    box-shadow: var(--shadow);
-    display: flex;
+    transform: translateX(-50%) translateY(80px);
+    background: rgba(26, 20, 43, 0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(208, 188, 255, 0.22);
+    color: #f1edfd;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    padding: 0.55rem 1.15rem;
+    border-radius: 9999px;
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.6), 0 0 20px rgba(168, 85, 247, 0.15);
+    display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.5rem;
     z-index: 9999;
     opacity: 0;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    pointer-events: none;
+    white-space: nowrap;
+    max-width: 90vw;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+}
+
+.download-toast .material-symbols-outlined {
+    font-size: 18px;
+    color: #d0bcff;
+    flex-shrink: 0;
 }
 
 .download-toast.show {
     transform: translateX(-50%) translateY(0);
     opacity: 1;
+    pointer-events: auto;
 }
 
 
