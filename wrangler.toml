@@ -1,0 +1,7 @@
+name = "airbeatss"
+main = "worker.js"
+compatibility_date = "2024-08-01"
+
+[assets]
+directory = "."
+binding = "ASSETS"
