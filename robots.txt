@@ -1,6 +1,7 @@
-# robots.txt for AirBeats (https://airbeats.app)
+# robots.txt for AirBeats (https://airbeats.org)
 User-agent: *
 Allow: /
 
 # Direct links to sitemap
-Sitemap: https://airbeats.app/sitemap.xml
+Sitemap: https://airbeats.org/sitemap.xml
+
